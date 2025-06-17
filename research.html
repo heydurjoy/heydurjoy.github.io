@@ -36,6 +36,7 @@
     .papers-section {
       max-width: 900px;
       margin: 0 auto;
+      padding: 0 1rem;
     }
     .paper-card {
       background: var(--card-bg);
@@ -93,11 +94,85 @@
       background: #1b417a;
       box-shadow: 0 4px 18px rgba(45,108,223,0.13);
     }
-    @media (max-width: 600px) {
-      .stats-grid { flex-direction: column; gap: 1rem; }
-      .stat-card { padding: 1.2rem; min-width: 120px; }
-      .scholar-btn { font-size: 1rem; padding: 0.7rem 1.2rem; }
-      .paper-card { padding: 1rem; }
+    .sort-buttons-container {
+      display: flex;
+      gap: 0.5em;
+      flex-wrap: wrap;
+    }
+    .sort-btn {
+      background: #e0f2f1;
+      color: var(--primary-color-dark);
+      border: none;
+      border-radius: 1em;
+      padding: 0.3em 0.9em;
+      font-size: 0.98em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    @media (max-width: 768px) {
+      .stats-grid {
+        gap: 1rem;
+        padding: 0 1rem;
+      }
+      .stat-card {
+        padding: 1.5rem;
+        min-width: 140px;
+        flex: 1;
+      }
+      .stat-number {
+        font-size: 2rem;
+      }
+      .stat-label {
+        font-size: 1rem;
+      }
+      .scholar-btn {
+        font-size: 1.1rem;
+        padding: 0.8rem 1.5rem;
+        width: 90%;
+        justify-content: center;
+      }
+      .paper-card {
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+      .paper-title {
+        font-size: 1.1rem;
+      }
+      .paper-citations {
+        font-size: 1rem;
+        padding: 0.25em 0.9em;
+      }
+      .sort-buttons-container {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+      }
+      .sort-btn {
+        width: 100%;
+        padding: 0.5em 1em;
+        text-align: center;
+      }
+      .papers-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .stat-card {
+        min-width: 120px;
+        padding: 1.2rem;
+      }
+      .stat-number {
+        font-size: 1.8rem;
+      }
+      .paper-card {
+        padding: 1.2rem;
+      }
+      .paper-title {
+        font-size: 1rem;
+      }
     }
     body.dark-mode {
       background-color: #121212;
@@ -120,7 +195,6 @@
         flex-direction: column;
         align-items: flex-start;
         padding: 1rem;
-        width: 100%;
       }
       .paper-info {
         margin-left: 0;
@@ -140,33 +214,6 @@
         display: block;
         margin-bottom: 0.5rem;
       }
-      .paper-title {
-        font-size: 1.2em;
-      }
-      .paper-authors {
-        font-size: 0.9em;
-      }
-      .paper-journal {
-        font-size: 0.9em;
-      }
-    }
-    body {
-      font-family: 'Lexend', sans-serif;
-    }
-    .sort-btn {
-      font-family: 'Lexend', sans-serif;
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 1em;
-      padding: 0.3em 0.9em;
-      font-size: 0.98em;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .sort-btn:hover {
-      background: var(--primary-color-dark);
     }
   </style>
 </head>
@@ -235,10 +282,7 @@
     const statOrder = [
       { key: 'Total Citation', label: 'Total Citations' },
       { key: 'H-Index', label: 'h-index' },
-      { key: 'i10-index', label: 'Total Publications' },
-      { key: 'Q1 Journal', label: 'Q1 Journals' },
-      { key: 'Book Chapter', label: 'Book Chapters' },
-      { key: 'Prestigious Conference', label: 'Prestigious Conferences' }
+      { key: 'i10-index', label: 'Total Publications' }
     ];
 
     function animateCountUp(element, target, duration = 1200) {
@@ -294,18 +338,20 @@
     fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
       .then(response => response.json())
       .then(cites => {
-        console.log('Fetched cites data:', cites);
-        // The cites sheet is assumed to have the following rows:
-        // 0: Total Citation, 1: H-Index, 2: Total Publications, 3: Q1 Journal, 4: Book Chapter, 5: Prestigious Conference
+        console.log('Cites data:', cites);
+
+        // Find the key that is a number (the citation count)
+        const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
+        const hIndex = cites[0][totalCitation];
+        const i10Index = cites[1][totalCitation];
+
         const citesData = {
-          'Total Citation': cites[0] && cites[0]['Value'],
-          'H-Index': cites[1] && cites[1]['Value'],
-          'Total Publications': cites[2] && cites[2]['Value'],
-          'Q1 Journal': cites[3] && cites[3]['Value'],
-          'Book Chapter': cites[4] && cites[4]['Value'],
-          'Prestigious Conference': cites[5] && cites[5]['Value']
+          'Total Citation': totalCitation,
+          'H-Index': hIndex,
+          'i10-index': i10Index
         };
-        console.log('Processed cites data:', citesData);
+
+        console.log('Total Citation:', citesData['Total Citation']);
         localStorage.setItem('cachedCites', JSON.stringify(citesData));
         updateStatsDisplay(citesData);
       })
