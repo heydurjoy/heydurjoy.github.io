@@ -12,6 +12,7 @@
       margin: 2rem 0 3rem 0;
       flex-wrap: wrap;
       justify-content: center;
+      padding: 0 1rem;
     }
     .stat-card {
       background: var(--card-bg);
@@ -115,63 +116,80 @@
       .stats-grid {
         gap: 1rem;
         padding: 0 1rem;
+        flex-direction: row !important;
       }
       .stat-card {
         padding: 1.5rem;
         min-width: 140px;
         flex: 1;
+        margin: 0.5rem;
       }
       .stat-number {
-        font-size: 2rem;
+        font-size: 2rem !important;
       }
       .stat-label {
-        font-size: 1rem;
+        font-size: 1rem !important;
       }
       .scholar-btn {
-        font-size: 1.1rem;
-        padding: 0.8rem 1.5rem;
-        width: 90%;
-        justify-content: center;
+        font-size: 1.1rem !important;
+        padding: 0.8rem 1.5rem !important;
+        width: 90% !important;
+        justify-content: center !important;
+        margin: 1rem auto !important;
       }
       .paper-card {
-        padding: 1.5rem;
-        margin: 1rem 0;
+        padding: 1.5rem !important;
+        margin: 1rem 0 !important;
+        transform: none !important;
       }
       .paper-title {
-        font-size: 1.1rem;
+        font-size: 1.1rem !important;
       }
       .paper-citations {
-        font-size: 1rem;
-        padding: 0.25em 0.9em;
+        font-size: 1rem !important;
+        padding: 0.25em 0.9em !important;
       }
       .sort-buttons-container {
-        flex-direction: column;
-        width: 100%;
-        margin-top: 1rem;
+        flex-direction: column !important;
+        width: 100% !important;
+        margin-top: 1rem !important;
       }
       .sort-btn {
-        width: 100%;
-        padding: 0.5em 1em;
-        text-align: center;
+        width: 100% !important;
+        padding: 0.5em 1em !important;
+        text-align: center !important;
+        margin: 0.25rem 0 !important;
       }
       .papers-section h2 {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+      }
+      .paper-card:hover {
+        transform: none !important;
       }
     }
     @media (max-width: 480px) {
+      .stats-grid {
+        flex-direction: column !important;
+        align-items: stretch !important;
+      }
       .stat-card {
-        min-width: 120px;
-        padding: 1.2rem;
+        min-width: 100% !important;
+        padding: 1.2rem !important;
+        margin: 0.5rem 0 !important;
       }
       .stat-number {
-        font-size: 1.8rem;
+        font-size: 1.8rem !important;
       }
       .paper-card {
-        padding: 1.2rem;
+        padding: 1.2rem !important;
       }
       .paper-title {
-        font-size: 1rem;
+        font-size: 1rem !important;
+      }
+      .scholar-btn {
+        font-size: 1rem !important;
+        padding: 0.7rem 1.2rem !important;
       }
     }
     body.dark-mode {
