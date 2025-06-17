@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Durjoy Mistry</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .cv-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .cv-section {
+            margin-bottom: 3rem;
+        }
+
+        .cv-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .cv-item {
+            margin-bottom: 2rem;
+        }
+
+        .cv-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .cv-item h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-item .period {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .cv-item .organization {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .download-cv {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .download-button:hover {
+            opacity: 0.9;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+        }
+
+        .skill-category h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-list li:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="nav-brand">Durjoy Mistry</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="research.html">Research</a>
+                <a href="cv.html" class="active">CV</a>
+                <a href="likes.html">What I Like</a>
+                <a href="cool.html">Cool Stuff</a>
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="cv-container">
+            <div class="download-cv">
+                <a href="cv.pdf" class="download-button" download>
+                    <i class="fas fa-download"></i>
+                    Download CV (PDF)
+                </a>
+            </div>
+
+            <div class="cv-section">
+                <h2>Education</h2>
+                <div class="cv-item">
+                    <h3>Ph.D. in Computer Science</h3>
+                    <div class="period">2018 - 2022</div>
+                    <div class="organization">University of Technology</div>
+                    <p>Thesis: "Advancing Privacy-Preserving Federated Learning for Edge Computing"</p>
+                </div>
+                <div class="cv-item">
+                    <h3>M.Sc. in Computer Science</h3>
+                    <div class="period">2016 - 2018</div>
+                    <div class="organization">University of Engineering</div>
+                    <p>Specialization in Machine Learning and Artificial Intelligence</p>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2>Professional Experience</h2>
+                <div class="cv-item">
+                    <h3>Lecturer</h3>
+                    <div class="period">2022 - Present</div>
+                    <div class="organization">University of Asia Pacific</div>
+                    <ul>
+                        <li>Teaching advanced courses in Machine Learning and AI</li>
+                        <li>Supervising undergraduate and graduate research projects</li>
+                        <li>Leading the AI Research Lab initiatives</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h2>Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>Programming</h4>
+                        <ul class="skill-list">
+                            <li>Python</li>
+                            <li>TensorFlow</li>
+                            <li>PyTorch</li>
+                            <li>Java</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Machine Learning</h4>
+                        <ul class="skill-list">
+                            <li>Deep Learning</li>
+                            <li>Federated Learning</li>
+                            <li>Computer Vision</li>
+                            <li>NLP</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h4>Tools & Technologies</h4>
+                        <ul class="skill-list">
+                            <li>Git</li>
+                            <li>Docker</li>
+                            <li>AWS</li>
+                            <li>Linux</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info">
+                <p>Email: durjoy@uap-bd.edu</p>
+                <p>University of Asia Pacific</p>
+            </div>
+            <div class="social-links">
+                <a href="https://scholar.google.com/" target="_blank" aria-label="Google Scholar">
+                    <i class="fas fa-graduation-cap"></i>
+                </a>
+                <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 
