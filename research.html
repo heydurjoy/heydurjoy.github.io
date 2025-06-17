@@ -26,6 +26,7 @@
       font-weight: 700;
       color: var(--primary-color);
       margin-bottom: 0.5rem;
+      transition: color 0.2s;
     }
     .stat-label {
       font-size: 1.1rem;
@@ -42,27 +43,59 @@
       padding: 2rem;
       margin-bottom: 2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      border-left: 5px solid var(--primary-color);
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .paper-card:hover {
+      box-shadow: 0 6px 24px rgba(45,108,223,0.10);
+      border-color: #1b417a;
     }
     .paper-title {
       font-size: 1.2rem;
       font-weight: 600;
       color: var(--primary-color);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.2rem;
     }
     .paper-citations {
-      color: var(--primary-color);
-      font-weight: 500;
-      margin-bottom: 0.5rem;
+      display: inline-block;
+      background: #eaf1ff;
+      color: #2d6cdf;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-radius: 1em;
+      padding: 0.3em 1.1em;
+      margin-top: 0.2em;
+      margin-bottom: 0.2em;
+      box-shadow: 0 1px 4px rgba(45,108,223,0.07);
+      letter-spacing: 0.01em;
     }
-    .paper-meta {
-      font-size: 0.98rem;
-      color: var(--text-color);
-      opacity: 0.8;
+    .scholar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7em;
+      background: var(--primary-color, #2d6cdf);
+      color: #fff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 1rem 2.5rem;
+      border-radius: 2em;
+      box-shadow: 0 2px 12px rgba(45,108,223,0.08);
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
       margin-bottom: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+    .scholar-btn:hover {
+      background: #1b417a;
+      box-shadow: 0 4px 18px rgba(45,108,223,0.13);
     }
     @media (max-width: 600px) {
       .stats-grid { flex-direction: column; gap: 1rem; }
       .stat-card { padding: 1.2rem; min-width: 120px; }
+      .scholar-btn { font-size: 1rem; padding: 0.7rem 1.2rem; }
       .paper-card { padding: 1rem; }
     }
   </style>
@@ -82,10 +115,15 @@
             </button>
         </div>
     </div>
-</nav>
+  </nav>
 
   <main>
     <section>
+      <div style="display:flex; justify-content:center; margin-top:2.5rem; margin-bottom:1.5rem;">
+        <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="scholar-btn">
+          <i class="fas fa-graduation-cap"></i> See my Google Scholar
+        </a>
+      </div>
       <div class="stats-grid" id="stats-grid"></div>
     </section>
     <section class="papers-section">
@@ -111,31 +149,49 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
   <script>
-    // Fetch stats and papers from opensheet
     const statsGrid = document.getElementById('stats-grid');
     const papersList = document.getElementById('papers-list');
-    // Citation stats order and labels
+
     const statOrder = [
       { key: 'Total Citation', label: 'Total Citations' },
       { key: 'H-Index', label: 'h-index' },
       { key: 'i10-index', label: 'i10-index' }
     ];
 
-    // Function to update stats display
+    function animateCountUp(element, target, duration = 1200) {
+      let start = 0;
+      const step = Math.ceil(target / (duration / 16));
+      function update() {
+        start += step;
+        if (start >= target) {
+          element.textContent = target;
+        } else {
+          element.textContent = start;
+          requestAnimationFrame(update);
+        }
+      }
+      update();
+    }
+
     function updateStatsDisplay(cites) {
       statsGrid.innerHTML = statOrder.map(stat => `
         <div class="stat-card">
-          <div class="stat-number">${cites[stat.key] || '-'}</div>
+          <div class="stat-number" id="stat-${stat.key.replace(/\s/g, '')}">${cites[stat.key] || '-'}</div>
           <div class="stat-label">${stat.label}</div>
         </div>
       `).join('');
+      // Animate count up for each stat if it's a number
+      statOrder.forEach(stat => {
+        const el = document.getElementById(`stat-${stat.key.replace(/\s/g, '')}`);
+        const val = parseInt(cites[stat.key]);
+        if (el && !isNaN(val)) {
+          animateCountUp(el, val);
+        }
+      });
     }
 
-    // Function to update papers display
     function updatePapersDisplay(papers) {
-      // Sort papers by citations and get top 5
       const topPapers = papers
         .filter(p => p.Papers && p.Citations)
         .sort((a, b) => parseInt(b.Citations) - parseInt(a.Citations))
@@ -144,49 +200,47 @@
       papersList.innerHTML = topPapers.map(paper => `
         <div class="paper-card">
           <div class="paper-title">${paper.Papers}</div>
-          <div class="paper-citations">${paper.Citations ? paper.Citations + ' citations' : ''}</div>
+          <div class="paper-citations">${paper.Citations} citations</div>
         </div>
       `).join('');
     }
 
-    // Fetch citation stats with caching
     fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
-      .then(r => r.json())
+      .then(response => response.json())
       .then(cites => {
-        if (cites && cites.length) {
-          // Convert array data to object for easier access
-          const citesData = {
-            'Total Citation': cites[0]['Total Citation'],
-            'H-Index': cites[0]['H-Index'],
-            'i10-index': cites[0]['i10-index']
-          };
-          // Cache the data
-          localStorage.setItem('cachedCites', JSON.stringify(citesData));
-          updateStatsDisplay(citesData);
-        }
+        console.log('Cites data:', cites);
+
+        // Find the key that is a number (the citation count)
+        const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
+        const hIndex = cites[0][totalCitation];
+        const i10Index = cites[1][totalCitation];
+
+        const citesData = {
+          'Total Citation': totalCitation,
+          'H-Index': hIndex,
+          'i10-index': i10Index
+        };
+
+        console.log('Total Citation:', citesData['Total Citation']);
+        localStorage.setItem('cachedCites', JSON.stringify(citesData));
+        updateStatsDisplay(citesData);
       })
       .catch(error => {
-        console.log('Error fetching citation stats:', error);
-        // Try to use cached data
+        console.error('Error fetching citation stats:', error);
         const cachedCites = localStorage.getItem('cachedCites');
         if (cachedCites) {
           updateStatsDisplay(JSON.parse(cachedCites));
         }
       });
 
-    // Fetch papers with caching
     fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/papers')
-      .then(r => r.json())
+      .then(response => response.json())
       .then(papers => {
-        if (papers && papers.length) {
-          // Cache the papers data
-          localStorage.setItem('cachedPapers', JSON.stringify(papers));
-          updatePapersDisplay(papers);
-        }
+        localStorage.setItem('cachedPapers', JSON.stringify(papers));
+        updatePapersDisplay(papers);
       })
       .catch(error => {
-        console.log('Error fetching papers:', error);
-        // Try to use cached data
+        console.error('Error fetching papers:', error);
         const cachedPapers = localStorage.getItem('cachedPapers');
         if (cachedPapers) {
           updatePapersDisplay(JSON.parse(cachedPapers));
