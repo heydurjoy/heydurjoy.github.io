@@ -42,16 +42,17 @@
       border-radius: 1rem;
       padding: 2rem;
       margin-bottom: 2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 8px rgba(0,128,128,0.03);
       display: flex;
       flex-direction: column;
       gap: 0.7rem;
-      border-left: 5px solid var(--primary-color);
-      transition: box-shadow 0.2s, border-color 0.2s;
+      transition: box-shadow 0.3s, transform 0.2s;
+      border-left: none;
+      background: linear-gradient(to right, var(--card-bg), #f4f8f9);
     }
     .paper-card:hover {
-      box-shadow: 0 6px 24px rgba(45,108,223,0.10);
-      border-color: #1b417a;
+      box-shadow: 0 6px 24px rgba(0,128,128,0.10);
+      transform: scale(1.02);
     }
     .paper-title {
       font-size: 1.2rem;
@@ -98,6 +99,75 @@
       .scholar-btn { font-size: 1rem; padding: 0.7rem 1.2rem; }
       .paper-card { padding: 1rem; }
     }
+    body.dark-mode {
+      background-color: #121212;
+      color: #e0e0e0;
+    }
+    body.dark-mode .paper-card {
+      background: linear-gradient(to right, #1e1e1e, #2d2d2d);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    body.dark-mode .paper-badge {
+      background: #333;
+      color: #e0e0e0;
+    }
+    body.dark-mode .sort-btn {
+      background: #333;
+      color: #e0e0e0;
+    }
+    @media (max-width: 768px) {
+      .paper-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        width: 100%;
+      }
+      .paper-info {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%;
+      }
+      .sort-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+      }
+      .sort-btn {
+        margin-bottom: 0.5rem;
+        width: 100%;
+      }
+      .paper-badge {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+      .paper-title {
+        font-size: 1.2em;
+      }
+      .paper-authors {
+        font-size: 0.9em;
+      }
+      .paper-journal {
+        font-size: 0.9em;
+      }
+    }
+    body {
+      font-family: 'Lexend', sans-serif;
+    }
+    .sort-btn {
+      font-family: 'Lexend', sans-serif;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 1em;
+      padding: 0.3em 0.9em;
+      font-size: 0.98em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .sort-btn:hover {
+      background: var(--primary-color-dark);
+    }
   </style>
 </head>
 <body>
@@ -127,7 +197,14 @@
       <div class="stats-grid" id="stats-grid"></div>
     </section>
     <section class="papers-section">
-      <h2 style="margin-bottom:1.5rem;">Top Papers</h2>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h2>Top Papers</h2>
+        <div style="display:flex; gap:0.5em;">
+          <button id="sort-citations" class="sort-btn" style="background:#ffebee;color:#d32f2f;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Citations <span class="sort-arrow">↓</span></button>
+          <button id="sort-ranking" class="sort-btn" style="background:#e0f2f1;color:var(--primary-color-dark);border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Journal Ranking <span class="sort-arrow">↓</span></button>
+          <button id="sort-contribution" class="sort-btn" style="background:#e8f5e9;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Contribution <span class="sort-arrow">↓</span></button>
+        </div>
+      </div>
       <div id="papers-list"></div>
     </section>
   </main>
@@ -149,6 +226,8 @@
     </div>
   </footer>
 
+  <button id="dark-mode-toggle" style="position:fixed;top:20px;right:20px;background:var(--primary-color);color:#fff;border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;transition:background 0.2s;" onclick="toggleDarkMode()">🌙</button>
+
   <script>
     const statsGrid = document.getElementById('stats-grid');
     const papersList = document.getElementById('papers-list');
@@ -156,7 +235,10 @@
     const statOrder = [
       { key: 'Total Citation', label: 'Total Citations' },
       { key: 'H-Index', label: 'h-index' },
-      { key: 'i10-index', label: 'i10-index' }
+      { key: 'i10-index', label: 'Total Publications' },
+      { key: 'Q1 Journal', label: 'Q1 Journals' },
+      { key: 'Book Chapter', label: 'Book Chapters' },
+      { key: 'Prestigious Conference', label: 'Prestigious Conferences' }
     ];
 
     function animateCountUp(element, target, duration = 1200) {
@@ -192,15 +274,19 @@
     }
 
     function updatePapersDisplay(papers) {
-      const topPapers = papers
-        .filter(p => p.Papers && p.Citations)
-        .sort((a, b) => parseInt(b.Citations) - parseInt(a.Citations))
-        .slice(0, 5);
-
-      papersList.innerHTML = topPapers.map(paper => `
+      // Show all papers, not just top 5
+      const filteredPapers = papers.filter(p => p.Papers);
+      papersList.innerHTML = filteredPapers.map(paper => `
         <div class="paper-card">
-          <div class="paper-title">${paper.Papers}</div>
-          <div class="paper-citations">${paper.Citations} citations</div>
+          <div class="paper-title">
+            ${paper.Papers}
+          </div>
+          <div style="display:flex; flex-wrap:wrap; gap:0.7em; align-items:center; margin-bottom:0.3em;">
+            ${paper.Citations ? `<span class="paper-badge" style="background:#ffebee;color:#d32f2f;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Citations} citations</span>` : ''}
+            ${paper.Ranking ? `<span class="paper-badge" style="background:#e0f2f1;color:var(--primary-color-dark);border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Ranking}</span>` : ''}
+            ${paper[" Position"] ? `<span class="paper-badge" style="background:#e8f5e9;color:#2e7d32;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper[" Position"]}</span>` : ''}
+            ${paper["Link  to Paper"] ? `<a href="${paper["Link  to Paper"]}" target="_blank" class="paper-badge" style="display:inline-block;background:transparent;color:var(--primary-color);border:1px solid var(--primary-color);border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;text-decoration:none;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--primary-color)';this.style.color='#fff';" onmouseout="this.style.background='transparent';this.style.color='var(--primary-color)';">Read Paper</a>` : ''}
+          </div>
         </div>
       `).join('');
     }
@@ -208,20 +294,18 @@
     fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
       .then(response => response.json())
       .then(cites => {
-        console.log('Cites data:', cites);
-
-        // Find the key that is a number (the citation count)
-        const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
-        const hIndex = cites[0][totalCitation];
-        const i10Index = cites[1][totalCitation];
-
+        console.log('Fetched cites data:', cites);
+        // The cites sheet is assumed to have the following rows:
+        // 0: Total Citation, 1: H-Index, 2: Total Publications, 3: Q1 Journal, 4: Book Chapter, 5: Prestigious Conference
         const citesData = {
-          'Total Citation': totalCitation,
-          'H-Index': hIndex,
-          'i10-index': i10Index
+          'Total Citation': cites[0] && cites[0]['Value'],
+          'H-Index': cites[1] && cites[1]['Value'],
+          'Total Publications': cites[2] && cites[2]['Value'],
+          'Q1 Journal': cites[3] && cites[3]['Value'],
+          'Book Chapter': cites[4] && cites[4]['Value'],
+          'Prestigious Conference': cites[5] && cites[5]['Value']
         };
-
-        console.log('Total Citation:', citesData['Total Citation']);
+        console.log('Processed cites data:', citesData);
         localStorage.setItem('cachedCites', JSON.stringify(citesData));
         updateStatsDisplay(citesData);
       })
@@ -246,6 +330,56 @@
           updatePapersDisplay(JSON.parse(cachedPapers));
         }
       });
+
+    // Sort buttons functionality with toggle
+    let sortDirection = { citations: 'desc', ranking: 'desc', contribution: 'desc' };
+
+    document.getElementById('sort-citations').addEventListener('click', () => {
+      const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
+      sortDirection.citations = sortDirection.citations === 'desc' ? 'asc' : 'desc';
+      papers.sort((a, b) => {
+        const aVal = parseInt(a.Citations) || 0;
+        const bVal = parseInt(b.Citations) || 0;
+        return sortDirection.citations === 'desc' ? bVal - aVal : aVal - bVal;
+      });
+      updatePapersDisplay(papers);
+      document.querySelector('#sort-citations .sort-arrow').textContent = sortDirection.citations === 'desc' ? '↓' : '↑';
+    });
+
+    document.getElementById('sort-ranking').addEventListener('click', () => {
+      const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
+      sortDirection.ranking = sortDirection.ranking === 'desc' ? 'asc' : 'desc';
+      papers.sort((a, b) => {
+        const aVal = a.Ranking || '';
+        const bVal = b.Ranking || '';
+        return sortDirection.ranking === 'desc' ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
+      });
+      updatePapersDisplay(papers);
+      document.querySelector('#sort-ranking .sort-arrow').textContent = sortDirection.ranking === 'desc' ? '↓' : '↑';
+    });
+
+    document.getElementById('sort-contribution').addEventListener('click', () => {
+      const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
+      sortDirection.contribution = sortDirection.contribution === 'desc' ? 'asc' : 'desc';
+      papers.sort((a, b) => {
+        const aVal = a[" Position"] || '';
+        const bVal = b[" Position"] || '';
+        return sortDirection.contribution === 'desc' ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
+      });
+      updatePapersDisplay(papers);
+      document.querySelector('#sort-contribution .sort-arrow').textContent = sortDirection.contribution === 'desc' ? '↓' : '↑';
+    });
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      const isDarkMode = document.body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+    }
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+    }
   </script>
 </body>
 </html>
