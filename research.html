@@ -356,7 +356,7 @@
     fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
       .then(response => response.json())
       .then(cites => {
-        console.log('Cites data:', cites);
+        console.log('Cites dataxx:', cites);
 
         // Find the key that is a number (the citation count)
         const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
