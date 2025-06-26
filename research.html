@@ -49,7 +49,7 @@
       flex-direction: column;
       gap: 0.7rem;
       transition: box-shadow 0.3s, transform 0.2s;
-      border-left: none;
+      border: none;
       background: linear-gradient(to right, var(--card-bg), #f4f8f9);
     }
     .paper-card:hover {
@@ -59,7 +59,7 @@
     .paper-title {
       font-size: 1.2rem;
       font-weight: 600;
-      color: var(--primary-color);
+      color: black;
       margin-bottom: 0.2rem;
     }
     .paper-citations {
@@ -253,7 +253,7 @@
 
   <main>
     <section>
-      <div style="display:flex; justify-content:center; margin-top:2.5rem; margin-bottom:1.5rem;">
+      <div style="display:flex; justify-content:center; margin-top:1.5rem; margin-bottom:1.5rem;">
         <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="scholar-btn">
           <i class="fas fa-graduation-cap"></i> See my Google Scholar
         </a>
@@ -266,7 +266,7 @@
         <div style="display:flex; gap:0.5em;">
           <button id="sort-citations" class="sort-btn" style="background:#ffebee;color:#d32f2f;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Citations <span class="sort-arrow">↓</span></button>
           <button id="sort-ranking" class="sort-btn" style="background:#e0f2f1;color:var(--primary-color-dark);border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Journal Ranking <span class="sort-arrow">↓</span></button>
-          <button id="sort-contribution" class="sort-btn" style="background:#e8f5e9;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Contribution <span class="sort-arrow">↓</span></button>
+          <button id="sort-contribution" class="sort-btn" style="background:#ddffe3;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Contribution <span class="sort-arrow">↓</span></button>
         </div>
       </div>
       <div id="papers-list"></div>
