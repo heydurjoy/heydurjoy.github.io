@@ -253,14 +253,7 @@
 
   <main>
     <section>
-        <div class="research-stats">
-            <div class="research-stat-card"><div class="stat-label">Total Citations</div><div class="stat-value" id="stat-total-citation">0</div></div>
-            <div class="research-stat-card"><div class="stat-label">H-Index</div><div class="stat-value" id="stat-h-index">0</div></div>
-            <div class="research-stat-card"><div class="stat-label">Total Publications</div><div class="stat-value" id="stat-total-publications">0</div></div>
-            <div class="research-stat-card"><div class="stat-label">Q1 Journal</div><div class="stat-value" id="stat-q1-journal">0</div></div>
-            <div class="research-stat-card"><div class="stat-label">Book Chapter</div><div class="stat-value" id="stat-book-chapter">0</div></div>
-            <div class="research-stat-card"><div class="stat-label">Prestigious Conference</div><div class="stat-value" id="stat-prestigious-conference">0</div></div>
-        </div>
+        <div class="research-stats" id="research-stats"></div>
         <div style="display:flex; justify-content:center; margin-top:1.5rem; margin-bottom:1.5rem;">
             <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="scholar-btn">
                 <i class="fas fa-graduation-cap"></i> See my Google Scholar
@@ -359,24 +352,20 @@
       `).join('');
     }
 
-    function updateResearchStats(cites) {
-        if (!Array.isArray(cites)) return;
-        const getValue = (label) => {
-            const found = cites.find(item => (item['Item '] || item.Item || '').toLowerCase().includes(label.toLowerCase()));
-            return found ? (found.Count || found.count || Object.values(found)[1] || '0') : '0';
-        };
-        document.getElementById('stat-total-citation').textContent = getValue('Total Citation');
-        document.getElementById('stat-h-index').textContent = getValue('H-Index');
-        document.getElementById('stat-total-publications').textContent = getValue('Total Publications');
-        document.getElementById('stat-q1-journal').textContent = getValue('Q1 Journal');
-        document.getElementById('stat-book-chapter').textContent = getValue('Book Chapter');
-        document.getElementById('stat-prestigious-conference').textContent = getValue('Prestigious Conference');
+    function renderResearchStats(cites) {
+        const statsContainer = document.getElementById('research-stats');
+        if (!Array.isArray(cites) || !statsContainer) return;
+        statsContainer.innerHTML = cites.map(item => {
+            const label = (item['Item '] || item.Item || '');
+            const value = item.Count || item.count || Object.values(item)[1] || '0';
+            return `<div class="research-stat-card"><div class="stat-label">${label}</div><div class="stat-value">${value}</div></div>`;
+        }).join('');
     }
 
     fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
       .then(response => response.json())
       .then(cites => {
-        updateResearchStats(cites);
+        renderResearchStats(cites);
         console.log('Cites dataxx:', cites);
 
         // Find the key that is a number (the citation count)
