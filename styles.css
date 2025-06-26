@@ -501,11 +501,16 @@ footer .contact-info p {
     .nav-toggle {
         display: block;
         margin-left: auto;
+        order: 2;
+        z-index: 1100;
     }
     .nav-links {
-        position: static;
-        width: 100%;
-        margin-top: 0.5rem;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        width: 100vw;
+        margin: 0;
         flex-direction: column;
         align-items: flex-start;
         gap: 0.5rem;
@@ -515,10 +520,15 @@ footer .contact-info p {
         visibility: hidden;
         pointer-events: none;
         transition: max-height 0.4s cubic-bezier(.4,2,.6,1), padding 0.3s, visibility 0.3s;
-        background: var(--nav-bg);
+        background: rgb(255, 255, 255); /* More visible glass */
         box-shadow: var(--glass-shadow);
         border-bottom-left-radius: 1.2rem;
         border-bottom-right-radius: 1.2rem;
+        border: 1.5px solid rgba(120, 120, 180, 0);
+        z-index: 1001;
+        display: flex;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
     }
     .nav-links.open {
         max-height: 400px;
@@ -529,6 +539,7 @@ footer .contact-info p {
     .nav-links a {
         width: 100%;
         margin: 0.5rem 0;
+        text-align: left;
     }
     .nav-links a:hover,
     .nav-links a.active {
