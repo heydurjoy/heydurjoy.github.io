@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary-color: #6a4cff; /* Blue-Purple */
-    --primary-color-dark: #4b2fc9;
-    --primary-color-light: #b2e0ff;
+    --primary-color: rgba(0, 45, 45, 0.93); /* Blue-Purple */
+    --primary-color-dark: #ffffff;
+    --primary-color-light: rgba(116, 71, 96, 0);
     --primary-gradient: linear-gradient(90deg, #6a4cff 0%, #a259f7 100%);
     --text-color: #1a2327;
     --bg-color: #f6f8fa;
@@ -15,23 +15,6 @@
     --glass-blur: blur(18px);
     --glass-border: 1.5px solid rgba(200,200,200,0.35);
     --glass-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
-}
-
-[data-theme="dark"] {
-    --primary-color: #a259f7;
-    --primary-color-dark: #6a4cff;
-    --primary-color-light: #b2e0ff;
-    --primary-gradient: linear-gradient(90deg, #6a4cff 0%, #b2e0ff 100%);
-    --text-color: #e0f2f1;
-    --bg-color: #12181b;
-    --nav-bg: rgba(30,41,59,0.22);
-    --card-bg: rgba(26,35,39,0.22);
-    --border-color: #29434e;
-    --background-color: #12181b;
-    --metallic-gradient: linear-gradient(120deg, #23272b 0%, #3a3f44 40%, #23272b 100%);
-    --glass-blur: blur(18px);
-    --glass-border: 1.5px solid rgba(80,80,80,0.35);
-    --glass-shadow: 0 8px 32px 0 rgba(31,38,135,0.22);
 }
 
 * {
@@ -121,27 +104,10 @@ h1, h2, h3 {
 .nav-links a:hover,
 .nav-links a.active {
     color: var(--primary-color-dark);
-    background: rgba(178,224,255,0.22);
-    box-shadow: 0 2px 12px rgba(106,76,255,0.13);
+    background: rgba(119, 26, 219, 0.26);
+    box-shadow: 0 2px 12px rgba(106, 76, 255, 0.67);
     border: 1.5px solid var(--primary-color-light);
     transform: scale(1.09);
-}
-
-#theme-toggle {
-    background: rgba(255,255,255,0.18);
-    border: 1.5px solid rgba(200,200,200,0.25);
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 0.7rem;
-    font-size: 1.3rem;
-    border-radius: 50%;
-    box-shadow: 0 1px 6px rgba(180,180,180,0.09);
-    transition: background 0.3s, color 0.3s, box-shadow 0.2s;
-}
-#theme-toggle:hover {
-    background: rgba(255,255,255,0.32);
-    color: var(--primary-color-dark);
-    box-shadow: 0 2px 12px rgba(0,128,128,0.13);
 }
 
 .hero {
@@ -173,12 +139,12 @@ h1, h2, h3 {
 }
 
 .blob-top {
-    top: -30px;
+    top: 0px;
     left: -30px;
 }
 
 .blob-bottom {
-    bottom: -30px;
+    bottom: 0px;
     right: -30px;
 }
 
@@ -231,16 +197,27 @@ h1, h2, h3 {
 }
 
 .social-links a {
-    color: #4b2fc9;
-    background: #b2e0ff !important;
+    text-decoration: none;
+    color: #7b50fd;
+    background: rgba(198, 194, 255, 0.69) !important;
     border-radius: 50%;
-    padding: 0.5em;
-    margin: 0 0.2em;
-    font-size: 1.2em;
-    transition: background 0.3s, color 0.3s, transform 0.2s;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 1.5em;
+    margin: 0 0.2em;
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.social-links a:hover {
+    filter: brightness(1.1) saturate(1.2);
+    transform: scale(1.15);
+    color: #6a4cff;
+    background: rgba(198, 194, 255, 0.69) !important;
 }
 
 .social-links a[aria-label*="Facebook"] {
@@ -264,12 +241,6 @@ h1, h2, h3 {
 .social-links a[aria-label*="Orcid"],
 .social-links a[aria-label*="ORCID"] {
     background: #a6ce39;
-}
-.social-links a:hover {
-    filter: brightness(1.1) saturate(1.2);
-    transform: scale(1.15);
-    color: #6a4cff;
-    background: #b2e0ff !important;
 }
 
 .cta-button, .scholar-btn {
@@ -516,8 +487,41 @@ footer .contact-info p {
     .nav-content {
         position: relative;
     }
-}
-
-[data-theme="dark"] footer {
-    color: #fff;
+    .stats-grid {
+        flex-direction: column !important;
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+    .stat-card {
+        min-width: 0 !important;
+        width: 100% !important;
+        padding: 1.2rem !important;
+        margin: 0.5rem 0 !important;
+    }
+    .papers-section {
+        padding: 0 0.5rem !important;
+    }
+    .paper-card {
+        padding: 1.2rem !important;
+        margin: 1rem 0 !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+    .sort-buttons-container, .sort-buttons {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 0.5rem !important;
+        margin-top: 1rem !important;
+    }
+    .sort-btn {
+        width: 100% !important;
+        padding: 0.7em 1.2em !important;
+        text-align: center !important;
+        margin: 0.25rem 0 !important;
+        font-size: 1.1em !important;
+    }
+    .papers-section h2 {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
 } 
