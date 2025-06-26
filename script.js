@@ -19,4 +19,13 @@ document.getElementById('theme-toggle').addEventListener('click', function() {
         localStorage.setItem('theme', 'dark');
         icon.classList.replace('fa-moon', 'fa-sun');
     }
-}); 
+});
+
+// Hamburger menu for mobile nav
+const navToggle = document.getElementById('nav-toggle');
+const navLinks = document.getElementById('nav-links');
+if (navToggle && navLinks) {
+    navToggle.addEventListener('click', function() {
+        navLinks.classList.toggle('open');
+    });
+} 

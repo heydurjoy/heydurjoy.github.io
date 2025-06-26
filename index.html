@@ -12,7 +12,10 @@
     <nav class="navbar">
         <div class="nav-content">
             <a href="#" class="nav-brand">Durjoy Mistry</a>
-            <div class="nav-links">
+            <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
                 <a href="#" class="active">Home</a>
                 <a href="research.html">Research</a>
                 <a href="cv.html">CV</a>
@@ -26,7 +29,17 @@
     </nav>
 
     <main>
+        <br>
+<br>
+<br>
         <section class="hero">
+
+            <div class="hero-blob-bg">
+                <!-- Top blob -->
+                <svg class="blob blob-top" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><path fill="#b2e0ff" d="M0,64 C120,120 240,0 360,32 C480,64 600,0 600,0 L600,0 L0,0 Z"></path></svg>
+                <!-- Bottom blob -->
+                <svg class="blob blob-bottom" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg"><path fill="#a259f7" fill-opacity="0.32" d="M0,200 C120,120 240,240 360,180 C480,120 600,200 600,200 L600,200 L0,200 Z"></path></svg>
+            </div>
             <div class="hero-content">
                 <div class="hero-text">
                     <h1>Hi, I'm Durjoy</h1>
@@ -34,6 +47,15 @@
                     <div class="social-links">
                         <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
                             <i class="fas fa-graduation-cap"></i>
+                        </a>
+                        <a href="https://facebook.com/" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://youtube.com/" target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://instagram.com/" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
                         </a>
                         <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
                             <i class="fab fa-linkedin"></i>
@@ -45,8 +67,7 @@
                     <a href="cv.html" class="cta-button">View My CV</a>
                 </div>
                 <div class="hero-image">
-                    <!-- Example cool picture, replace src with your own photo later -->
-                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=facearea&w=400&h=400&facepad=2" alt="Profile example" class="profile-img" style="border-radius:50%; width: 140px; height: 140px; object-fit: cover; box-shadow: 0 2px 12px rgba(0,128,128,0.13);">
+                    <img src="durjoy.png" alt="Durjoy Mistry" class="profile-img" />
                 </div>
             </div>
         </section>
