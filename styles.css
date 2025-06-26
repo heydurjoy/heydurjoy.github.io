@@ -581,13 +581,17 @@ footer .contact-info p {
         box-sizing: border-box;
     }
     .sort-buttons-container, .sort-buttons {
-        flex-direction: column !important;
+        flex-direction: row !important;
+        flex-wrap: wrap;
         width: 100% !important;
         gap: 0.5rem !important;
         margin-top: 1rem !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
     }
     .sort-btn {
-        width: 100% !important;
+        width: auto !important;
+        min-width: 120px;
         padding: 0.7em 1.2em !important;
         text-align: center !important;
         margin: 0.25rem 0 !important;
@@ -715,13 +719,17 @@ footer .contact-info p {
         box-sizing: border-box;
     }
     .sort-buttons-container, .sort-buttons {
-        flex-direction: column !important;
+        flex-direction: row !important;
+        flex-wrap: wrap;
         width: 100% !important;
         gap: 0.5rem !important;
         margin-top: 1rem !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
     }
     .sort-btn {
-        width: 100% !important;
+        width: auto !important;
+        min-width: 120px;
         padding: 0.7em 1.2em !important;
         text-align: center !important;
         margin: 0.25rem 0 !important;
