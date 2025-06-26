@@ -253,19 +253,26 @@
 
   <main>
     <section>
-      <div style="display:flex; justify-content:center; margin-top:1.5rem; margin-bottom:1.5rem;">
-        <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="scholar-btn">
-          <i class="fas fa-graduation-cap"></i> See my Google Scholar
-        </a>
-      </div>
-      <div class="stats-grid" id="stats-grid"></div>
+        <div class="research-stats">
+            <div class="research-stat-card"><div class="stat-label">Total Citations</div><div class="stat-value" id="stat-total-citation">0</div></div>
+            <div class="research-stat-card"><div class="stat-label">H-Index</div><div class="stat-value" id="stat-h-index">0</div></div>
+            <div class="research-stat-card"><div class="stat-label">Total Publications</div><div class="stat-value" id="stat-total-publications">0</div></div>
+            <div class="research-stat-card"><div class="stat-label">Q1 Journal</div><div class="stat-value" id="stat-q1-journal">0</div></div>
+            <div class="research-stat-card"><div class="stat-label">Book Chapter</div><div class="stat-value" id="stat-book-chapter">0</div></div>
+            <div class="research-stat-card"><div class="stat-label">Prestigious Conference</div><div class="stat-value" id="stat-prestigious-conference">0</div></div>
+        </div>
+        <div style="display:flex; justify-content:center; margin-top:1.5rem; margin-bottom:1.5rem;">
+            <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="scholar-btn">
+                <i class="fas fa-graduation-cap"></i> See my Google Scholar
+            </a>
+        </div>
     </section>
     <section class="papers-section">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
         <h2>Top Papers</h2>
         <div style="display:flex; gap:0.5em;">
           <button id="sort-citations" class="sort-btn" style="background:#ffebee;color:#d32f2f;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Citations <span class="sort-arrow">↓</span></button>
-          <button id="sort-ranking" class="sort-btn" style="background:#e0f2f1;color:var(--primary-color-dark);border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Journal Ranking <span class="sort-arrow">↓</span></button>
+          <button id="sort-ranking" class="sort-btn" style="background:rgba(224,255,251,0.77);color: rgb(0,103,94);border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Journal Ranking <span class="sort-arrow">↓</span></button>
           <button id="sort-contribution" class="sort-btn" style="background:#ddffe3;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Contribution <span class="sort-arrow">↓</span></button>
         </div>
       </div>
@@ -344,7 +351,7 @@
           </div>
           <div style="display:flex; flex-wrap:wrap; gap:0.7em; align-items:center; margin-bottom:0.3em;">
             ${paper.Citations ? `<span class="paper-badge" style="background:#ffebee;color:#d32f2f;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Citations} citations</span>` : ''}
-            ${paper.Ranking ? `<span class="paper-badge" style="background:#e0f2f1;color:var(--primary-color-dark);border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Ranking}</span>` : ''}
+            ${paper.Ranking ? `<span class="paper-badge" style="background:#e0f2f1;color: #00675e;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Ranking}</span>` : ''}
             ${paper[" Position"] ? `<span class="paper-badge" style="background:#e8f5e9;color:#2e7d32;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper[" Position"]}</span>` : ''}
             ${paper["Link  to Paper"] ? `<a href="${paper["Link  to Paper"]}" target="_blank" class="paper-badge" style="display:inline-block;background:transparent;color:var(--primary-color);border:1px solid var(--primary-color);border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;text-decoration:none;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--primary-color)';this.style.color='#fff';" onmouseout="this.style.background='transparent';this.style.color='var(--primary-color)';">Read Paper</a>` : ''}
           </div>
@@ -352,9 +359,24 @@
       `).join('');
     }
 
+    function updateResearchStats(cites) {
+        if (!Array.isArray(cites)) return;
+        const getValue = (label) => {
+            const found = cites.find(item => (item['Item '] || item.Item || '').toLowerCase().includes(label.toLowerCase()));
+            return found ? (found.Count || found.count || Object.values(found)[1] || '0') : '0';
+        };
+        document.getElementById('stat-total-citation').textContent = getValue('Total Citation');
+        document.getElementById('stat-h-index').textContent = getValue('H-Index');
+        document.getElementById('stat-total-publications').textContent = getValue('Total Publications');
+        document.getElementById('stat-q1-journal').textContent = getValue('Q1 Journal');
+        document.getElementById('stat-book-chapter').textContent = getValue('Book Chapter');
+        document.getElementById('stat-prestigious-conference').textContent = getValue('Prestigious Conference');
+    }
+
     fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
       .then(response => response.json())
       .then(cites => {
+        updateResearchStats(cites);
         console.log('Cites dataxx:', cites);
 
         // Find the key that is a number (the citation count)
