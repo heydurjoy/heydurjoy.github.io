@@ -366,7 +366,7 @@
       .then(response => response.json())
       .then(cites => {
         renderResearchStats(cites);
-        console.log('Cites dataxx:', cites);
+        console.log('Cites data:', cites);
 
         // Find the key that is a number (the citation count)
         const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
