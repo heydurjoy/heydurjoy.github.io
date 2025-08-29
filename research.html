@@ -239,7 +239,7 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <a href="#" class="nav-brand">Durjoy</a>
+            <a href="index.html" class="nav-brand">Durjoy</a>
             <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -263,33 +263,56 @@
     </section>
     <section class="papers-section">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-        <h2>Top Papers</h2>
+       <a href="https://docs.google.com/spreadsheets/d/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/edit?usp=sharing" target="_blank" style="text-decoration: none; color: black"> <h2>Top Papers</h2> </a>
         <div style="display:flex; gap:0.5em;">
           <button id="sort-citations" class="sort-btn" style="background:#ffebee;color:#d32f2f;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Citations <span class="sort-arrow">↓</span></button>
           <button id="sort-ranking" class="sort-btn" style="background:rgba(224,255,251,0.77);color: rgb(0,103,94);border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Journal Ranking <span class="sort-arrow">↓</span></button>
           <button id="sort-contribution" class="sort-btn" style="background:#ddffe3;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Contribution <span class="sort-arrow">↓</span></button>
         </div>
+
+
       </div>
+         <hr>
       <div id="papers-list"></div>
     </section>
   </main>
 
   <footer>
     <div class="footer-content">
-      <div class="contact-info">
-        <p>Email: durjoy@uap-bd.edu</p>
-        <p>University of Asia Pacific</p>
-      </div>
-      <div class="social-links">
-        <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
-          <i class="fas fa-graduation-cap"></i>
-        </a>
-        <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
-          <i class="fab fa-linkedin"></i>
-        </a>
-      </div>
+        <div class="contact-info">
+            <p>
+                Email: 
+                <a href="mailto:durjoy@uap-bd.edu" style="text-decoration:none; color:inherit;">durjoy@uap-bd.edu</a> |
+                <a href="mailto:talk2durjoy@gmail.com" style="text-decoration:none; color:inherit;">talk2durjoy@gmail.com</a>
+            </p>
+            <p>Built with 🤍 from scratch by Durjoy</p>
+        </div>
+        
+        
+        
+        <div class="social-links">
+            <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
+                <i class="fas fa-graduation-cap"></i>
+            </a>
+            <a href="https://facebook.com/userdurjoy" target="_blank" aria-label="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="https://youtube.com/heydurjoy" target="_blank" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://instagram.com/heydurjoy" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/durjoy-mistry-73094416b/" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://github.com/heydurjoy" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
     </div>
-  </footer>
+</footer>
+
 
   <button id="dark-mode-toggle" style="position:fixed;top:20px;right:20px;background:var(--primary-color);color:#fff;border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;transition:background 0.2s;" onclick="toggleDarkMode()">🌙</button>
 
@@ -456,5 +479,7 @@
       document.body.classList.add('dark-mode');
     }
   </script>
+  
+  <script src="script.js"></script>
 </body>
 </html>

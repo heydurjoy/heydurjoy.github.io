@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary-color: rgba(132, 58, 229, 0.8); /* Blue-Purple */
+    --primary-color: rgba(231, 220, 243, 0.8); /* Blue-Purple */
     --primary-color-dark: #000000;
     --primary-color-light: rgba(116, 71, 96, 0);
     --primary-gradient: linear-gradient(90deg, #6a4cff 0%, #a259f7 100%);
@@ -601,6 +601,119 @@ footer .contact-info p {
         font-size: 1.5rem !important;
         margin-bottom: 0.5rem !important;
     }
+    .cv-layout {
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.2rem 0.3rem;
+        max-width: 100vw;
+    }
+    .cv-sidebar {
+        position: static;
+        width: 100%;
+        max-width: 100vw;
+        min-width: 0;
+        margin-bottom: 1.2rem;
+        padding: 0;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        overflow-x: auto;
+        border-left: none;
+    }
+    .cv-sidebar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        width: 100%;
+        justify-content: center;
+    }
+    .cv-sidebar li {
+        margin-bottom: 0;
+        width: auto;
+    }
+    .cv-sidebar a {
+        font-size: 1rem;
+        padding: 0.7em 1.1em;
+        border-left: 3.5px solid transparent;
+        border-radius: 0;
+        background: none;
+    }
+    .cv-sidebar a::after {
+        display: none;
+    }
+    .cv-container {
+        max-width: 100vw;
+        padding: 0.7rem 0.5rem;
+    }
+    .cv-header-card {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1.2rem !important;
+        padding: 1.2rem 0.7rem !important;
+    }
+    .cv-header-card h1 {
+        font-size: 1.5rem !important;
+    }
+    .profile-img {
+        width: 90px !important;
+        height: 90px !important;
+    }
+    .cv-section h2 {
+        font-size: 1.1rem !important;
+        margin-bottom: 0.7rem !important;
+        padding-bottom: 0.2rem !important;
+    }
+    .cv-section h3 {
+        font-size: 1rem !important;
+    }
+    .cv-section, .cv-item, .skill-category {
+        font-size: 0.98rem !important;
+        padding: 0.7rem 0.2rem !important;
+    }
+    #download-cv-float {
+        bottom: 1.1rem !important;
+        right: 1.1rem !important;
+        font-size: 1rem !important;
+        padding: 0.7rem 1.2rem !important;
+    }
+}
+@media (max-width: 600px) {
+    .cv-header-card {
+        padding: 0.7rem 0.2rem !important;
+    }
+    .cv-header-card h1 {
+        font-size: 1.1rem !important;
+    }
+    .profile-img {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    .cv-section h2 {
+        font-size: 0.98rem !important;
+    }
+    .cv-section h3 {
+        font-size: 0.93rem !important;
+    }
+    .cv-section, .cv-item, .skill-category {
+        font-size: 0.93rem !important;
+        padding: 0.3rem 0.1rem !important;
+    }
+    .cv-sidebar {
+        display: none !important;
+    }
+    .cv-container {
+        padding: 0.2rem 0.1rem !important;
+    }
+    #download-cv-float {
+        bottom: 0.7rem !important;
+        right: 0.7rem !important;
+        font-size: 0.93rem !important;
+        padding: 0.5rem 0.8rem !important;
+    }
 }
 
 .highlight-buttons {
@@ -856,5 +969,141 @@ footer .contact-info p {
     }
     .about-card-icon {
         font-size: 2rem;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+.cv-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+.cv-sidebar {
+    min-width: 180px;
+    max-width: 220px;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    position: sticky;
+    top: 6.5rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+}
+.cv-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.cv-sidebar li {
+    margin-bottom: 0.2rem;
+    width: 100%;
+}
+.cv-sidebar a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.08rem;
+    letter-spacing: 0.01em;
+    border-radius: 0;
+    padding: 0.7em 1.2em 0.7em 1.1em;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-left: 3.5px solid transparent;
+    background: none;
+    position: relative;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+.cv-sidebar a::after {
+    content: '\f054'; /* Font Awesome chevron-right */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.95em;
+    color: var(--primary-color);
+    opacity: 0;
+    margin-left: auto;
+    transition: opacity 0.18s, color 0.18s;
+}
+.cv-sidebar a:hover, .cv-sidebar a.active {
+    background: rgba(106,76,255,0.06);
+    color: var(--primary-color-dark);
+    border-left: 3.5px solid var(--primary-color);
+}
+.cv-sidebar a:hover::after, .cv-sidebar a.active::after {
+    opacity: 1;
+    color: var(--primary-color-dark);
+}
+.cv-container {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0;
+}
+.cv-header-card {
+    background: var(--card-bg);
+    border-radius: 0.5rem;
+    box-shadow: none;
+    border: none;
+    margin-bottom: 2.5rem;
+    padding: 0;
+}
+.cv-header-card h1 {
+    font-size: 2.3rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.2em;
+}
+.cv-section h2 {
+    color: var(--primary-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+    letter-spacing: 0.01em;
+}
+.cv-section h3 {
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.13rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+.cv-section, .cv-item, .skill-category {
+    color: inherit;
+}
+.cv-section ul, .cv-section p, .cv-section li {
+    color: inherit;
+    font-size: 1.05rem;
+}
+.cv-section ul {
+    margin-bottom: 0.7rem;
+}
+.cv-section li {
+    margin-bottom: 0.3rem;
+}
+.cv-section li:last-child {
+    margin-bottom: 0;
+}
+@media print {
+    body {
+        background: #fff !important;
+        color: #111 !important;
+    }
+    .navbar, .footer-content, #download-cv-float {
+        display: none !important;
     }
 } 

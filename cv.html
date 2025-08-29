@@ -103,109 +103,187 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <a href="#" class="nav-brand">Hey, Durjoy!</a>
+            <a href="#" class="nav-brand">Durjoy</a>
             <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="nav-links" id="nav-links">
                 <a href="research.html">Research</a>
-                <a href="cv.html">CV</a>
+                <a href="cv.html">Skills</a>
                 <a href="cool.html">Cool Stuff</a>
                 <a href="likes.html">What I Like</a>
             </div>
         </div>
     </nav>
 
+
     <main>
-        <div class="cv-container">
-            <div class="download-cv">
-                <a href="cv.pdf" class="download-button" download>
-                    <i class="fas fa-download"></i>
-                    Download CV (PDF)
-                </a>
-            </div>
-
-            <div class="cv-section">
-                <h2>Education</h2>
-                <div class="cv-item">
-                    <h3>Ph.D. in Computer Science</h3>
-                    <div class="period">2018 - 2022</div>
-                    <div class="organization">University of Technology</div>
-                    <p>Thesis: "Advancing Privacy-Preserving Federated Learning for Edge Computing"</p>
+        <div class="cv-layout">
+            <nav class="cv-sidebar">
+                <ul>
+                    <li><a href="#header">Profile</a></li>
+                    <li><a href="#objective">Objective</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#awards">Awards</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#references">References</a></li>
+                </ul>
+            </nav>
+            <div class="cv-container">
+                <section class="cv-header-card glass-card" id="header" style="margin-bottom:2.5rem;display:flex;align-items:center;gap:2.2rem;flex-wrap:wrap;justify-content:space-between;">
+                    <div style="flex:1 1 300px;min-width:220px;">
+                        <h1 style="font-size:2.3rem;margin-bottom:0.2em;">Durjoy Mistry</h1>
+                        <div style="font-size:1.15rem;font-weight:500;opacity:0.85;margin-bottom:0.5em;">Lecturer, Department of Computer Science & Engineering</div>
+                        <div style="font-size:1.05rem;opacity:0.8;margin-bottom:0.2em;">University of Asia Pacific, Bangladesh</div>
+                        <div style="font-size:1.05rem;opacity:0.8;margin-bottom:0.2em;">Email: <a href="mailto:durjoy@uap-bd.edu">durjoy@uap-bd.edu</a></div>
+                        <div style="font-size:1.05rem;opacity:0.8;margin-bottom:0.2em;">Phone: +880-1XXXXXXXXX</div>
+                        <div style="font-size:1.05rem;opacity:0.8;">Address: 74/A, Green Road, Dhaka 1205, Bangladesh</div>
+                        <div class="social-links" style="margin-top:1.1em;">
+                            <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                            <a href="https://facebook.com/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                            <a href="https://youtube.com/" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                            <a href="https://instagram.com/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                            <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div style="flex:0 0 140px;display:flex;align-items:center;justify-content:center;">
+                        <img src="durjoy.png" alt="Durjoy Mistry" class="profile-img" style="width:140px;height:140px;object-fit:cover;border-radius:50%;box-shadow:0 2px 16px rgba(106,76,255,0.13);border:4px solid #fff;" />
+                    </div>
+                </section>
+                <div class="cv-section" id="objective">
+                    <h2>Objective</h2>
+                    <p style="text-align:justify;">To contribute to the advancement of computer science through impactful research, innovative teaching, and academic leadership, with a focus on machine learning, federated learning, and technology-driven education.</p>
                 </div>
-                <div class="cv-item">
-                    <h3>M.Sc. in Computer Science</h3>
-                    <div class="period">2016 - 2018</div>
-                    <div class="organization">University of Engineering</div>
-                    <p>Specialization in Machine Learning and Artificial Intelligence</p>
-                </div>
-            </div>
-
-            <div class="cv-section">
-                <h2>Professional Experience</h2>
-                <div class="cv-item">
-                    <h3>Lecturer</h3>
-                    <div class="period">2022 - Present</div>
-                    <div class="organization">University of Asia Pacific</div>
-                    <ul>
-                        <li>Teaching advanced courses in Machine Learning and AI</li>
-                        <li>Supervising undergraduate and graduate research projects</li>
-                        <li>Leading the AI Research Lab initiatives</li>
+                <div class="cv-section" id="research">
+                    <h2>Research</h2>
+                    <ul style="margin-left:1.2em;">
+                        <li>Research Interests: Machine Learning, Deep Learning, Federated Learning, Blockchain, Computer Vision</li>
+                        <li>12+ peer-reviewed publications, 45+ citations</li>
+                        <li>Supervision of 15+ research debutantes</li>
+                        <li>Active in AI research lab initiatives and academic process automation</li>
                     </ul>
                 </div>
-            </div>
-
-            <div class="cv-section">
-                <h2>Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h4>Programming</h4>
-                        <ul class="skill-list">
-                            <li>Python</li>
-                            <li>TensorFlow</li>
-                            <li>PyTorch</li>
-                            <li>Java</li>
+                <div class="cv-section" id="education">
+                    <h2>Education</h2>
+                    <div class="cv-item">
+                        <h3>Ph.D. in Computer Science</h3>
+                        <div class="period">2018 - 2022</div>
+                        <div class="organization">University of Technology</div>
+                        <p>Thesis: "Advancing Privacy-Preserving Federated Learning for Edge Computing"</p>
+                    </div>
+                    <div class="cv-item">
+                        <h3>M.Sc. in Computer Science</h3>
+                        <div class="period">2016 - 2018</div>
+                        <div class="organization">University of Engineering</div>
+                        <p>Specialization in Machine Learning and Artificial Intelligence</p>
+                    </div>
+                </div>
+                <div class="cv-section" id="experience">
+                    <h2>Experience</h2>
+                    <div class="cv-item">
+                        <h3>Lecturer</h3>
+                        <div class="period">2022 - Present</div>
+                        <div class="organization">University of Asia Pacific</div>
+                        <ul>
+                            <li>Teaching advanced courses in Machine Learning and AI</li>
+                            <li>Supervising undergraduate and graduate research projects</li>
+                            <li>Leading the AI Research Lab initiatives</li>
                         </ul>
                     </div>
-                    <div class="skill-category">
-                        <h4>Machine Learning</h4>
-                        <ul class="skill-list">
-                            <li>Deep Learning</li>
-                            <li>Federated Learning</li>
-                            <li>Computer Vision</li>
-                            <li>NLP</li>
-                        </ul>
+                </div>
+                <div class="cv-section" id="awards">
+                    <h2>Awards</h2>
+                    <ul style="margin-left:1.2em;">
+                        <li>Best Paper Award, International Conference on AI, 2022</li>
+                        <li>Outstanding Faculty Mentor, UAP, 2021</li>
+                        <li>Research Excellence Award, 2020</li>
+                        <li>9+ academic and research awards</li>
+                    </ul>
+                </div>
+                <div class="cv-section" id="skills">
+                    <h2>Skills</h2>
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Programming</h4>
+                            <ul class="skill-list">
+                                <li>Python</li>
+                                <li>TensorFlow</li>
+                                <li>PyTorch</li>
+                                <li>Java</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Machine Learning</h4>
+                            <ul class="skill-list">
+                                <li>Deep Learning</li>
+                                <li>Federated Learning</li>
+                                <li>Computer Vision</li>
+                                <li>NLP</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Tools & Technologies</h4>
+                            <ul class="skill-list">
+                                <li>Git</li>
+                                <li>Docker</li>
+                                <li>AWS</li>
+                                <li>Linux</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="skill-category">
-                        <h4>Tools & Technologies</h4>
-                        <ul class="skill-list">
-                            <li>Git</li>
-                            <li>Docker</li>
-                            <li>AWS</li>
-                            <li>Linux</li>
-                        </ul>
-                    </div>
+                </div>
+                <div class="cv-section" id="references">
+                    <h2>References</h2>
+                    <ul style="margin-left:1.2em;">
+                        <li>Available upon request</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </main>
+    <button id="download-cv-float" class="download-button" style="position:fixed;bottom:2.2rem;right:2.2rem;z-index:2000;box-shadow:0 4px 24px rgba(106,76,255,0.13);display:flex;align-items:center;gap:0.5rem;" title="Download this CV as PDF">
+        <i class="fas fa-download"></i> Download CV
+    </button>
 
     <footer>
         <div class="footer-content">
             <div class="contact-info">
-                <p>Email: durjoy@uap-bd.edu</p>
-                <p>University of Asia Pacific</p>
+                <p>
+                    Email: 
+                    <a href="mailto:durjoy@uap-bd.edu" style="text-decoration:none; color:inherit;">durjoy@uap-bd.edu</a> |
+                    <a href="mailto:talk2durjoy@gmail.com" style="text-decoration:none; color:inherit;">talk2durjoy@gmail.com</a>
+                </p>
+                <p>Built with 🤍 from scratch by Durjoy</p>
             </div>
+            
+            
+            
             <div class="social-links">
-                <a href="https://scholar.google.com/" target="_blank" aria-label="Google Scholar">
+                <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
                     <i class="fas fa-graduation-cap"></i>
                 </a>
-                <a href="https://linkedin.com/" target="_blank" aria-label="LinkedIn">
+                <a href="https://facebook.com/userdurjoy" target="_blank" aria-label="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://youtube.com/heydurjoy" target="_blank" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://instagram.com/heydurjoy" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/durjoy-mistry-73094416b/" target="_blank" aria-label="LinkedIn">
                     <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/heydurjoy" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
                 </a>
             </div>
         </div>
     </footer>
+
 
     <script src="script.js"></script>
 </body>

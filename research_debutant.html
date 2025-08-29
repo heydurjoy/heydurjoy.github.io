@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Debutantes | Durjoy Mistry</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .debutant-hero {
+            text-align: center;
+            padding: 4rem 2rem 2rem 2rem;
+            background: linear-gradient(135deg, #d4d8fa 0%, #e2d1f6 100%);
+            color: #393467;
+            margin-bottom: 3rem;
+        }
+        
+        .debutant-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .debutant-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .debutant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem auto;
+        }
+        
+        .debutant-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .debutant-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb, #f5576c);
+            background-size: 400% 400%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+            animation: gradientShift 3s ease infinite;
+        }
+        
+        .debutant-card:hover::before {
+            opacity: 0.1;
+        }
+        
+        .debutant-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .debutant-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem auto;
+            font-size: 2rem;
+            color: white;
+            font-weight: 600;
+        }
+        
+                 .debutant-name {
+             font-size: 1.4rem;
+             font-weight: 700;
+             color: #2d3748;
+             margin-bottom: 0.3rem;
+             text-align: center;
+         }
+         
+         .debutant-university {
+             font-size: 1rem;
+             color: #667eea;
+             margin-bottom: 0.5rem;
+             text-align: center;
+             font-weight: 600;
+             font-style: italic;
+         }
+         
+         .debutant-role {
+             font-size: 1rem;
+             color: #718096;
+             margin-bottom: 1rem;
+             text-align: center;
+             font-weight: 500;
+         }
+        
+        .debutant-projects {
+            background: #f7fafc;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .debutant-projects h4 {
+            color: #4a5568;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .debutant-projects ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .debutant-projects li {
+            color: #2d3748;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        
+        .debutant-projects li::before {
+            content: '•';
+            color: #667eea;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .debutant-achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .achievement-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .stats-overview {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin: 2rem;
+            text-align: center;
+        }
+        
+        .stats-overview h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        @media (max-width: 768px) {
+            .debutant-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .debutant-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+            
+            .debutant-card {
+                padding: 1.5rem;
+            }
+            
+            .stats-overview {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#" class="nav-brand">Durjoy</a>
+            <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="nav-links">
+                <a href="research.html">Research</a>
+                <a href="cv.html">Skills</a>
+                <a href="cool.html">Cool Stuff</a>
+                <a href="likes.html">What I Like</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="debutant-hero">
+            <h1>Research Debutantes</h1>
+<p>
+    Meet the brilliant minds I’ve had the privilege to mentor and guide in their research journey.
+    The following individuals have published their research work under my supervision.
+</p>
+        </section>
+
+                 <div class="stats-overview">
+             <h2>Mentorship Impact</h2>
+             <div class="stats-grid">
+                 <div class="stat-item">
+                     <div class="stat-number" id="total-debutants">-</div>
+                     <div class="stat-label">Students Mentored</div>
+                 </div>
+                 <div class="stat-item">
+                     <div class="stat-number" id="total-papers">-</div>
+                     <div class="stat-label">Papers Published</div>
+                 </div>
+             </div>
+         </div>
+
+        <div class="debutant-grid" id="debutant-grid">
+            <!-- Dynamic debutant cards will be loaded here -->
+
+
+
+
+
+
+
+
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="contact-info">
+                <p>
+                    Email: 
+                    <a href="mailto:durjoy@uap-bd.edu" style="text-decoration:none; color:inherit;">durjoy@uap-bd.edu</a> |
+                    <a href="mailto:talk2durjoy@gmail.com" style="text-decoration:none; color:inherit;">talk2durjoy@gmail.com</a>
+                </p>
+                <p>Built with 🤍 from scratch by Durjoy</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
+                    <i class="fas fa-graduation-cap"></i>
+                </a>
+                <a href="https://facebook.com/userdurjoy" target="_blank" aria-label="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://youtube.com/heydurjoy" target="_blank" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="https://instagram.com/heydurjoy" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/durjoy-mistry-73094416b/" target="_blank" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/heydurjoy" target="_blank" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    
+    <script>
+                 // Fetch data from Google Sheets
+         const debutantGrid = document.getElementById('debutant-grid');
+         const totalDebutants = document.getElementById('total-debutants');
+         const totalPapers = document.getElementById('total-papers');
+
+        function getInitials(fullName) {
+            if (!fullName) return '?';
+            return fullName.split(' ')
+                .map(name => name.charAt(0))
+                .join('')
+                .toUpperCase()
+                .slice(0, 2);
+        }
+
+        function convertGoogleDriveUrl(url) {
+            if (!url) return null;
+            
+            // Handle different Google Drive URL formats and convert to iframe preview
+            if (url.includes('drive.google.com/file/d/')) {
+                // Format: https://drive.google.com/file/d/FILE_ID/view
+                const fileId = url.match(/\/file\/d\/([a-zA-Z0-9-_]+)/);
+                if (fileId) {
+                    return `https://drive.google.com/file/d/${fileId[1]}/preview`;
+                }
+            } else if (url.includes('drive.google.com/open?id=')) {
+                // Format: https://drive.google.com/open?id=FILE_ID
+                const fileId = url.match(/id=([a-zA-Z0-9-_]+)/);
+                if (fileId) {
+                    return `https://drive.google.com/file/d/${fileId[1]}/preview`;
+                }
+            } else if (url.includes('drive.google.com/uc?id=')) {
+                // Extract file ID from uc format
+                const fileId = url.match(/id=([a-zA-Z0-9-_]+)/);
+                if (fileId) {
+                    return `https://drive.google.com/file/d/${fileId[1]}/preview`;
+                }
+            }
+            
+            return null;
+        }
+
+                 function updateStatsDisplay(debutants) {
+             if (!Array.isArray(debutants) || debutants.length === 0) return;
+             
+             // Count unique students (excluding header row)
+             const studentCount = debutants.length - 1;
+             totalDebutants.textContent = studentCount > 0 ? studentCount : '-';
+             
+             // Count papers (rows with paper titles)
+             const papersCount = debutants.filter(row => row['Paper Title'] && row['Paper Title'].trim()).length;
+             totalPapers.textContent = papersCount > 0 ? papersCount : '-';
+         }
+
+        function updateDebutantsDisplay(debutants) {
+            if (!Array.isArray(debutants) || debutants.length === 0) return;
+            
+            // Skip the header row but keep original order
+            const studentData = debutants.slice(1);
+            
+            debutantGrid.innerHTML = studentData
+                .map((row, index) => {
+                    const fullName = row['Full name'] ? row['Full name'].trim() : '';
+                    const initials = fullName ? getInitials(fullName) : '?';
+                    const paperTitle = row['Paper Title'] ? row['Paper Title'].trim() : '';
+                    const category = row['Category'] ? row['Category'].trim() : '';
+                    const university = row['Your University name'] ? row['Your University name'].trim() : '';
+                    const googleScholar = row['Google Scholar'] ? row['Google Scholar'].trim() : '';
+                    const paperLink = row['Paper link if published'] ? row['Paper link if published'].trim() : '';
+                    const pictureUrl = row['Your Picture'] ? row['Your Picture'].trim() : '';
+                    const timestamp = row['Timestamp'] ? row['Timestamp'] : '';
+                    
+                    // Convert Google Drive URL to direct image URL
+                    const directImageUrl = convertGoogleDriveUrl(pictureUrl);
+                    
+                    // Only show cards if there's at least a name or paper title
+                    if (!fullName && !paperTitle) {
+                        return ''; // Skip completely empty rows
+                    }
+                    
+                    return `
+                        <div class="debutant-card" data-timestamp="${timestamp}" data-index="${index}">
+                            <div class="debutant-avatar">
+                                ${directImageUrl ? 
+                                    `<div style="position:relative;width:100%;height:100%;">
+                                        <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, #667eea, #764ba2);color:white;font-size:2rem;font-weight:600;border-radius:50%;z-index:1;" id="initials-${index}">${initials}</div>
+                                        <iframe src="${directImageUrl}" 
+                                            style="width:100%;height:100%;border-radius:50%;border:none;overflow:hidden;position:absolute;top:0;left:0;z-index:2;" 
+                                            title="${fullName || 'Student'}"
+                                            onload="setTimeout(() => { const initialsEl = document.getElementById('initials-${index}'); if (initialsEl) initialsEl.style.display='none'; }, 2000);"
+                                            onerror="document.getElementById('initials-${index}').style.display='flex';">
+                                        </iframe>
+                                    </div>` : 
+                                    initials
+                                }
+                            </div>
+                                                         <div class="debutant-name">${fullName || 'Student ' + (index + 1)}</div>
+                             ${university ? `<div class="debutant-university">${university}</div>` : ''}
+                             <div class="debutant-role">${category || 'Research Student'}</div>
+                                                         <div class="debutant-projects">
+                                 <h4>Research Paper</h4>
+                                 <p style="margin:0;color:#2d3748;font-size:0.9rem;">${paperTitle || 'Research in progress...'}</p>
+                             </div>
+                            <div class="debutant-achievements">
+                                ${googleScholar ? `<a href="${googleScholar}" target="_blank" class="achievement-badge" style="text-decoration:none;">Google Scholar</a>` : ''}
+                                ${paperLink ? `<a href="${paperLink}" target="_blank" class="achievement-badge" style="text-decoration:none;">Read Paper</a>` : ''}
+                            </div>
+                        </div>
+                    `;
+                })
+                .join('');
+        }
+
+        // Fetch data from Google Sheets
+        fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/rdebs')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Raw debutants data:', data);
+                console.log('Total rows received:', data.length);
+                console.log('First few rows:', data.slice(0, 5));
+                
+                localStorage.setItem('cachedDebutants', JSON.stringify(data));
+                updateStatsDisplay(data);
+                updateDebutantsDisplay(data);
+            })
+            .catch(error => {
+                console.error('Error fetching debutants data:', error);
+                const cachedData = localStorage.getItem('cachedDebutants');
+                if (cachedData) {
+                    const data = JSON.parse(cachedData);
+                    updateStatsDisplay(data);
+                    updateDebutantsDisplay(data);
+                }
+            });
+    </script>
+</body>
+</html>
