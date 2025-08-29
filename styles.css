@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap');
 
 :root {
-    --primary-color: rgba(231, 220, 243, 0.8); /* Blue-Purple */
+    --primary-color: rgb(113, 111, 185); /* Blue-Purple */
     --primary-color-dark: #000000;
     --primary-color-light: rgba(116, 71, 96, 0);
     --primary-gradient: linear-gradient(90deg, #6a4cff 0%, #a259f7 100%);
@@ -350,7 +350,7 @@ footer .contact-info p {
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--primary-color);
+    color: rgb(233, 228, 238);
     margin-bottom: 0.5rem;
     transition: color 0.2s;
 }
