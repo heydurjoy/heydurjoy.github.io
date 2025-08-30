@@ -7,6 +7,340 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        .work-showcase {
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .work-showcase-header {
+            margin-bottom: 3rem;
+        }
+        
+        .work-showcase-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 0.5rem;
+        }
+        
+        .work-showcase-header p {
+            font-size: 1.1rem;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .work-showcase-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 250px 200px;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .work-area-wide {
+            grid-column: 1 / 3;
+            grid-row: 1 / 2;
+            text-decoration: none;
+            color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .work-area-tall {
+            grid-column: 3 / 4;
+            grid-row: 1 / 3;
+            text-decoration: none;
+            color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .work-area-diagonal {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+            text-decoration: none;
+            color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .work-area-grid {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            text-decoration: none;
+            color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .work-area-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .work-area-content {
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: 100%;
+            min-height: 0;
+            padding-top: 2rem;
+        }
+        
+        .work-area-icon-large {
+            font-size: 2.8rem;
+            margin-bottom: 0.8rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .work-area-text h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: white;
+            line-height: 1.2;
+        }
+        
+        .work-area-text p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.4;
+        }
+        
+        .work-area-stats {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.2rem;
+            margin-top: auto;
+            padding-bottom: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .work-area-wide:hover,
+        .work-area-tall:hover,
+        .work-area-diagonal:hover,
+        .work-area-grid:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Subtle floating animation for icons */
+        .work-area-icon-large {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        /* Staggered animation delays for different cards */
+        .work-area-wide .work-area-icon-large { animation-delay: 0s; }
+        .work-area-tall .work-area-icon-large { animation-delay: 0.5s; }
+        .work-area-diagonal .work-area-icon-large { animation-delay: 1s; }
+        .work-area-grid .work-area-icon-large { animation-delay: 1.5s; }
+        
+        /* Smooth content fade-in on hover */
+        .work-area-content {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .work-area-wide:hover .work-area-content,
+        .work-area-tall:hover .work-area-content,
+        .work-area-diagonal:hover .work-area-content,
+        .work-area-grid:hover .work-area-content {
+            transform: scale(1.05);
+        }
+        
+        /* Stats animation on hover */
+        .work-area-stats {
+            transition: all 0.3s ease;
+        }
+        
+        .work-area-wide:hover .work-area-stats,
+        .work-area-tall:hover .work-area-stats,
+        .work-area-diagonal:hover .work-area-stats,
+        .work-area-grid:hover .work-area-stats {
+            transform: scale(1.1);
+        }
+        
+        /* Background subtle movement on hover */
+        .work-area-bg {
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .work-area-wide:hover .work-area-bg,
+        .work-area-tall:hover .work-area-bg,
+        .work-area-diagonal:hover .work-area-bg,
+        .work-area-grid:hover .work-area-bg {
+            background-size: 110% 110%;
+        }
+        
+        /* Text subtle animation on hover */
+        .work-area-text h3,
+        .work-area-text p {
+            transition: all 0.3s ease;
+        }
+        
+        .work-area-wide:hover .work-area-text h3,
+        .work-area-tall:hover .work-area-text h3,
+        .work-area-diagonal:hover .work-area-text h3,
+        .work-area-grid:hover .work-area-text h3 {
+            transform: translateY(-2px);
+        }
+        
+        /* Smooth entrance animation for cards */
+        .work-area-wide,
+        .work-area-tall,
+        .work-area-diagonal,
+        .work-area-grid {
+            animation: slideInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .work-area-wide { animation-delay: 0.1s; }
+        .work-area-tall { animation-delay: 0.2s; }
+        .work-area-diagonal { animation-delay: 0.3s; }
+        .work-area-grid { animation-delay: 0.4s; }
+        
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Enhanced mobile responsiveness with animations */
+        @media (max-width: 768px) {
+            .work-area-wide,
+            .work-area-tall,
+            .work-area-diagonal,
+            .work-area-grid {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .work-showcase-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                gap: 1rem;
+            }
+            
+            .work-area-wide,
+            .work-area-tall,
+            .work-area-diagonal,
+            .work-area-grid {
+                grid-column: 1;
+                grid-row: auto;
+                height: 280px;
+            }
+            
+            .work-showcase-header h2 {
+                font-size: 2rem;
+            }
+            
+            .work-area-content {
+                padding: 1.2rem;
+                padding-top: 1.5rem;
+            }
+            
+            .work-area-icon-large {
+                font-size: 2.5rem;
+                margin-bottom: 0.6rem;
+            }
+            
+            .work-area-text h3 {
+                font-size: 1.4rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .work-area-text p {
+                font-size: 0.85rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .stat-number {
+                font-size: 1.6rem;
+            }
+            
+            .stat-label {
+                font-size: 0.75rem;
+            }
+        }
+        
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .work-area-wide,
+            .work-area-tall,
+            .work-area-diagonal,
+            .work-area-grid {
+                height: 300px;
+            }
+            
+            .work-area-content {
+                padding: 1rem;
+                padding-top: 1.2rem;
+            }
+            
+            .work-area-icon-large {
+                font-size: 2.2rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .work-area-text h3 {
+                font-size: 1.3rem;
+            }
+            
+            .work-area-text p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -83,27 +417,89 @@
 
 <br>
 
-        <section class="about-cards">
-            <a href="youtube.html" class="about-card">
-                <div class="about-card-icon"><i class="fab fa-youtube"></i></div>
-                <div class="about-card-title">YouTube</div>
-                <div class="about-card-desc">Educational videos, tutorials, and outreach to 19k+ subscribers.</div>
-            </a>
-            <a href="faculty.html" class="about-card">
-                <div class="about-card-icon"><i class="fas fa-user-graduate"></i></div>
-                <div class="about-card-title">Faculty</div>
-                <div class="about-card-desc">Lecturer at UAP, mentoring students and leading academic initiatives.</div>
-            </a>
-            <a href="research.html" class="about-card">
-                <div class="about-card-icon"><i class="fas fa-flask"></i></div>
-                <div class="about-card-title">Research</div>
-                <div class="about-card-desc">Active in AI, ML, Federated Learning, and published 12+ papers.</div>
-            </a>
-            <a href="projects.html" class="about-card">
-                <div class="about-card-icon"><i class="fas fa-project-diagram"></i></div>
-                <div class="about-card-title">Projects</div>
-                <div class="about-card-desc">100+ projects in ML, automation, and student development.</div>
-            </a>
+        <section class="work-showcase">
+            <div class="work-showcase-header">
+                <h2>What I Do</h2>
+                <p>Here's what I work on and focus my time on</p>
+            </div>
+            
+            <div class="work-showcase-grid">
+                <!-- Research - Wide horizontal layout (highest priority) -->
+                <a href="research.html" class="work-area-wide">
+                    <div class="work-area-bg" style="background-image: linear-gradient(135deg, rgba(147, 197, 253, 0.7), rgba(196, 181, 253, 0.6));">
+                        <div class="work-area-content">
+                            <div class="work-area-icon-large">
+                                <i class="fas fa-flask"></i>
+                            </div>
+                            <div class="work-area-text">
+                                <h3>Research & Development</h3>
+                                <p>Working on AI, ML, and Federated Learning applications</p>
+                            </div>
+                            <div class="work-area-stats">
+                                <span class="stat-number">12+</span>
+                                <span class="stat-label">papers published</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Teaching & Mentoring - Tall vertical layout -->
+                <a href="faculty.html" class="work-area-tall">
+                    <div class="work-area-bg" style="background-image: linear-gradient(135deg, rgba(167, 139, 250, 0.7), rgba(236, 154, 41, 0.6));">
+                        <div class="work-area-content">
+                            <div class="work-area-icon-large">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="work-area-text">
+                                <h3>Teaching & Mentoring</h3>
+                                <p>Lecturer at UAP, guiding students in their academic journey</p>
+                            </div>
+                            <div class="work-area-stats">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">students mentored</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Content Creation - Square layout -->
+                <a href="youtube.html" class="work-area-diagonal">
+                    <div class="work-area-bg" style="background-image: linear-gradient(135deg, rgba(252, 165, 165, 0.7), rgba(251, 146, 60, 0.6));">
+                        <div class="work-area-content">
+                            <div class="work-area-icon-large">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <div class="work-area-text">
+                                <h3>Content Creation</h3>
+                                <p>Educational videos and tutorials for students and learners</p>
+                            </div>
+                            <div class="work-area-stats">
+                                <span class="stat-number">19k+</span>
+                                <span class="stat-label">subscribers</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Projects - Square layout -->
+                <a href="projects.html" class="work-area-grid">
+                    <div class="work-area-bg" style="background-image: linear-gradient(135deg, rgba(134, 239, 172, 0.7), rgba(34, 197, 94, 0.6));">
+                        <div class="work-area-content">
+                            <div class="work-area-icon-large">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <div class="work-area-text">
+                                <h3>Projects & Implementation</h3>
+                                <p>Building practical solutions in ML, automation, and development</p>
+                            </div>
+                            <div class="work-area-stats">
+                                <span class="stat-number">100+</span>
+                                <span class="stat-label">projects completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </section>
 
           <section class="bio">

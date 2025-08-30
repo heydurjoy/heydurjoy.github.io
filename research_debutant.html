@@ -41,7 +41,7 @@
         .debutant-card {
             background: linear-gradient(145deg, #ffffff, #f8f9fa);
             border-radius: 20px;
-            padding: 2rem;
+            padding: 2.5rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -65,12 +65,12 @@
         }
         
         .debutant-card:hover::before {
-            opacity: 0.1;
+            opacity: 0;
         }
         
         .debutant-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
         @keyframes gradientShift {
@@ -80,40 +80,40 @@
         }
         
         .debutant-avatar {
-            width: 80px;
-            height: 80px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             background: linear-gradient(135deg, #667eea, #764ba2);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 1.5rem auto;
-            font-size: 2rem;
+            margin: 0 auto 2rem auto;
+            font-size: 2.5rem;
             color: white;
             font-weight: 600;
         }
         
                  .debutant-name {
-             font-size: 1.4rem;
+             font-size: 1.6rem;
              font-weight: 700;
              color: #2d3748;
-             margin-bottom: 0.3rem;
+             margin-bottom: 0.5rem;
              text-align: center;
          }
          
          .debutant-university {
-             font-size: 1rem;
+             font-size: 1.1rem;
              color: #667eea;
-             margin-bottom: 0.5rem;
+             margin-bottom: 0.8rem;
              text-align: center;
              font-weight: 600;
              font-style: italic;
          }
          
          .debutant-role {
-             font-size: 1rem;
+             font-size: 1.1rem;
              color: #718096;
-             margin-bottom: 1rem;
+             margin-bottom: 1.5rem;
              text-align: center;
              font-weight: 500;
          }
@@ -221,7 +221,23 @@
             }
             
             .debutant-card {
-                padding: 1.5rem;
+                padding: 2rem;
+            }
+            
+            .debutant-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
+            }
+            
+            .debutant-name {
+                font-size: 1.4rem;
+            }
+            
+            .debutant-university,
+            .debutant-role {
+                font-size: 1rem;
             }
             
             .stats-overview {
@@ -234,7 +250,7 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <a href="#" class="nav-brand">Durjoy</a>
+            <a href="index.html" class="nav-brand">Durjoy</a>
             <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -405,9 +421,9 @@
                             <div class="debutant-avatar">
                                 ${directImageUrl ? 
                                     `<div style="position:relative;width:100%;height:100%;">
-                                        <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, #667eea, #764ba2);color:white;font-size:2rem;font-weight:600;border-radius:50%;z-index:1;" id="initials-${index}">${initials}</div>
+                                        <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg, #667eea, #764ba2);color:white;font-size:2.5rem;font-weight:600;border-radius:50%;z-index:1;" id="initials-${index}">${initials}</div>
                                         <iframe src="${directImageUrl}" 
-                                            style="width:100%;height:100%;border-radius:50%;border:none;overflow:hidden;position:absolute;top:0;left:0;z-index:2;" 
+                                            style="width:100%;height:100%;border-radius:50%;border:none;overflow:hidden;position:absolute;top:0;left:0;z-index:2;pointer-events:none;user-select:none;" 
                                             title="${fullName || 'Student'}"
                                             onload="setTimeout(() => { const initialsEl = document.getElementById('initials-${index}'); if (initialsEl) initialsEl.style.display='none'; }, 2000);"
                                             onerror="document.getElementById('initials-${index}').style.display='flex';">
