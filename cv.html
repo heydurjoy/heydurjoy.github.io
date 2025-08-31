@@ -98,6 +98,137 @@
         .skill-list li:last-child {
             margin-bottom: 0;
         }
+        
+        /* Fix for navbar overlap and smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px; /* Account for fixed navbar */
+        }
+        
+        body {
+            padding-top: 0;
+        }
+        
+        main {
+            margin-top: 120px; /* Space for fixed navbar */
+            padding-bottom: 2rem; /* Extra space before footer */
+        }
+        
+        /* Ensure sections have proper spacing */
+        .cv-section {
+            scroll-margin-top: 140px;
+        }
+        
+        /* Fix sidebar positioning */
+        .cv-sidebar {
+            position: fixed;
+            top: 140px; /* Below navbar */
+            left: 5rem;
+            width: 280px;
+            height: calc(100vh - 200px); /* Account for navbar + footer + extra space */
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+        
+        .cv-sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .cv-sidebar li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .cv-sidebar a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: #666;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+        }
+        
+        .cv-sidebar a:hover {
+            background: rgba(106, 76, 255, 0.1);
+            color: var(--primary-color);
+            transform: translateX(4px);
+            border-color: rgba(106, 76, 255, 0.2);
+        }
+        
+        .cv-sidebar a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cv-sidebar a:hover::before {
+            left: 100%;
+        }
+        
+        /* Style for active sidebar links */
+        .cv-sidebar a.active {
+            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(160, 142, 255, 0.3);
+            transform: translateX(4px);
+        }
+        
+        /* Layout using flexbox */
+        .cv-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Ensure content doesn't overlap with sidebar */
+        .cv-container {
+            margin-left: 320px; /* Sidebar width + left position + gap */
+            max-width: 800px;
+            margin-bottom: 4rem; /* Space before footer */
+        }
+        
+
+        
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .cv-sidebar {
+                left: 1rem;
+                width: 260px;
+            }
+            
+            .cv-container {
+                margin-left: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cv-sidebar {
+                position: static;
+                width: 100%;
+                max-width: 400px;
+                height: auto;
+                margin: 0 auto 2rem auto;
+                left: auto;
+            }
+            
+            .cv-container {
+                margin-left: 0;
+            }
+            
+            main {
+                margin-top: 60px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -117,7 +248,7 @@
     </nav>
 
 
-    <main>
+    <main style="margin-top: 80px;">
         <div class="cv-layout">
             <nav class="cv-sidebar">
                 <ul>
@@ -248,7 +379,7 @@
         <i class="fas fa-download"></i> Download CV
     </button>
 
-    <footer>
+    <!-- <footer>
         <div class="footer-content">
             <div class="contact-info">
                 <p>
@@ -282,9 +413,60 @@
                 </a>
             </div>
         </div>
-    </footer>
+    </footer> -->
 
 
     <script src="script.js"></script>
+    
+    <script>
+        // Handle smooth scrolling with proper offset for navbar
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.cv-sidebar a[href^="#"]');
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        const navbarHeight = 120; // Height of the navbar
+                        const targetPosition = targetSection.offsetTop - navbarHeight - 20; // Extra 20px for breathing room
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Highlight active section in sidebar
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.cv-section, #header');
+                const sidebarLinks = document.querySelectorAll('.cv-sidebar a');
+                
+                let current = '';
+                const navbarHeight = 120;
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - navbarHeight - 100;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                sidebarLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
