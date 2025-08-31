@@ -254,13 +254,58 @@
 
   <main>
     <section>
-        <div class="research-stats" id="research-stats"></div>
-        <div style="display:flex; justify-content:center; margin-top:1.5rem; margin-bottom:1.5rem;">
-            <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="scholar-btn">
-                <i class="fas fa-graduation-cap"></i> See my Google Scholar
-            </a>
-        </div>
-    </section>
+  <div class="research-stats" id="research-stats"></div>
+
+  <div class="btn-group">
+    <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="glow-btn">
+      <i class="fas fa-graduation-cap"></i> See My Google Scholar
+    </a>
+    <a href="research_debutant.html" class="glow-btn">
+      <i class="fas fa-users"></i> Check Out the Research Debutantes
+    </a>
+  </div>
+</section>
+
+<style>
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin: 2rem 0;
+}
+
+.glow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  background: linear-gradient(270deg, #716fb9, #d8b4f8, #9d9be7, #716fb9);
+  background-size: 300% 300%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 1rem;
+  /*box-shadow: 0 0 15px rgb(189, 172, 211), 0 0 30px rgb(113, 111, 185);*/
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: gradientMove 6s ease infinite;
+}
+
+.glow-btn:hover {
+  transform: translateY(-4px) scale(1.07);
+  box-shadow: 0 0 15px rgb(189, 172, 211), 0 0 30px rgb(113, 111, 185);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
+
+<!-- Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
     <section class="papers-section">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
        <a href="https://docs.google.com/spreadsheets/d/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/edit?usp=sharing" target="_blank" style="text-decoration: none; color: black"> <h2>Top Papers</h2> </a>
