@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Durjoy Mistry</title>
+    <link rel="icon" type="image/png" href="picz/durjoy.png" style="border-radius: 50%;">
+    <link rel="shortcut icon" type="image/png" href="picz/durjoy.png">
+    <link rel="apple-touch-icon" href="picz/durjoy.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        *{
+            font-family: 'Lexend', sans-serif;
+        }
         .cv-container {
             max-width: 800px;
             margin: 0 auto;
@@ -97,6 +103,24 @@
 
         .download-button:hover {
             opacity: 0.9;
+        }
+        
+        .view-pdf-button {
+            background: linear-gradient(135deg, rgba(90, 26, 219, 0.42), rgba(26, 190, 219, 0.55));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .view-pdf-button:hover {
+            background: linear-gradient(135deg, rgba(26, 190, 219, 0.55), rgba(90, 26, 219, 0.42));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
         }
 
         .skills-grid {
@@ -639,8 +663,12 @@ A passionate and driven researcher, expert in machine learning, deep learning, f
             </div>
         </div>
     </main>
-    <button id="download-cv-float" class="download-button" style="position:fixed;bottom:2.2rem;right:2.2rem;z-index:2000;box-shadow:0 4px 24px rgba(106,76,255,0.13);display:flex;align-items:center;gap:0.5rem;" title="Download this CV as PDF">
+    <!-- <button id="download-cv-float" class="download-button" style="position:fixed;bottom:2.2rem;right:2.2rem;z-index:2000;box-shadow:0 4px 24px rgba(106,76,255,0.13);display:flex;align-items:center;gap:0.5rem;" title="Download this CV as PDF">
         <i class="fas fa-download"></i> Download CV
+    </button> -->
+    
+    <button id="view-pdf-float" class="view-pdf-button" style="position:fixed;bottom:2.2rem;right:2.2rem;z-index:2000;box-shadow:0 4px 24px rgba(106,76,255,0.13);display:flex;align-items:center;gap:0.5rem;" title="View CV PDF in new tab" onclick="openPDFViewer()">
+        <i class="fas fa-file-pdf"></i> View PDF
     </button>
 
     <!-- <footer>
@@ -898,6 +926,48 @@ A passionate and driven researcher, expert in machine learning, deep learning, f
             });
         });
     });
+
+    // Open PDF viewer function
+    function openPDFViewer() {
+        console.log('PDF viewer button clicked!');
+        
+        // Try different possible paths for the PDF
+        const possiblePaths = [
+            'files/durjoycv.pdf',
+            './files/durjoycv.pdf',
+            'durjoycv.pdf',
+            './durjoycv.pdf'
+        ];
+        
+        // First try to open in a new tab with a simple approach
+        const pdfUrl = possiblePaths[0]; // Start with the most likely path
+        
+        try {
+            // Try opening in new tab first
+            const newWindow = window.open(pdfUrl, '_blank');
+            
+            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
+                // If popup blocked, try direct link
+                console.log('Popup blocked, trying direct link');
+                window.location.href = pdfUrl;
+            } else {
+                console.log('PDF opened in new tab successfully');
+            }
+        } catch (error) {
+            console.error('Error opening PDF:', error);
+            
+            // Fallback: try to create a download link
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = 'Durjoy_Mistry_CV.pdf';
+            link.target = '_blank';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            console.log('Fallback: PDF download initiated');
+        }
+    }
 </script>
 </body>
 </html> 
