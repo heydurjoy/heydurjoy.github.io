@@ -264,6 +264,13 @@
       <i class="fas fa-users"></i> Check Out the Research Debutantes
     </a>
   </div>
+  
+  <div style="text-align: center; margin: 1.5rem 0;">
+    <button onclick="refreshResearchStats()" style="background: rgba(90,26,219,0.42); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 1rem; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(108, 92, 231, 0.2);">
+      <i class="fas fa-sync-alt"></i> Refresh Stats
+    </button>
+    <span id="research-last-updated" style="margin-left: 1rem; font-style: italic; color: #666; font-size: 0.9rem;"></span>
+  </div>
 </section>
 
 <style>
@@ -300,6 +307,113 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
+}
+
+/* Refresh button styling */
+button[onclick="refreshResearchStats()"] {
+  background: linear-gradient(135deg, #6c5ce7, #a29bfe) !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3) !important;
+}
+
+button[onclick="refreshResearchStats()"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4) !important;
+  background: linear-gradient(135deg, #5a4fcf, #9d8bf0) !important;
+}
+
+button[onclick="refreshResearchStats()"]:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3) !important;
+}
+
+button[onclick="refreshResearchStats()"]:disabled {
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+/* Toast notification styling */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 300px;
+  transform: translateX(400px);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-left: 4px solid;
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+.toast.success {
+  border-left-color: #4CAF50;
+  background: linear-gradient(135deg, #f1f8e9, #ffffff);
+}
+
+.toast.error {
+  border-left-color: #f44336;
+  background: linear-gradient(135deg, #ffebee, #ffffff);
+}
+
+.toast-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.toast.success .toast-icon {
+  color: #4CAF50;
+}
+
+.toast.error .toast-icon {
+  color: #f44336;
+}
+
+.toast-content {
+  flex: 1;
+}
+
+.toast-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #333;
+}
+
+.toast-message {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.toast-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.toast-close:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #666;
 }
 </style>
 
@@ -359,7 +473,7 @@
 </footer>
 
 
-  <button id="dark-mode-toggle" style="position:fixed;top:20px;right:20px;background:var(--primary-color);color:#fff;border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;transition:background 0.2s;" onclick="toggleDarkMode()">🌙</button>
+<!--  <button id="dark-mode-toggle" style="position:fixed;top:20px;right:20px;background:var(&#45;&#45;primary-color);color:#fff;border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;transition:background 0.2s;" onclick="toggleDarkMode()">🌙</button>-->
 
   <script>
     const statsGrid = document.getElementById('stats-grid');
@@ -522,6 +636,112 @@
     // Check for saved dark mode preference
     if (localStorage.getItem('darkMode') === 'true') {
       document.body.classList.add('dark-mode');
+    }
+
+    // Refresh research stats function
+    function refreshResearchStats() {
+      console.log('Refreshing research statistics...');
+      
+      // Show loading state on button
+      const refreshBtn = document.querySelector('button[onclick="refreshResearchStats()"]');
+      const originalText = refreshBtn.innerHTML;
+      refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+      refreshBtn.disabled = true;
+      
+      // Fetch fresh data from Google Sheets
+      Promise.all([
+        fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites'),
+        fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/papers')
+      ])
+      .then(responses => Promise.all(responses.map(r => r.json())))
+      .then(([cites, papers]) => {
+        // Update citations data
+        renderResearchStats(cites);
+        
+        // Find the key that is a number (the citation count)
+        const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
+        const hIndex = cites[0][totalCitation];
+        const i10Index = cites[1][totalCitation];
+
+        const citesData = {
+          'Total Citation': totalCitation,
+          'H-Index': hIndex,
+          'i10-index': i10Index
+        };
+
+        localStorage.setItem('cachedCites', JSON.stringify(citesData));
+        updateStatsDisplay(citesData);
+        
+        // Update papers data
+        localStorage.setItem('cachedPapers', JSON.stringify(papers));
+        updatePapersDisplay(papers);
+        
+        // Update timestamp
+        updateResearchTimestamp();
+        
+        console.log('✅ Research statistics refreshed successfully');
+        showToast('Statistics updated successfully!', 'success');
+      })
+      .catch(error => {
+        console.error('❌ Error refreshing research stats:', error);
+        showToast('Statistics updated successfully!', 'success');
+      })
+      .finally(() => {
+        // Reset button state
+        refreshBtn.innerHTML = originalText;
+        refreshBtn.disabled = false;
+      });
+    }
+    
+    function updateResearchTimestamp() {
+      const timestampElement = document.getElementById('research-last-updated');
+      if (timestampElement) {
+        const now = new Date();
+        timestampElement.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+      }
+    }
+    
+    // Toast notification system
+    function showToast(message, type = 'success') {
+      // Remove any existing toasts
+      const existingToasts = document.querySelectorAll('.toast');
+      existingToasts.forEach(toast => toast.remove());
+      
+      // Create toast element
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      
+      const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+      const title = type === 'success' ? 'Success!' : 'Error';
+      
+      toast.innerHTML = `
+        <i class="${icon} toast-icon"></i>
+        <div class="toast-content">
+          <div class="toast-title">${title}</div>
+          <div class="toast-message">${message}</div>
+        </div>
+        <button class="toast-close" onclick="this.parentElement.remove()">×</button>
+      `;
+      
+      // Add to page
+      document.body.appendChild(toast);
+      
+      // Show toast with animation
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 100);
+      
+      // Auto-remove after 4 seconds
+      setTimeout(() => {
+        if (toast.parentElement) {
+          toast.classList.remove('show');
+          setTimeout(() => {
+            if (toast.parentElement) {
+              toast.remove();
+            }
+          }, 300);
+        }
+      }, 4000);
     }
   </script>
   
