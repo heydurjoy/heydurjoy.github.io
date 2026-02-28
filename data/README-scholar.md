@@ -8,7 +8,7 @@ Citation counts are fetched from **Google Scholar** when configured, otherwise f
 2. Edit `scholar-config.json` and add your key:
    ```json
    {
-     "googleScholarAuthorId": "tfKIiZoAAAAJ",
+     "googleScholarAuthorId": "sdsnA6oAAAAJ",
      "serpapiKey": "your_key_here"
    }
    ```

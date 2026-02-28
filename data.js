@@ -1,7 +1,7 @@
 /**
  * Research stats: Google Scholar (via SerpAPI) or Semantic Scholar.
  * Set serpapiKey in data/scholar-config.json to use your Google Scholar profile.
- * Profile: https://scholar.google.com/citations?user=tfKIiZoAAAAJ
+ * Profile: https://scholar.google.com/citations?user=sdsnA6oAAAAJ
  */
 const S2_BASE = 'https://api.semanticscholar.org/graph/v1';
 const AUTHOR_QUERY = 'Durjoy Mistry';
@@ -196,7 +196,7 @@ async function fetchGoogleScholarStats(useCache = true) {
 
   const config = await loadScholarConfig();
   const apiKey = (config.serpapiKey || '').trim();
-  const authorId = (config.googleScholarAuthorId || 'tfKIiZoAAAAJ').trim();
+  const authorId = (config.googleScholarAuthorId || 'sdsnA6oAAAAJ').trim();
   if (!apiKey) return null;
 
   try {

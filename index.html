@@ -449,22 +449,24 @@
         <section class="bento-nutshell">
             <h2 class="bento-title">Durjoy in a Nutshell</h2>
             <div class="bento-grid">
-                <a href="research.html" class="bento-cell bento-wide bento-tint-blue">
-                    <div class="bento-glass">
-                        <i class="fas fa-file-alt bento-icon-top"></i>
-                        <h3 class="bento-heading"><span class="bento-number" id="papers-count">12+</span> Publications</h3>
-                        <p class="bento-desc">Total citations: <span id="papers-citations">—</span> · H-index: <span id="papers-h-index">—</span></p>
-                        <i class="fas fa-arrow-right bento-arrow"></i>
+                <div class="bento-cell bento-wide bento-tint-blue">
+                    <div class="bento-glass bento-iframely">
+                        <div class="iframely-embed">
+                            <div class="iframely-responsive">
+                                <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" data-iframely-url="//iframely.net/KoNA9lW"></a>
+                            </div>
+                        </div>
                     </div>
-                </a>
-                <a href="research.html" class="bento-cell bento-tall bento-tint-bluepurple">
-                    <div class="bento-glass">
-                        <i class="fas fa-quote-right bento-icon-top"></i>
-                        <h3 class="bento-heading"><span class="bento-number" id="citations-count">68+</span> Citations</h3>
-                        <p class="bento-desc">H-index: <span id="h-index">—</span> · Academic impact</p>
-                        <i class="fas fa-arrow-right bento-arrow"></i>
+                </div>
+                <div class="bento-cell bento-tall bento-tint-bluepurple">
+                    <div class="bento-glass bento-iframely">
+                        <div class="iframely-embed">
+                            <div class="iframely-responsive">
+                                <a href="https://www.researchgate.net/profile/Durjoy-Mistry" data-iframely-url="//iframely.net/IU0lJcU"></a>
+                            </div>
+                        </div>
                     </div>
-                </a>
+                </div>
                 <div class="bento-cell bento-square bento-tint-green">
                     <div class="bento-glass">
                         <i class="fas fa-chalkboard-teacher bento-icon-top"></i>
@@ -589,6 +591,7 @@
         </div>
     </footer>
 
+    <script async charset="utf-8" src="https://cdn.iframe.ly/embed.js"></script>
     <script src="script.js"></script>
     <script src="data.js"></script>
     <script>
@@ -607,27 +610,8 @@
                 .catch(error => console.error('Error fetching debutant count:', error));
         }
 
-        async function updateBentoStats() {
-            try {
-                const stats = await fetchScholarStats();
-                const papersCountEl = document.getElementById('papers-count');
-                const citationsCountEl = document.getElementById('citations-count');
-                const papersCitationsEl = document.getElementById('papers-citations');
-                const papersHIndexEl = document.getElementById('papers-h-index');
-                const hIndexEl = document.getElementById('h-index');
-                if (papersCountEl) papersCountEl.textContent = stats.paperCount + '+';
-                if (citationsCountEl) citationsCountEl.textContent = stats.totalCitations + '+';
-                if (papersCitationsEl) papersCitationsEl.textContent = stats.totalCitations + '+';
-                if (papersHIndexEl) papersHIndexEl.textContent = stats.hIndex || '—';
-                if (hIndexEl) hIndexEl.textContent = stats.hIndex || '—';
-            } catch (e) {
-                console.error('Error fetching S2 stats:', e);
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', function() {
             updateDebutantCount();
-            updateBentoStats();
         });
     </script>
 </body>
