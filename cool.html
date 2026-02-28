@@ -406,15 +406,21 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <a href="index.html" class="nav-brand">Durjoy</a>
-            <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-links" id="nav-links">
+            <a href="index.html" class="nav-brand"><i class="fas fa-graduation-cap"></i> Durjoy</a>
+            <div class="nav-pill nav-links" id="nav-links">
+                <a href="index.html">Home</a>
                 <a href="research.html">Research</a>
                 <a href="cv.html">Skills</a>
-                <a href="cool.html">Cool Stuff</a>
+                <a href="cool.html" class="active">Cool Stuff</a>
                 <a href="likes.html">What I Like</a>
+            </div>
+            <div class="nav-actions">
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -542,61 +548,27 @@
                 </p>
                 <p>Built with 🤍 from scratch by Durjoy</p>
             </div>
-            
-            <div class="social-links">
-                <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
-                    <i class="fas fa-graduation-cap"></i>
-                </a>
-                <a href="https://facebook.com/userdurjoy" target="_blank" aria-label="Facebook">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a href="https://youtube.com/heydurjoy" target="_blank" aria-label="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="https://instagram.com/heydurjoy" target="_blank" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/durjoy-mistry-73094416b/" target="_blank" aria-label="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/heydurjoy" target="_blank" aria-label="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-            </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
-    
+    <script src="data.js"></script>
     <script>
-        // Fetch live data from Google Sheets to demonstrate dynamic functionality
-        function updateLiveStats() {
-            fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
-                .then(response => response.json())
-                .then(data => {
-                    if (Array.isArray(data) && data.length > 0) {
-                        // Update live statistics
-                        const papersElement = document.getElementById('live-papers');
-                        const citationsElement = document.getElementById('live-citations');
-                        const debutantsElement = document.getElementById('live-debutants');
-                        
-                        if (papersElement && data[4] && data[4]['Count']) {
-                            papersElement.textContent = data[4]['Count'] + '+';
-                        }
-                        
-                        if (citationsElement && data[0] && data[0]['Count']) {
-                            citationsElement.textContent = data[0]['Count'] + '+';
-                        }
-                        
-                        // Set a default value for debutants if not available
-                        if (debutantsElement) {
-                            debutantsElement.textContent = '15+';
-                        }
-                    }
-                })
-                .catch(error => {
-                    console.log('Live data fetch demonstration - this shows the dynamic capability!');
-                });
+        async function updateLiveStats() {
+            try {
+                const [stats, rdebsData] = await Promise.all([
+                    fetchScholarStats(),
+                    fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/rdebs').then(r => r.json())
+                ]);
+                const papersEl = document.getElementById('live-papers');
+                const citationsEl = document.getElementById('live-citations');
+                const debutantsEl = document.getElementById('live-debutants');
+                if (papersEl) papersEl.textContent = stats.paperCount + '+';
+                if (citationsEl) citationsEl.textContent = stats.totalCitations + '+';
+                if (debutantsEl) debutantsEl.textContent = (Array.isArray(rdebsData) && rdebsData.length > 1 ? rdebsData.length - 1 : 15) + '+';
+            } catch (e) {
+                console.warn('Live stats fetch failed:', e);
+            }
         }
 
         // Add enhanced interactive animations

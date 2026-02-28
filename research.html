@@ -242,15 +242,21 @@
 <body>
     <nav class="navbar">
         <div class="nav-content">
-            <a href="index.html" class="nav-brand">Durjoy</a>
-            <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-links" id="nav-links">
-                <a href="research.html">Research</a>
+            <a href="index.html" class="nav-brand"><i class="fas fa-graduation-cap"></i> Durjoy</a>
+            <div class="nav-pill nav-links" id="nav-links">
+                <a href="index.html">Home</a>
+                <a href="research.html" class="active">Research</a>
                 <a href="cv.html">Skills</a>
                 <a href="cool.html">Cool Stuff</a>
                 <a href="likes.html">What I Like</a>
+            </div>
+            <div class="nav-actions">
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
+                <button id="nav-toggle" aria-label="Toggle navigation" class="nav-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
@@ -425,11 +431,11 @@ button[onclick="refreshResearchStats()"]:disabled {
 
     <section class="papers-section">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-       <a href="https://docs.google.com/spreadsheets/d/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/edit?usp=sharing" target="_blank" style="text-decoration: none; color: black"> <h2>Top Papers</h2> </a>
+       <h2>Publications</h2>
         <div style="display:flex; gap:0.5em;">
           <button id="sort-citations" class="sort-btn" style="background:#ffebee;color:#d32f2f;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Citations <span class="sort-arrow">↓</span></button>
           <button id="sort-ranking" class="sort-btn" style="background:rgba(224,255,251,0.77);color: rgb(0,103,94);border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Journal Ranking <span class="sort-arrow">↓</span></button>
-          <button id="sort-contribution" class="sort-btn" style="background:#ddffe3;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Contribution <span class="sort-arrow">↓</span></button>
+          <button id="sort-contribution" class="sort-btn" style="background:#ddffe3;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Year <span class="sort-arrow">↓</span></button>
         </div>
 
 
@@ -449,52 +455,27 @@ button[onclick="refreshResearchStats()"]:disabled {
             </p>
             <p>Built with 🤍 from scratch by Durjoy</p>
         </div>
-        
-        
-        
-        <div class="social-links">
-            <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" aria-label="Google Scholar">
-                <i class="fas fa-graduation-cap"></i>
-            </a>
-            <a href="https://facebook.com/userdurjoy" target="_blank" aria-label="Facebook">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://youtube.com/heydurjoy" target="_blank" aria-label="YouTube">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://instagram.com/heydurjoy" target="_blank" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="https://www.linkedin.com/in/durjoy-mistry-73094416b/" target="_blank" aria-label="LinkedIn">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            <a href="https://github.com/heydurjoy" target="_blank" aria-label="GitHub">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
     </div>
 </footer>
 
 
 <!--  <button id="dark-mode-toggle" style="position:fixed;top:20px;right:20px;background:var(&#45;&#45;primary-color);color:#fff;border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;transition:background 0.2s;" onclick="toggleDarkMode()">🌙</button>-->
 
+  <script src="data.js"></script>
   <script>
-    const statsGrid = document.getElementById('stats-grid');
     const papersList = document.getElementById('papers-list');
-
-    const statOrder = [
-      { key: 'Total Citation', label: 'Total Citations' },
-      { key: 'H-Index', label: 'h-index' },
-      { key: 'i10-index', label: 'Total Publications' }
-    ];
+    const researchStatsEl = document.getElementById('research-stats');
 
     function animateCountUp(element, target, duration = 1200) {
+      if (!element) return;
+      const numTarget = parseInt(target);
+      if (isNaN(numTarget)) { element.textContent = target; return; }
       let start = 0;
-      const step = Math.ceil(target / (duration / 16));
+      const step = Math.max(1, Math.ceil(numTarget / (duration / 16)));
       function update() {
         start += step;
-        if (start >= target) {
-          element.textContent = target;
+        if (start >= numTarget) {
+          element.textContent = numTarget;
         } else {
           element.textContent = start;
           requestAnimationFrame(update);
@@ -503,98 +484,57 @@ button[onclick="refreshResearchStats()"]:disabled {
       update();
     }
 
-    function updateStatsDisplay(cites) {
-      statsGrid.innerHTML = statOrder.map(stat => `
-        <div class="stat-card">
-          <div class="stat-number" id="stat-${stat.key.replace(/\s/g, '')}">${cites[stat.key] || '-'}</div>
-          <div class="stat-label">${stat.label}</div>
-        </div>
-      `).join('');
-      // Animate count up for each stat if it's a number
-      statOrder.forEach(stat => {
-        const el = document.getElementById(`stat-${stat.key.replace(/\s/g, '')}`);
-        const val = parseInt(cites[stat.key]);
-        if (el && !isNaN(val)) {
-          animateCountUp(el, val);
-        }
-      });
+    function renderResearchStats(stats) {
+      if (!researchStatsEl || !stats) return;
+      researchStatsEl.innerHTML = `
+        <div class="research-stat-card"><div class="stat-label">Total Citations</div><div class="stat-value">${stats.totalCitations}</div></div>
+        <div class="research-stat-card"><div class="stat-label">h-index</div><div class="stat-value">${stats.hIndex}</div></div>
+        <div class="research-stat-card"><div class="stat-label">Total Publications</div><div class="stat-value">${stats.paperCount}</div></div>
+      `;
     }
 
     function updatePapersDisplay(papers) {
-      // Show all papers, not just top 5
       const filteredPapers = papers.filter(p => p.Papers);
-      papersList.innerHTML = filteredPapers.map(paper => `
+      papersList.innerHTML = filteredPapers.map(paper => {
+        const hasPdf = !!paper.PDF;
+        return `
         <div class="paper-card">
-          <div class="paper-title">
-            ${paper.Papers}
-          </div>
+          <div class="paper-title">${paper.Papers}</div>
           <div style="display:flex; flex-wrap:wrap; gap:0.7em; align-items:center; margin-bottom:0.3em;">
             ${paper.Citations ? `<span class="paper-badge" style="background:#ffebee;color:#d32f2f;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Citations} citations</span>` : ''}
-            ${paper.Ranking ? `<span class="paper-badge" style="background:#e0f2f1;color: #00675e;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Ranking}</span>` : ''}
-            ${paper[" Position"] ? `<span class="paper-badge" style="background:#e8f5e9;color:#2e7d32;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper[" Position"]}</span>` : ''}
-            ${paper["Link  to Paper"] ? `<a href="${paper["Link  to Paper"]}" target="_blank" class="paper-badge" style="display:inline-block;background:transparent;color:var(--primary-color);border:1px solid var(--primary-color);border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;text-decoration:none;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--primary-color)';this.style.color='#fff';" onmouseout="this.style.background='transparent';this.style.color='var(--primary-color)';">Read Paper</a>` : ''}
+            ${paper.Ranking ? `<span class="paper-badge" style="background:#e0f2f1;color:#00675e;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Ranking}</span>` : ''}
+            ${paper[' Position'] ? `<span class="paper-badge" style="background:#e8f5e9;color:#2e7d32;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper[' Position']}</span>` : ''}
+            ${paper['Link  to Paper'] ? `<a href="${paper['Link  to Paper']}" target="_blank" rel="noopener" class="paper-badge" style="display:inline-block;background:transparent;color:var(--primary-color);border:1px solid var(--primary-color);border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;text-decoration:none;">Read Paper</a>` : ''}
+            ${hasPdf ? `<a href="${paper.PDF}" target="_blank" rel="noopener" class="paper-badge" style="display:inline-block;background:#d32f2f;color:#fff;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;text-decoration:none;"><i class="fas fa-file-pdf"></i> Download PDF</a>` : ''}
           </div>
         </div>
-      `).join('');
+      `}).join('');
     }
 
-    function renderResearchStats(cites) {
-        const statsContainer = document.getElementById('research-stats');
-        if (!Array.isArray(cites) || !statsContainer) return;
-        statsContainer.innerHTML = cites.map(item => {
-            const label = (item['Item '] || item.Item || '');
-            const value = item.Count || item.count || Object.values(item)[1] || '0';
-            return `<div class="research-stat-card"><div class="stat-label">${label}</div><div class="stat-value">${value}</div></div>`;
-        }).join('');
-    }
-
-    fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites')
-      .then(response => response.json())
-      .then(cites => {
-        renderResearchStats(cites);
-        console.log('Cites data:', cites);
-
-        // Find the key that is a number (the citation count)
-        const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
-        const hIndex = cites[0][totalCitation];
-        const i10Index = cites[1][totalCitation];
-
-        const citesData = {
-          'Total Citation': totalCitation,
-          'H-Index': hIndex,
-          'i10-index': i10Index
-        };
-
-        console.log('Total Citation:', citesData['Total Citation']);
-        localStorage.setItem('cachedCites', JSON.stringify(citesData));
-        updateStatsDisplay(citesData);
-      })
-      .catch(error => {
-        console.error('Error fetching citation stats:', error);
-        const cachedCites = localStorage.getItem('cachedCites');
-        if (cachedCites) {
-          updateStatsDisplay(JSON.parse(cachedCites));
-        }
-      });
-
-    fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/papers')
-      .then(response => response.json())
-      .then(papers => {
-        localStorage.setItem('cachedPapers', JSON.stringify(papers));
+    async function loadResearchData(useCache = true) {
+      papersList.innerHTML = '<p style="text-align:center;padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading publications...</p>';
+      try {
+        const [papers, stats] = await Promise.all([
+          fetchPapers(useCache),
+          fetchScholarStats(useCache)
+        ]);
+        renderResearchStats(stats);
         updatePapersDisplay(papers);
-      })
-      .catch(error => {
-        console.error('Error fetching papers:', error);
-        const cachedPapers = localStorage.getItem('cachedPapers');
-        if (cachedPapers) {
-          updatePapersDisplay(JSON.parse(cachedPapers));
-        }
-      });
+        localStorage.setItem('cachedPapers', JSON.stringify(papers));
+      } catch (err) {
+        console.error('Error loading research data:', err);
+        papersList.innerHTML = '<p style="text-align:center;padding:2rem;color:#666;">Unable to load publications. Please try again later.</p>';
+        const cached = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
+        if (cached.length) updatePapersDisplay(cached);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => loadResearchData());
 
     // Sort buttons functionality with toggle
     let sortDirection = { citations: 'desc', ranking: 'desc', contribution: 'desc' };
 
-    document.getElementById('sort-citations').addEventListener('click', () => {
+    document.getElementById('sort-citations')?.addEventListener('click', () => {
       const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
       sortDirection.citations = sortDirection.citations === 'desc' ? 'asc' : 'desc';
       papers.sort((a, b) => {
@@ -606,7 +546,7 @@ button[onclick="refreshResearchStats()"]:disabled {
       document.querySelector('#sort-citations .sort-arrow').textContent = sortDirection.citations === 'desc' ? '↓' : '↑';
     });
 
-    document.getElementById('sort-ranking').addEventListener('click', () => {
+    document.getElementById('sort-ranking')?.addEventListener('click', () => {
       const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
       sortDirection.ranking = sortDirection.ranking === 'desc' ? 'asc' : 'desc';
       papers.sort((a, b) => {
@@ -618,13 +558,13 @@ button[onclick="refreshResearchStats()"]:disabled {
       document.querySelector('#sort-ranking .sort-arrow').textContent = sortDirection.ranking === 'desc' ? '↓' : '↑';
     });
 
-    document.getElementById('sort-contribution').addEventListener('click', () => {
+    document.getElementById('sort-contribution')?.addEventListener('click', () => {
       const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
       sortDirection.contribution = sortDirection.contribution === 'desc' ? 'asc' : 'desc';
       papers.sort((a, b) => {
-        const aVal = a[" Position"] || '';
-        const bVal = b[" Position"] || '';
-        return sortDirection.contribution === 'desc' ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
+        const aVal = a.year ?? 0;
+        const bVal = b.year ?? 0;
+        return sortDirection.contribution === 'desc' ? bVal - aVal : aVal - bVal;
       });
       updatePapersDisplay(papers);
       document.querySelector('#sort-contribution .sort-arrow').textContent = sortDirection.contribution === 'desc' ? '↓' : '↑';
@@ -641,59 +581,20 @@ button[onclick="refreshResearchStats()"]:disabled {
       document.body.classList.add('dark-mode');
     }
 
-    // Refresh research stats function
-    function refreshResearchStats() {
-      console.log('Refreshing research statistics...');
-      
-      // Show loading state on button
+    async function refreshResearchStats() {
       const refreshBtn = document.querySelector('button[onclick="refreshResearchStats()"]');
-      const originalText = refreshBtn.innerHTML;
-      refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
-      refreshBtn.disabled = true;
-      
-      // Fetch fresh data from Google Sheets
-      Promise.all([
-        fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/cites'),
-        fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/papers')
-      ])
-      .then(responses => Promise.all(responses.map(r => r.json())))
-      .then(([cites, papers]) => {
-        // Update citations data
-        renderResearchStats(cites);
-        
-        // Find the key that is a number (the citation count)
-        const totalCitation = Object.keys(cites[0]).find(k => !isNaN(Number(k)));
-        const hIndex = cites[0][totalCitation];
-        const i10Index = cites[1][totalCitation];
-
-        const citesData = {
-          'Total Citation': totalCitation,
-          'H-Index': hIndex,
-          'i10-index': i10Index
-        };
-
-        localStorage.setItem('cachedCites', JSON.stringify(citesData));
-        updateStatsDisplay(citesData);
-        
-        // Update papers data
-        localStorage.setItem('cachedPapers', JSON.stringify(papers));
-        updatePapersDisplay(papers);
-        
-        // Update timestamp
+      const originalText = refreshBtn?.innerHTML || '';
+      if (refreshBtn) { refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...'; refreshBtn.disabled = true; }
+      clearS2Cache();
+      try {
+        await loadResearchData(false);
         updateResearchTimestamp();
-        
-        console.log('✅ Research statistics refreshed successfully');
         showToast('Statistics updated successfully!', 'success');
-      })
-      .catch(error => {
-        console.error('❌ Error refreshing research stats:', error);
-        showToast('Statistics updated successfully!', 'success');
-      })
-      .finally(() => {
-        // Reset button state
-        refreshBtn.innerHTML = originalText;
-        refreshBtn.disabled = false;
-      });
+      } catch (e) {
+        showToast('Refresh completed', 'success');
+      } finally {
+        if (refreshBtn) { refreshBtn.innerHTML = originalText; refreshBtn.disabled = false; }
+      }
     }
     
     function updateResearchTimestamp() {

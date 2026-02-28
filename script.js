@@ -1,11 +1,36 @@
+// Theme toggle (dark/light)
+(function initTheme() {
+    const theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+})();
+
+function setupThemeToggle() {
+    const themeBtn = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+    if (!themeBtn || !icon) return;
+    const theme = document.documentElement.getAttribute('data-theme') || 'light';
+    icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    themeBtn.addEventListener('click', function() {
+        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        icon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupThemeToggle);
+} else {
+    setupThemeToggle();
+}
+
 // Hamburger menu for mobile nav
 const navToggle = document.getElementById('nav-toggle');
 const navLinks = document.getElementById('nav-links');
 if (navToggle && navLinks) {
     navToggle.addEventListener('click', function() {
-        console.log('Hamburger clicked');
         navLinks.classList.toggle('open');
-        console.log('navLinks:', navLinks, 'classList:', navLinks.classList.value);
     });
 }
 
