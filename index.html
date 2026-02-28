@@ -516,6 +516,57 @@
             </div>
         </section>
 
+        <section class="skills-section">
+            <h2 class="skills-title">What I am good at</h2>
+            <p class="skills-subtitle">What drives my passion and expertise</p>
+            <div class="skills-grid">
+                <div class="skills-card skills-tint-coding">
+                    <div class="skills-glass">
+                        <h3 class="skills-card-title">Coding</h3>
+                        <ul class="skills-list">
+                            <li><span class="skill-name">Python</span><div class="skill-bar"><span class="skill-fill" style="width: 92%"></span></div></li>
+                            <li><span class="skill-name">Keras</span><div class="skill-bar"><span class="skill-fill" style="width: 88%"></span></div></li>
+                            <li><span class="skill-name">TensorFlow</span><div class="skill-bar"><span class="skill-fill" style="width: 85%"></span></div></li>
+                            <li><span class="skill-name">PyTorch</span><div class="skill-bar"><span class="skill-fill" style="width: 82%"></span></div></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="skills-card skills-tint-research">
+                    <div class="skills-glass">
+                        <h3 class="skills-card-title">Research</h3>
+                        <ul class="skills-list">
+                            <li><span class="skill-name">Writing</span><div class="skill-bar"><span class="skill-fill" style="width: 90%"></span></div></li>
+                            <li><span class="skill-name">Coding / Analysis</span><div class="skill-bar"><span class="skill-fill" style="width: 88%"></span></div></li>
+                            <li><span class="skill-name">Idea!</span><div class="skill-bar"><span class="skill-fill" style="width: 85%"></span></div></li>
+                            <li><span class="skill-name">Illustrations</span><div class="skill-bar"><span class="skill-fill" style="width: 75%"></span></div></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="skills-card skills-tint-presentation">
+                    <div class="skills-glass">
+                        <h3 class="skills-card-title">Presentation</h3>
+                        <ul class="skills-list">
+                            <li><span class="skill-name">Conference Speaker</span><div class="skill-bar"><span class="skill-fill" style="width: 85%"></span></div></li>
+                            <li><span class="skill-name">University Lecturer</span><div class="skill-bar"><span class="skill-fill" style="width: 92%"></span></div></li>
+                            <li><span class="skill-name">Workshops & Seminars</span><div class="skill-bar"><span class="skill-fill" style="width: 88%"></span></div></li>
+                            <li><span class="skill-name">Mentoring Students</span><div class="skill-bar"><span class="skill-fill" style="width: 90%"></span></div></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="skills-card skills-tint-extra">
+                    <div class="skills-glass">
+                        <h3 class="skills-card-title">Extra Skills</h3>
+                        <ul class="skills-list">
+                            <li><span class="skill-name">Video Editing</span><div class="skill-bar"><span class="skill-fill" style="width: 80%"></span></div></li>
+                            <li><span class="skill-name">Video Hosting</span><div class="skill-bar"><span class="skill-fill" style="width: 85%"></span></div></li>
+                            <li><span class="skill-name">Graphic Design</span><div class="skill-bar"><span class="skill-fill" style="width: 75%"></span></div></li>
+                            <li><span class="skill-name">UI/UX Design</span><div class="skill-bar"><span class="skill-fill" style="width: 78%"></span></div></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
           <section class="bio">
             <h2>Biography </h2>
 <p style="text-align: justify;">Durjoy Mistry is a Lecturer in the Department of Computer Science and Engineering at the University of Asia Pacific (UAP), Bangladesh. His academic interests include Machine Learning, Deep Learning, Federated Learning, Blockchain, and Computer Vision. Alongside teaching, he is actively involved in research mentorship, academic process automation, and student development initiatives. He also contributes to institutional projects, curriculum enhancement, and co-curricular activities such as club management. As a certified Turnitin instructor, he upholds academic integrity and promotes quality in student work. Durjoy is committed to advancing technology-driven education and fostering a collaborative learning environment at UAP.
@@ -541,6 +592,7 @@
     <script src="script.js"></script>
     <script src="data.js"></script>
     <script>
+        // 1. Fetch Debutant Count from Google Sheets
         function updateDebutantCount() {
             fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/rdebs')
                 .then(response => response.json())
@@ -556,21 +608,29 @@
                 .catch(error => console.error('Error fetching debutant count:', error));
         }
 
+        // 2. Fetch Live Research Stats using Semantic Scholar API
         async function updateBentoStats() {
             try {
-                const stats = await fetchScholarStats();
-                const papersCountEl = document.getElementById('papers-count');
-                const citationsCountEl = document.getElementById('citations-count');
-                const papersCitationsEl = document.getElementById('papers-citations');
-                const papersHIndexEl = document.getElementById('papers-h-index');
-                const hIndexEl = document.getElementById('h-index');
-                if (papersCountEl) papersCountEl.textContent = stats.paperCount + '+';
-                if (citationsCountEl) citationsCountEl.textContent = stats.totalCitations + '+';
-                if (papersCitationsEl) papersCitationsEl.textContent = stats.totalCitations + '+';
-                if (papersHIndexEl) papersHIndexEl.textContent = stats.hIndex || '—';
-                if (hIndexEl) hIndexEl.textContent = stats.hIndex || '—';
+                const response = await fetch('https://api.semanticscholar.org/graph/v1/author/search?query=Durjoy+Mistry&fields=paperCount,citationCount,hIndex&limit=1');
+                const result = await response.json();
+
+                if (result.data && result.data.length > 0) {
+                    const stats = result.data[0];
+
+                    const papersCountEl = document.getElementById('papers-count');
+                    const citationsCountEl = document.getElementById('citations-count');
+                    const papersCitationsEl = document.getElementById('papers-citations');
+                    const papersHIndexEl = document.getElementById('papers-h-index');
+                    const hIndexEl = document.getElementById('h-index');
+
+                    if (papersCountEl) papersCountEl.textContent = stats.paperCount + '+';
+                    if (citationsCountEl) citationsCountEl.textContent = stats.citationCount + '+';
+                    if (papersCitationsEl) papersCitationsEl.textContent = stats.citationCount + '+';
+                    if (papersHIndexEl) papersHIndexEl.textContent = stats.hIndex || '—';
+                    if (hIndexEl) hIndexEl.textContent = stats.hIndex || '—';
+                }
             } catch (e) {
-                console.error('Error fetching S2 stats:', e);
+                console.error('Error fetching research stats:', e);
             }
         }
 

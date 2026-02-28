@@ -30,7 +30,7 @@
     --hero-bg: rgba(255,255,255,0.4);
     --hero-blob-top: #b2e0ff;
     --hero-blob-bottom: rgba(162, 89, 247, 0.32);
-    --cta-outline: #dca4e5; 
+    --cta-outline: #a4cbe5; 
     --social-icon-bg: rgba(0, 172, 193, 0.15);
     --social-icon-color: #00acc1;
     --social-icon-hover: rgba(0, 172, 193, 0.35);
@@ -387,16 +387,15 @@ h1, h2, h3 {
 .social-links a[aria-label*="Email"]:hover { background: var(--social-icon-hover); color: var(--primary-color); }
 
 .cta-button, .scholar-btn {
-    background: rgba(162, 89, 247, 0.12);
-    color: var(--cta-outline);
-    border: 1px solid rgba(162, 89, 247, 0.4);
+    background: rgba(14, 165, 233, 0.12);
+    color: #0ea5e9;
+    border: 1px solid rgba(14, 165, 233, 0.5);
     border-radius: 2em;
     padding: 0.8em 2em;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 24px rgba(162, 89, 247, 0.15);
-    transition: background 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+    transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
     text-decoration: none;
     letter-spacing: 0.01em;
     display: inline-flex;
@@ -416,10 +415,9 @@ h1, h2, h3 {
 }
 
 .cta-button:hover, .scholar-btn:hover {
-    background: rgba(162, 89, 247, 0.35);
+    background: rgba(14, 165, 233, 0.4);
     color: #fff;
-    border-color: rgba(162, 89, 247, 0.6);
-    box-shadow: 0 4px 24px rgba(162, 89, 247, 0.3);
+    border-color: rgba(14, 165, 233, 0.7);
     transform: scale(1.04);
 }
 
@@ -481,22 +479,25 @@ h1, h2, h3 {
 .bento-cell:nth-child(7) { grid-column: 1 / 3; grid-row: 3; }
 .bento-cell:nth-child(8) { grid-column: 3 / 5; grid-row: 3; }
 
-/* Core iOS Liquid Glass Effect */
+/* Core iOS Liquid Glass Effect (Light Mode Fixed) */
 .bento-glass {
     height: 100%;
     min-height: 130px;
     padding: 1rem 1.15rem;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.4);
     
-    /* The Magic Ingredient: Blur + Saturate */
+    /* Increased opacity so the card holds its shape */
+    background: rgba(255, 255, 255, 0.8);
+    
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     
-    /* Light Catching Border: Simulates physical edge */
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* The Fix: A subtle dark border instead of white to define the edge */
+    border: 1px solid rgba(15, 23, 42, 0.08);
     
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    /* Slightly deeper shadow to lift it off the background */
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+    
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -631,6 +632,169 @@ html[data-theme="dark"] .bento-nutshell {
         grid-template-columns: 1fr;
     }
     .bento-cell:nth-child(1), .bento-cell:nth-child(5), .bento-cell:nth-child(7) { grid-column: span 1; }
+}
+
+/* What I am good at - Skills Section */
+.skills-section {
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.skills-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.35rem;
+}
+
+.skills-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    opacity: 0.75;
+    margin-bottom: 1.75rem;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.skills-card {
+    min-height: 240px;
+}
+
+.skills-glass {
+    height: 100%;
+    min-height: 240px;
+    padding: 1.25rem 1.25rem;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s;
+}
+
+.skills-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.skills-card:hover .skills-glass {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Card tints - theme-aligned */
+.skills-tint-coding .skills-glass::before { background: radial-gradient(circle at 0% 0%, rgba(0, 172, 193, 0.18), transparent 70%); }
+.skills-tint-coding .skills-card-title { color: var(--primary-color-dark); }
+
+.skills-tint-research .skills-glass::before { background: radial-gradient(circle at 0% 0%, rgba(14, 165, 233, 0.18), transparent 70%); }
+.skills-tint-research .skills-card-title { color: #0ea5e9; }
+
+.skills-tint-presentation .skills-glass::before { background: radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.18), transparent 70%); }
+.skills-tint-presentation .skills-card-title { color: #7c3aed; }
+
+.skills-tint-extra .skills-glass::before { background: radial-gradient(circle at 0% 0%, rgba(249, 115, 22, 0.15), transparent 70%); }
+.skills-tint-extra .skills-card-title { color: #c2410c; }
+
+.skills-card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.skills-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.skills-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    margin-bottom: 0.65rem;
+    font-size: 0.88rem;
+}
+
+.skills-list li:last-child { margin-bottom: 0; }
+
+.skill-name {
+    flex: none;
+    min-width: 0;
+    color: var(--text-color);
+    text-align: left;
+    white-space: normal;
+    overflow: visible;
+}
+
+.skill-bar {
+    flex: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 172, 193, 0.15);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.skill-fill {
+    display: block;
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.skills-tint-research .skill-bar { background: rgba(14, 165, 233, 0.2); }
+.skills-tint-research .skill-fill { background: linear-gradient(90deg, #0284c7, #0ea5e9); }
+
+.skills-tint-presentation .skill-bar { background: rgba(139, 92, 246, 0.2); }
+.skills-tint-presentation .skill-fill { background: linear-gradient(90deg, #6d28d9, #8b5cf6); }
+
+.skills-tint-extra .skill-bar { background: rgba(249, 115, 22, 0.15); }
+.skills-tint-extra .skill-fill { background: linear-gradient(90deg, #ea580c, #f97316); }
+
+/* Dark mode skills */
+html[data-theme="dark"] .skills-glass {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .skills-card:hover .skills-glass {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+html[data-theme="dark"] .skill-bar { background: rgba(0, 172, 193, 0.2); }
+html[data-theme="dark"] .skills-tint-research .skill-bar { background: rgba(14, 165, 233, 0.2); }
+html[data-theme="dark"] .skills-tint-extra .skill-bar { background: rgba(249, 115, 22, 0.2); }
+
+@media (max-width: 900px) {
+    .skills-section { margin-left: 1rem; margin-right: 1rem; padding: 1.5rem 1rem; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .skill-name { font-size: 0.82rem; }
 }
 
 .bio {

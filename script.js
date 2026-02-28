@@ -1,6 +1,6 @@
 // Theme toggle (dark/light)
 (function initTheme() {
-    const theme = localStorage.getItem('theme') || 'light';
+    const theme = localStorage.getItem('theme') || 'dark';
     document.documentElement.setAttribute('data-theme', theme);
 })();
 
@@ -8,10 +8,10 @@ function setupThemeToggle() {
     const themeBtn = document.getElementById('theme-toggle');
     const icon = document.getElementById('theme-icon');
     if (!themeBtn || !icon) return;
-    const theme = document.documentElement.getAttribute('data-theme') || 'light';
+    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
     icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
     themeBtn.addEventListener('click', function() {
-        const current = document.documentElement.getAttribute('data-theme') || 'light';
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
         const next = current === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next);
         localStorage.setItem('theme', next);
