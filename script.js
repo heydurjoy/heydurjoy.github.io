@@ -1,3 +1,9 @@
+// Footer year
+(function initFooterYear() {
+    const el = document.getElementById('footer-year');
+    if (el) el.textContent = new Date().getFullYear();
+})();
+
 // Theme toggle (dark/light)
 (function initTheme() {
     const theme = localStorage.getItem('theme') || 'dark';
@@ -26,12 +32,31 @@ if (document.readyState === 'loading') {
 }
 
 // Hamburger menu for mobile nav
-const navToggle = document.getElementById('nav-toggle');
-const navLinks = document.getElementById('nav-links');
-if (navToggle && navLinks) {
-    navToggle.addEventListener('click', function() {
+function setupHamburgerMenu() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
+    if (!navToggle || !navLinks) return;
+    navToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         navLinks.classList.toggle('open');
+        document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
     });
+    navLinks.addEventListener('click', function() {
+        navLinks.classList.remove('open');
+        document.body.style.overflow = '';
+    });
+    document.addEventListener('click', function(e) {
+        if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+            navLinks.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    });
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHamburgerMenu);
+} else {
+    setupHamburgerMenu();
 }
 
 document.addEventListener('DOMContentLoaded', function() {

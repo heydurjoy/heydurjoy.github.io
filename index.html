@@ -450,21 +450,42 @@
             <h2 class="bento-title">Durjoy in a Nutshell</h2>
             <div class="bento-grid">
                 <div class="bento-cell bento-wide bento-tint-blue">
-                    <div class="bento-glass bento-iframely">
-                        <div class="iframely-embed">
-                            <div class="iframely-responsive">
-                                <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" data-iframely-url="//iframely.net/KoNA9lW"></a>
+                    <div class="bento-glass bento-dual">
+                        <div class="bento-iframely" id="scholar-embed">
+                            <div class="iframely-embed">
+                                <div class="iframely-responsive" style="padding-bottom: 56.25%;">
+                                    <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en"></a>
+                                </div>
                             </div>
                         </div>
+                        <a href="research.html" class="bento-fallback" id="scholar-fallback">
+                            <i class="fas fa-file-alt bento-icon-top"></i>
+                            <h3 class="bento-heading"><span class="bento-number" id="papers-count">12+</span> Publications</h3>
+                                <div class="bento-pills">
+                                    <span class="bento-pill">Federated Learning</span>
+                                    <span class="bento-pill">Gen AI</span>
+                                    <span class="bento-pill">Machine Learning</span>
+                                    <span class="bento-pill">Deep Learning</span>
+                                </div>
+                            <i class="fas fa-arrow-right bento-arrow"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="bento-cell bento-tall bento-tint-bluepurple">
-                    <div class="bento-glass bento-iframely">
-                        <div class="iframely-embed">
-                            <div class="iframely-responsive">
-                                <a href="https://www.researchgate.net/profile/Durjoy-Mistry" data-iframely-url="//iframely.net/IU0lJcU"></a>
+                    <div class="bento-glass bento-dual">
+                        <div class="bento-iframely" id="rg-embed">
+                            <div class="iframely-embed">
+                                <div class="iframely-responsive" style="padding-bottom: 56.25%;">
+                                    <a href="https://www.researchgate.net/profile/Durjoy-Mistry"></a>
+                                </div>
                             </div>
                         </div>
+                        <a href="research.html" class="bento-fallback" id="rg-fallback">
+                            <i class="fas fa-quote-right bento-icon-top"></i>
+                            <h3 class="bento-heading"><span class="bento-number" id="citations-count">68+</span> Citations</h3>
+                            <p class="bento-desc">H-index: <span id="h-index">—</span> · Academic impact</p>
+                            <i class="fas fa-arrow-right bento-arrow"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="bento-cell bento-square bento-tint-green">
@@ -510,7 +531,7 @@
                 <div class="bento-cell bento-square bento-tint-blue">
                     <div class="bento-glass">
                         <i class="fas fa-clock bento-icon-top"></i>
-                        <h3 class="bento-heading">5+ Years</h3>
+                        <h3 class="bento-heading">3+ Years</h3>
                         <p class="bento-desc">Teaching experience</p>
                         <i class="fas fa-arrow-right bento-arrow"></i>
                     </div>
@@ -577,20 +598,40 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="site-footer">
+        <div class="footer-accent"></div>
         <div class="footer-content">
-            <div class="contact-info">
-                <p>
-                    Email: 
-                    <a href="mailto:durjoy@uap-bd.edu" style="text-decoration:none; color:inherit;">durjoy@uap-bd.edu</a> |
-                    <a href="mailto:talk2durjoy@gmail.com" style="text-decoration:none; color:inherit;">talk2durjoy@gmail.com</a>
-                </p>
-                <p>Built with 🤍 from scratch by Durjoy</p>
+            <div class="footer-main">
+                <div class="footer-contact">
+                    <h4>Get in touch</h4>
+                    <a href="mailto:durjoy@uap-bd.edu" class="footer-email">durjoy@uap-bd.edu</a>
+                    <a href="mailto:talk2durjoy@gmail.com" class="footer-email">talk2durjoy@gmail.com</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="index.html">Home</a>
+                    <a href="research.html">Research</a>
+                    <a href="cv.html">Skills</a>
+                    <a href="cool.html">Cool Stuff</a>
+                    <a href="likes.html">What I Like</a>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <div class="footer-social-icons">
+                        <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                        <a href="https://www.researchgate.net/profile/Durjoy-Mistry" target="_blank" rel="noopener" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                        <a href="https://github.com/heydurjoy" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="youtube.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
             </div>
-            
+            <div class="footer-bottom">
+                <p>Built with <span class="footer-heart">♥</span> from scratch by Durjoy · © <span id="footer-year"></span></p>
+            </div>
         </div>
     </footer>
 
+    <!-- Iframely: add ?key=YOUR_MD5_HASH after embed.js if embeds are blank. Get key at app.iframely.com -->
     <script async charset="utf-8" src="https://cdn.iframe.ly/embed.js"></script>
     <script src="script.js"></script>
     <script src="data.js"></script>
@@ -610,8 +651,39 @@
                 .catch(error => console.error('Error fetching debutant count:', error));
         }
 
+        function applyStatsFromJson(stats) {
+            const { totalCitations, paperCount, hIndex } = stats;
+            const papersEl = document.getElementById('papers-count');
+            const citationsEl = document.getElementById('citations-count');
+            const hIndexEl = document.getElementById('h-index');
+            if (papersEl) papersEl.textContent = paperCount + '+';
+            if (citationsEl) citationsEl.textContent = totalCitations + '+';
+            if (hIndexEl) hIndexEl.textContent = (hIndex ?? '—') + '';
+        }
+
+        function loadFromJson() {
+            fetch('./data/research-stats.json')
+                .then(res => res.ok ? res.json() : null)
+                .then(data => { if (data) applyStatsFromJson(data); })
+                .catch(e => console.warn('JSON load failed:', e));
+        }
+
+        function checkIframely() {
+            const hasIframe = (id) => {
+                const el = document.getElementById(id);
+                const iframe = el?.querySelector('iframe');
+                return !!iframe && iframe.offsetHeight > 0;
+            };
+            const scholarCell = document.getElementById('scholar-embed')?.closest('.bento-dual');
+            const rgCell = document.getElementById('rg-embed')?.closest('.bento-dual');
+            if (hasIframe('scholar-embed') && scholarCell) scholarCell.classList.add('iframely-loaded');
+            if (hasIframe('rg-embed') && rgCell) rgCell.classList.add('iframely-loaded');
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             updateDebutantCount();
+            loadFromJson();
+            setTimeout(checkIframely, 5000);
         });
     </script>
 </body>

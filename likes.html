@@ -9,406 +9,30 @@
     <link rel="apple-touch-icon" href="picz/durjoy.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .passion-showcase {
-            margin: 4rem 0;
-            text-align: center;
-        }
-        
-        .passion-showcase-header {
-            margin-bottom: 5rem;
-        }
-        
-        .passion-showcase-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #2d3748;
-            margin-bottom: 0.5rem;
-        }
-        
-        .passion-showcase-header p {
-            font-size: 1.1rem;
-            color: #718096;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .passion-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            grid-template-rows: 250px 200px;
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .passion-area-wide {
-            grid-column: 1 / 3;
-            grid-row: 1 / 2;
-            text-decoration: none;
-            color: white;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-        
-        .passion-area-tall {
-            grid-column: 3 / 4;
-            grid-row: 1 / 3;
-            text-decoration: none;
-            color: white;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-        
-        .passion-area-diagonal {
-            grid-column: 1 / 2;
-            grid-row: 2 / 3;
-            text-decoration: none;
-            color: white;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-        
-        .passion-area-grid {
-            grid-column: 2 / 3;
-            grid-row: 2 / 3;
-            text-decoration: none;
-            color: white;
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
-        
-        .passion-area-bg {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
+        .coming-soon {
+            min-height: 60vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .passion-area-bg::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 100%);
-            z-index: 2;
-        }
-        
-        .passion-area-bg-number {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 10rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.08);
-            z-index: 1;
-            font-family: 'Inter', sans-serif;
-            text-shadow: none;
-            pointer-events: none;
-            user-select: none;
-            animation: subtle-float 6s ease-in-out infinite;
-            white-space: nowrap;
-            opacity: 0.08;
-        }
-        
-        .passion-area-content {
             text-align: center;
-            padding: 1.5rem;
-            position: relative;
-            z-index: 3;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            height: 100%;
-            min-height: 0;
-            padding-top: 1rem;
+            padding: 3rem 1.5rem;
         }
-        
-        .passion-area-icon-large {
-            font-size: 2.8rem;
-            margin-bottom: 0.8rem;
-            color: white;
-            flex-shrink: 0;
+        .coming-soon i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
         }
-        
-        .passion-area-text h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.4rem;
-            color: white;
-            line-height: 1.2;
+        .coming-soon h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-color);
         }
-        
-        .passion-area-text p {
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            line-height: 1.4;
-        }
-        
-        .passion-area-stats {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.2rem;
-            margin-top: auto;
-            padding-bottom: 1rem;
-        }
-        
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: white;
-        }
-        
-        .stat-label {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .passion-area-wide:hover,
-        .passion-area-tall:hover,
-        .passion-area-diagonal:hover,
-        .passion-area-grid:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-        }
-        
-        .passion-area-icon-large {
-            animation: float 3s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-        }
-        
-        .passion-area-wide .passion-area-icon-large { animation-delay: 0s; }
-        .passion-area-tall .passion-area-icon-large { animation-delay: 0.5s; }
-        .passion-area-diagonal .passion-area-icon-large { animation-delay: 1s; }
-        .passion-area-grid .passion-area-icon-large { animation-delay: 1.5s; }
-        
-        .passion-area-content {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .passion-area-wide:hover .passion-area-content,
-        .passion-area-tall:hover .passion-area-content,
-        .passion-area-diagonal:hover .passion-area-content,
-        .passion-area-grid:hover .passion-area-content {
-            transform: scale(1.05);
-        }
-        
-        .passion-area-stats {
-            transition: all 0.3s ease;
-        }
-        
-        .passion-area-wide:hover .passion-area-stats,
-        .passion-area-tall:hover .passion-area-stats,
-        .passion-area-diagonal:hover .passion-area-stats,
-        .passion-area-grid:hover .passion-area-stats {
-            transform: scale(1.1);
-        }
-        
-        .passion-area-bg {
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .passion-area-wide:hover .passion-area-bg,
-        .passion-area-tall:hover .passion-area-bg,
-        .passion-area-diagonal:hover .passion-area-bg,
-        .passion-area-grid:hover .passion-area-bg {
-            background-size: 110% 110%;
-        }
-        
-        .passion-area-text h3,
-        .passion-area-text p {
-            transition: all 0.3s ease;
-        }
-        
-        .passion-area-wide:hover .passion-area-text h3,
-        .passion-area-tall:hover .passion-area-text h3,
-        .passion-area-diagonal:hover .passion-area-text h3,
-        .passion-area-grid:hover .passion-area-text h3 {
-            transform: translateY(-2px);
-        }
-        
-        .passion-area-wide,
-        .passion-area-tall,
-        .passion-area-diagonal,
-        .passion-area-grid {
-            animation: slideInUp 0.8s ease-out forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .passion-area-wide { animation-delay: 0.1s; }
-        .passion-area-tall { animation-delay: 0.2s; }
-        .passion-area-diagonal { animation-delay: 0.3s; }
-        .passion-area-grid { animation-delay: 0.4s; }
-        
-        @keyframes slideInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes subtle-float {
-            0%, 100% { 
-                opacity: 0.08;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            50% { 
-                opacity: 0.12;
-                transform: translate(-50%, -50%) scale(1.02);
-            }
-        }
-        
-        /* Enhanced mobile responsiveness */
-        @media (max-width: 768px) {
-            .passion-area-wide,
-            .passion-area-tall,
-            .passion-area-diagonal,
-            .passion-area-grid {
-                animation: none;
-                opacity: 1;
-                transform: none;
-            }
-            
-            .passion-area-bg-number {
-                font-size: 6rem;
-                opacity: 0.06;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .passion-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-                gap: 1rem;
-            }
-            
-            .passion-area-wide,
-            .passion-area-tall,
-            .passion-area-diagonal,
-            .passion-area-grid {
-                grid-column: 1;
-                grid-row: auto;
-                height: 280px;
-            }
-            
-            .passion-showcase-header h2 {
-                font-size: 2rem;
-            }
-            
-            .passion-area-content {
-                padding: 1.2rem;
-                padding-top: 1.5rem;
-            }
-            
-            .passion-area-icon-large {
-                font-size: 2.5rem;
-                margin-bottom: 0.6rem;
-            }
-            
-            .passion-area-text h3 {
-                font-size: 1.4rem;
-                margin-bottom: 0.3rem;
-            }
-            
-            .passion-area-text p {
-                font-size: 0.85rem;
-                margin-bottom: 0.8rem;
-            }
-            
-            .stat-number {
-                font-size: 1.6rem;
-            }
-            
-            .stat-label {
-                font-size: 0.75rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .passion-area-wide,
-            .passion-area-tall,
-            .passion-area-diagonal,
-            .passion-area-grid {
-                height: 300px;
-            }
-            
-            .passion-area-content {
-                padding: 1rem;
-                padding-top: 1.2rem;
-            }
-            
-            .passion-area-icon-large {
-                font-size: 2.2rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .passion-area-text h3 {
-                font-size: 1.3rem;
-            }
-            
-            .passion-area-text p {
-                font-size: 0.8rem;
-            }
-            
-            .passion-area-bg-number {
-                font-size: 4rem;
-                opacity: 0.05;
-            }
-        }
-        
-        /* RCB specific styling */
-        .rcb-red {
-            background: linear-gradient(135deg, #d1173a 0%, #a0122e 100%);
-        }
-        
-        .rcb-gold {
-            background: linear-gradient(135deg, #f4c430 0%, #d4a017 100%);
-        }
-        
-        .travel-blue {
-            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-        }
-        
-        .cooking-orange {
-            background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-        }
-        
-        .photography-purple {
-            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
-        }
-        
-        .happiness-green {
-            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+        .coming-soon p {
+            font-size: 1.1rem;
+            opacity: 0.8;
         }
     </style>
 </head>
@@ -433,201 +57,44 @@
             </div>
         </div>
     </nav>
-    
+
     <main>
-        <br>
-        <br>
-        <br>
-        
-        <section class="passion-showcase">
-            <div class="passion-showcase-header">
-                <h2>What I Like...</h2>
-                <p>My passions, hobbies, and what makes me happy</p>
-            </div>
-            
-            <div class="passion-grid">
-                <!-- RCB Cricket Team - Wide Card -->
-                <div class="passion-area-wide rcb-red">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&h=400&fit=crop');">
-                        <div class="passion-area-bg-number">RCB</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-cricket-bat-ball"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>Royal Challengers Bangalore</h3>
-                            <p>Die-hard RCB fan! Supporting the team through thick and thin. Virat Kohli, AB de Villiers, and the entire RCB family have my heart. #PlayBold #RCB</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">16</div>
-                            <div class="stat-label">Years of Support</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Travel - Tall Card -->
-                <div class="passion-area-tall travel-blue">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=600&fit=crop');">
-                        <div class="passion-area-bg-number">✈️</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-plane"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>Traveler</h3>
-                            <p>Exploring new places, meeting new people, and collecting memories from around the world.</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">15+</div>
-                            <div class="stat-label">Countries Visited</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Cooking - Diagonal Card -->
-                <div class="passion-area-diagonal cooking-orange">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop');">
-                        <div class="passion-area-bg-number">👨‍🍳</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>Home Chef</h3>
-                            <p>Love experimenting with flavors and creating delicious meals. From traditional Bengali dishes to international cuisine.</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">50+</div>
-                            <div class="stat-label">Recipes Mastered</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Photography - Grid Card -->
-                <div class="passion-area-grid photography-purple">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=300&fit=crop');">
-                        <div class="passion-area-bg-number">📸</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>Portrait Photography</h3>
-                            <p>Capturing the essence and emotions of people through my lens. Every portrait tells a unique story.</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">100+</div>
-                            <div class="stat-label">Portraits Shot</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Additional Section for Personality -->
-        <section class="passion-showcase">
-            <div class="passion-showcase-header">
-                <h2>My Personality</h2>
-                <p>Just a chill guy spreading happiness wherever I go</p>
-            </div>
-            
-            <div class="passion-grid">
-                <!-- Happiness & Positivity - Wide Card -->
-                <div class="passion-area-wide happiness-green">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=400&fit=crop');">
-                        <div class="passion-area-bg-number">😊</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>Spreading Happiness</h3>
-                            <p>I believe in the power of positivity and making people smile. Life is too short to be anything but happy and kind to others.</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">∞</div>
-                            <div class="stat-label">Smiles Shared</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Music & Chill - Tall Card -->
-                <div class="passion-area-tall rcb-gold">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb192ffded?w=400&h=600&fit=crop');">
-                        <div class="passion-area-bg-number">🎵</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-music"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>Music Lover</h3>
-                            <p>From Bollywood hits to international classics, music is my constant companion in life's journey.</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Music On</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Friends & Family - Diagonal Card -->
-                <div class="passion-area-diagonal travel-blue">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop');">
-                        <div class="passion-area-bg-number">👥</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>People Person</h3>
-                            <p>Building meaningful connections and cherishing relationships with friends, family, and everyone I meet.</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">100+</div>
-                            <div class="stat-label">Friends Made</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Life Philosophy - Grid Card -->
-                <div class="passion-area-grid cooking-orange">
-                    <div class="passion-area-bg" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop');">
-                        <div class="passion-area-bg-number">🌟</div>
-                    </div>
-                    <div class="passion-area-content">
-                        <div class="passion-area-icon-large">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="passion-area-text">
-                            <h3>Life Philosophy</h3>
-                            <p>Live life to the fullest, help others, stay curious, and never stop learning. Every day is a new adventure!</p>
-                        </div>
-                        <div class="passion-area-stats">
-                            <div class="stat-number">365</div>
-                            <div class="stat-label">Days of Joy</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section class="coming-soon">
+            <i class="fas fa-heart"></i>
+            <h1>What I Like</h1>
+            <p>Coming soon...</p>
         </section>
     </main>
-    
-    <footer class="footer">
+
+    <footer class="site-footer">
+        <div class="footer-accent"></div>
         <div class="footer-content">
-            <div class="contact-info">
-                <p>
-                    Email: 
-                    <a href="mailto:durjoy@uap-bd.edu" style="text-decoration:none; color:inherit;">durjoy@uap-bd.edu</a> |
-                    <a href="mailto:talk2durjoy@gmail.com" style="text-decoration:none; color:inherit;">talk2durjoy@gmail.com</a>
-                </p>
-                <p>Built with 🤍 from scratch by Durjoy</p>
+            <div class="footer-main">
+                <div class="footer-contact">
+                    <h4>Get in touch</h4>
+                    <a href="mailto:durjoy@uap-bd.edu" class="footer-email">durjoy@uap-bd.edu</a>
+                    <a href="mailto:talk2durjoy@gmail.com" class="footer-email">talk2durjoy@gmail.com</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <a href="index.html">Home</a>
+                    <a href="research.html">Research</a>
+                    <a href="cv.html">Skills</a>
+                    <a href="cool.html">Cool Stuff</a>
+                    <a href="likes.html">What I Like</a>
+                </div>
+                <div class="footer-social">
+                    <h4>Connect</h4>
+                    <div class="footer-social-icons">
+                        <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar"><i class="fas fa-graduation-cap"></i></a>
+                        <a href="https://www.researchgate.net/profile/Durjoy-Mistry" target="_blank" rel="noopener" aria-label="ResearchGate"><i class="fab fa-researchgate"></i></a>
+                        <a href="https://github.com/heydurjoy" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="youtube.html" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built with <span class="footer-heart">♥</span> from scratch by Durjoy · © <span id="footer-year"></span></p>
             </div>
         </div>
     </footer>
