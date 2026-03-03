@@ -1,7 +1,11 @@
 # research-stats.json
 
-Fallback data when the API is unavailable. Used when:
-- Iframely embeds fail to load
-- Semantic Scholar / SerpAPI fetch fails
+Static fallback for research statistics. Used by both `index.html` and `research.html`.
 
-**Update manually** when your stats change, or the API will refresh on each page view and cache in localStorage.
+## Stats priority chain (research page)
+
+1. **SerpAPI** — Live Google Scholar via SerpAPI (needs API key in `data/scholar-config.json`)
+2. **This JSON file** — Served statically, update manually when stats change
+3. **Google Sheet "stats" tab** — Fetched from opensheet.elk.sh
+
+The localStorage cache is updated only when a source provides **higher** numbers, so stats never regress.

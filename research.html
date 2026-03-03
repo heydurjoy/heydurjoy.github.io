@@ -114,7 +114,7 @@
     }
     .bento-icon.blue { background: rgba(37,99,235,0.1); color: #2563eb; }
     .bento-icon.teal { background: rgba(20,184,166,0.1); color: #0d9488; }
-    .bento-icon.amber { background: rgba(245,158,11,0.1); color: #d97706; }
+    .bento-icon.primary { background: rgba(0,172,193,0.1); color: var(--primary-color); }
     .bento-icon.purple { background: rgba(139,92,246,0.1); color: #7c3aed; }
     .bento-info {
       display: flex;
@@ -401,6 +401,87 @@
         width: 100%;
       }
     }
+
+    /* ---- Dark-mode overrides ---- */
+    html[data-theme="dark"] .pill-button.soft {
+      background: rgba(96, 165, 250, 0.1);
+      color: #e2e8f0;
+    }
+    html[data-theme="dark"] .pill-button.soft:hover {
+      background: rgba(96, 165, 250, 0.18);
+    }
+    html[data-theme="dark"] .toolbar-chip {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: #cbd5e1;
+    }
+    html[data-theme="dark"] .toolbar-chip:hover {
+      background: rgba(96, 165, 250, 0.12);
+      border-color: rgba(96, 165, 250, 0.5);
+    }
+    html[data-theme="dark"] .toolbar-chip.is-active {
+      background: rgba(96, 165, 250, 0.18);
+      border-color: rgba(96, 165, 250, 0.7);
+      color: #93c5fd;
+    }
+    html[data-theme="dark"] .refresh-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: #cbd5e1;
+    }
+    html[data-theme="dark"] .refresh-btn:hover:not(:disabled) {
+      background: rgba(96, 165, 250, 0.12);
+      border-color: rgba(96, 165, 250, 0.5);
+    }
+    html[data-theme="dark"] .research-page .bento-card {
+      background: rgba(30, 41, 59, 0.6);
+      border-color: rgba(148, 163, 184, 0.12);
+    }
+    html[data-theme="dark"] .pub-card {
+      border-bottom-color: rgba(148, 163, 184, 0.1);
+    }
+    html[data-theme="dark"] .pub-card:hover {
+      background: rgba(96, 165, 250, 0.04);
+    }
+    html[data-theme="dark"] .pub-year-tag {
+      background: rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+    html[data-theme="dark"] .pub-badge.venue {
+      background: rgba(56, 189, 248, 0.15);
+      color: #7dd3fc;
+    }
+    html[data-theme="dark"] .pub-badge.venue.q1 {
+      background: rgba(56, 189, 248, 0.2);
+      color: #7dd3fc;
+      box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.3);
+    }
+    html[data-theme="dark"] .pub-badge.contribution {
+      background: rgba(74, 222, 128, 0.15);
+      color: #86efac;
+    }
+    html[data-theme="dark"] .pub-badge.contribution.first {
+      background: rgba(251, 146, 60, 0.15);
+      color: #fdba74;
+    }
+    html[data-theme="dark"] .pub-link {
+      color: #67e8f9;
+      border-color: rgba(103, 232, 249, 0.25);
+    }
+    html[data-theme="dark"] .pub-link:hover {
+      background: rgba(103, 232, 249, 0.1);
+      border-color: rgba(103, 232, 249, 0.4);
+      box-shadow: 0 4px 12px rgba(103, 232, 249, 0.1);
+    }
+    html[data-theme="dark"] .pub-link.scholar {
+      color: #a5b4fc;
+      border-color: rgba(165, 180, 252, 0.2);
+    }
+    html[data-theme="dark"] .pub-link.scholar:hover {
+      background: rgba(165, 180, 252, 0.1);
+      border-color: rgba(165, 180, 252, 0.4);
+      box-shadow: 0 4px 12px rgba(165, 180, 252, 0.1);
+    }
   </style>
 </head>
 <body>
@@ -620,6 +701,8 @@
     const refreshButton = document.getElementById('refresh-pubs');
     const SHEET_ID = '1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo';
     const SHEET_URL = `https://opensheet.elk.sh/${SHEET_ID}/All%20pubs`;
+    const STATS_SHEET_URL = `https://opensheet.elk.sh/${SHEET_ID}/stats`;
+    const LS_STATS_KEY = 'research_stats_cache';
 
     let allPubs = [];
     let currentFilter = 'all';
@@ -675,44 +758,36 @@
       return { totalPubs, q1Count, firstCount };
     }
 
-    function renderBentoStats(scholarStats, sheetStats) {
+    function renderBentoStats(stats) {
       if (!researchStatsEl) return;
-      const stats = {
-        totalCitations: scholarStats?.totalCitations ?? 0,
-        hIndex: scholarStats?.hIndex ?? 0,
-        scholarPaperCount: scholarStats?.paperCount ?? 0,
-        totalPubs: sheetStats.totalPubs,
-        q1Count: sheetStats.q1Count,
-        firstCount: sheetStats.firstCount
-      };
 
       researchStatsEl.innerHTML = `
         <article class="bento-card">
           <div class="bento-icon blue"><i class="fas fa-file-alt"></i></div>
           <div class="bento-info">
-            <div class="bento-number" data-target="${stats.totalPubs}">0</div>
+            <div class="bento-number" data-target="${stats.totalPubs || 0}">0</div>
             <div class="bento-label">Total publications</div>
           </div>
         </article>
         <article class="bento-card">
           <div class="bento-icon teal"><i class="fas fa-award"></i></div>
           <div class="bento-info">
-            <div class="bento-number" data-target="${stats.q1Count}">0</div>
+            <div class="bento-number" data-target="${stats.q1Count || 0}">0</div>
             <div class="bento-label">Q1 journal papers</div>
           </div>
         </article>
         <article class="bento-card">
-          <div class="bento-icon amber"><i class="fas fa-user-pen"></i></div>
+          <div class="bento-icon primary"><i class="fas fa-users"></i></div>
           <div class="bento-info">
-            <div class="bento-number" data-target="${stats.firstCount}">0</div>
-            <div class="bento-label">First or equal contribution</div>
+            <div class="bento-number" data-target="${stats.debutants || 0}">0</div>
+            <div class="bento-label">Research debutants</div>
           </div>
         </article>
         <article class="bento-card">
           <div class="bento-icon purple"><i class="fas fa-quote-right"></i></div>
           <div class="bento-info">
-            <div class="bento-number" data-target="${stats.totalCitations}">0</div>
-            <div class="bento-label">Citations · h-index ${stats.hIndex}</div>
+            <div class="bento-number" data-target="${stats.totalCitations || 0}">0</div>
+            <div class="bento-label">Citations · h-index ${stats.hIndex || 0}</div>
           </div>
         </article>
       `;
@@ -859,19 +934,108 @@
       }
     }
 
+    function getCachedStats() {
+      try {
+        const raw = localStorage.getItem(LS_STATS_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch { return null; }
+    }
+
+    function updateCachedStats(newStats) {
+      const current = getCachedStats() || {};
+      const updated = { ...current };
+      let changed = false;
+      for (const key of ['totalCitations', 'hIndex', 'totalPubs', 'q1Count', 'debutants']) {
+        const nv = parseInt(newStats[key]) || 0;
+        const cv = parseInt(current[key]) || 0;
+        if (nv > cv) { updated[key] = nv; changed = true; }
+      }
+      if (changed) {
+        updated.updated = new Date().toISOString().slice(0, 10);
+        try { localStorage.setItem(LS_STATS_KEY, JSON.stringify(updated)); } catch {}
+      }
+      return updated;
+    }
+
+    async function fetchStatsFromSheetTab() {
+      const res = await fetch(STATS_SHEET_URL);
+      if (!res.ok) throw new Error('Stats sheet fetch failed: ' + res.status);
+      const rows = await res.json();
+      if (!Array.isArray(rows) || !rows.length) throw new Error('Empty stats sheet');
+      const map = {};
+      rows.forEach(r => {
+        const item = (r['Item'] || r['Item '] || '').trim().toLowerCase();
+        const count = parseInt(r['Count'] || r['Count ']) || 0;
+        map[item] = count;
+      });
+      return {
+        totalCitations: map['total citation'] || map['total citations'] || 0,
+        hIndex: map['h-index'] || map['h index'] || 0,
+        debutants: map['research debutants'] || map['debutants'] || 0,
+        totalPubs: map['total publications'] || map['total publication'] || 0,
+        q1Count: map['q1 journal'] || map['q1 journals'] || 0
+      };
+    }
+
+    async function loadAllStats(useCache = true) {
+      // Priority 1: SerpAPI (live Google Scholar stats)
+      let serpStats = null;
+      try {
+        serpStats = await fetchGoogleScholarStats(useCache);
+      } catch (e) { console.warn('SerpAPI failed:', e); }
+
+      if (serpStats && serpStats.totalCitations) {
+        console.log('Stats source: SerpAPI');
+        updateCachedStats(serpStats);
+        return serpStats;
+      }
+
+      // Priority 2: Cached JSON file (data/research-stats.json)
+      let jsonStats = null;
+      try {
+        const lsStats = getCachedStats();
+        if (lsStats && lsStats.totalCitations) { jsonStats = lsStats; }
+      } catch {}
+      if (!jsonStats) {
+        try {
+          const res = await fetch('./data/research-stats.json');
+          if (res.ok) jsonStats = await res.json();
+        } catch {}
+      }
+
+      if (jsonStats && jsonStats.totalCitations) {
+        console.log('Stats source: cached JSON');
+        // Still try sheet in background to keep cache fresh
+        fetchStatsFromSheetTab()
+          .then(ss => { if (ss) updateCachedStats(ss); })
+          .catch(() => {});
+        return jsonStats;
+      }
+
+      // Priority 3: Google Sheet "stats" tab
+      let sheetStats = null;
+      try {
+        sheetStats = await fetchStatsFromSheetTab();
+      } catch (e) { console.warn('Sheet stats fetch failed:', e); }
+
+      if (sheetStats && sheetStats.totalCitations) {
+        console.log('Stats source: Google Sheet stats tab');
+        updateCachedStats(sheetStats);
+        return sheetStats;
+      }
+
+      return null;
+    }
+
     async function loadResearchData(useCache = true) {
       if (papersList) {
         papersList.innerHTML = '<div class="loading-message"><i class="fas fa-spinner fa-spin"></i> Loading publications…</div>';
       }
 
-      let scholarStats = null;
-      try {
-        scholarStats = await fetchScholarStats(useCache);
-      } catch (e) {
-        console.warn('Scholar stats fetch failed:', e);
-      }
-
-      await loadS2Links(useCache);
+      const [stats, _s2] = await Promise.all([
+        loadAllStats(useCache),
+        loadS2Links(useCache)
+      ]);
 
       let sheetRows = null;
       try {
@@ -897,8 +1061,16 @@
         }
       }
 
-      const sheetStats = computeSheetStats(allPubs);
-      renderBentoStats(scholarStats, sheetStats);
+      const computed = computeSheetStats(allPubs);
+      const merged = {
+        totalCitations: stats?.totalCitations ?? 0,
+        hIndex: stats?.hIndex ?? 0,
+        debutants: stats?.debutants ?? 0,
+        totalPubs: stats?.totalPubs ?? computed.totalPubs,
+        q1Count: stats?.q1Count ?? computed.q1Count,
+        firstCount: computed.firstCount
+      };
+      renderBentoStats(merged);
       applyFilterAndSort();
 
       if (!allPubs.length && papersList) {
@@ -936,6 +1108,7 @@
           refreshButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Refreshing…</span>';
           clearS2Cache();
           localStorage.removeItem('cachedSheetPubs');
+          localStorage.removeItem(LS_STATS_KEY);
           try {
             await loadResearchData(false);
             showToast('Research stats refreshed from API & sheet.', 'success');

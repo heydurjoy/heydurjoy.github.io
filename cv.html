@@ -4,367 +4,416 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Durjoy Mistry</title>
-    <link rel="icon" type="image/png" href="picz/durjoy.png" style="border-radius: 50%;">
+    <link rel="icon" type="image/png" href="picz/durjoy.png">
     <link rel="shortcut icon" type="image/png" href="picz/durjoy.png">
     <link rel="apple-touch-icon" href="picz/durjoy.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        *{
-            font-family: 'Lexend', sans-serif;
-        }
-        .cv-container {
-            max-width: 800px;
+        html { scroll-behavior: smooth; }
+
+        .cv-page {
+            max-width: 780px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 5rem 1.5rem 4rem;
         }
 
+        /* ---- Header card ---- */
+        .cv-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+        .cv-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+            box-shadow: 0 4px 20px rgba(0, 172, 193, 0.15);
+            flex-shrink: 0;
+        }
+        .cv-header-info { flex: 1; min-width: 240px; }
+        .cv-name {
+            font-size: clamp(1.8rem, 3vw, 2.3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+        }
+        .cv-role {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--primary-color);
+            margin-bottom: 0.35rem;
+        }
+        .cv-meta {
+            font-size: 0.92rem;
+            color: var(--muted-text, #64748b);
+            line-height: 1.7;
+        }
+        .cv-meta a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .cv-meta a:hover { text-decoration: underline; }
+
+        /* ---- Sticky section nav (pill bar) ---- */
+        .cv-nav-bar {
+            position: sticky;
+            top: 72px;
+            z-index: 50;
+            margin: 0 0 2.5rem;
+            padding-top: 0.6rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .cv-nav-bar::-webkit-scrollbar { display: none; }
+        .cv-nav-list {
+            display: inline-flex;
+            gap: 0.2rem;
+            list-style: none;
+            padding: 0.35rem;
+            margin: 0;
+            white-space: nowrap;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+        .cv-nav-list a {
+            display: inline-block;
+            padding: 0.4rem 0.85rem;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border-radius: 999px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .cv-nav-list a:hover {
+            background: rgba(0, 172, 193, 0.1);
+            color: var(--primary-color);
+        }
+        .cv-nav-list a.active {
+            background: var(--primary-color);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 131, 143, 0.25);
+        }
+
+        /* ---- Section ---- */
         .cv-section {
             margin-bottom: 3rem;
+            scroll-margin-top: 130px;
         }
-
-        .cv-section h2 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
+        .cv-section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.25rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .cv-section-title i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            font-size: 1rem;
         }
 
+        /* ---- Timeline item ---- */
         .cv-item {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 0.75rem;
-            border: 1px solid rgba(106, 76, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .cv-item:hover {
-            background: rgba(106, 76, 255, 0.03);
-            border-color: rgba(106, 76, 255, 0.12);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(106, 76, 255, 0.08);
-        }
-
-        .cv-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .cv-item h3 {
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-            font-size: 1.2rem;
             position: relative;
+            padding: 1.1rem 1.25rem;
+            margin-bottom: 0.75rem;
+            border-radius: 0.85rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
-
-        .cv-item h3::before {
-            content: '';
-            position: absolute;
-            left: -1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(135deg, var(--primary-color), #a29bfe);
-            border-radius: 2px;
+        .cv-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 16px rgba(0, 172, 193, 0.08);
         }
-
-        .cv-item .period {
+        .cv-item:last-child { margin-bottom: 0; }
+        .cv-item-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+        .cv-item-title a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        .cv-item-title a:hover { color: var(--primary-color); }
+        .cv-item-period {
+            font-size: 0.82rem;
+            font-weight: 600;
             color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+        .cv-item-org {
+            font-size: 0.9rem;
+            color: var(--muted-text, #64748b);
+            margin-bottom: 0.4rem;
+        }
+        .cv-item ul {
+            margin: 0.4rem 0 0 1.2rem;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.65;
+            color: var(--text-color);
+        }
+        .cv-item ul ul {
+            margin-top: 0.2rem;
+            margin-left: 1.2rem;
+        }
+        .cv-item-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(0, 172, 193, 0.25);
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .cv-item-link:hover {
+            background: rgba(0, 172, 193, 0.08);
+            border-color: var(--primary-color);
+        }
+
+        /* ---- Research stats ---- */
+        .cv-stat {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .cv-stat-link {
+            color: var(--primary-color);
+            text-decoration: none;
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .cv-stat-link:hover { text-decoration: underline; }
+        .cv-refresh-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            margin-top: 0.6rem;
+            padding: 0.35rem 0.8rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .cv-refresh-btn:hover {
+            border-color: var(--primary-color);
+            background: rgba(0, 172, 193, 0.06);
+        }
+        #last-updated {
+            font-size: 0.78rem;
+            color: var(--muted-text, #64748b);
+            margin-left: 0.5rem;
+        }
+
+        /* ---- Awards ---- */
+        .cv-awards-group { margin-bottom: 1rem; }
+        .cv-awards-group:last-child { margin-bottom: 0; }
+        .cv-awards-group h4 {
             font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
         }
+        .cv-awards-group ul {
+            margin: 0 0 0 1.2rem;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.65;
+        }
+        .cv-awards-group a { color: var(--primary-color); text-decoration: none; }
+        .cv-awards-group a:hover { text-decoration: underline; }
 
-        .cv-item .organization {
-            font-weight: 500;
+        /* ---- Skills grid ---- */
+        .cv-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+        .cv-skill-card {
+            padding: 1rem 1.15rem;
+            border-radius: 0.85rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s;
+        }
+        .cv-skill-card:hover { border-color: var(--primary-color); }
+        .cv-skill-card h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
             margin-bottom: 0.5rem;
-            color: #666;
+        }
+        .cv-skill-card ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .cv-skill-card li {
+            font-size: 0.88rem;
+            padding: 0.2rem 0;
+            color: var(--text-color);
         }
 
-        .download-cv {
-            text-align: center;
-            margin-bottom: 3rem;
+        /* ---- References grid ---- */
+        .cv-ref-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.85rem;
         }
+        .cv-ref-card {
+            padding: 1.15rem;
+            border-radius: 0.85rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .cv-ref-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 16px rgba(0, 172, 193, 0.08);
+        }
+        .cv-ref-top {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 0.75rem;
+        }
+        .cv-ref-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(0, 172, 193, 0.25);
+            flex-shrink: 0;
+        }
+        .cv-ref-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .cv-ref-title {
+            font-size: 0.82rem;
+            color: var(--muted-text, #64748b);
+            margin: 0.1rem 0 0;
+        }
+        .cv-ref-details {
+            font-size: 0.85rem;
+            line-height: 1.7;
+            color: var(--muted-text, #64748b);
+        }
+        .cv-ref-details strong { color: var(--text-color); }
+        .cv-ref-details a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .cv-ref-details a:hover { text-decoration: underline; }
 
-        .download-button {
+        /* ---- Floating button ---- */
+        .cv-float-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 200;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.2s;
-        }
-
-        .download-button:hover {
-            opacity: 0.9;
-        }
-        
-        .view-pdf-button {
-            background: linear-gradient(135deg, rgba(90, 26, 219, 0.42), rgba(26, 190, 219, 0.55));
-            color: white;
+            padding: 0.7rem 1.3rem;
+            border-radius: 999px;
             border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
+            background: var(--primary-gradient);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
+            box-shadow: 0 6px 24px rgba(0, 131, 143, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        
-        .view-pdf-button:hover {
-            background: linear-gradient(135deg, rgba(26, 190, 219, 0.55), rgba(90, 26, 219, 0.42));
+        .cv-float-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 10px 32px rgba(0, 131, 143, 0.4);
         }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+        /* ---- Dark-mode tweaks ---- */
+        html[data-theme="dark"] .cv-nav-list {
+            background: rgba(30, 41, 59, 0.7);
+            border-color: rgba(148, 163, 184, 0.12);
+        }
+        html[data-theme="dark"] .cv-item {
+            background: rgba(30, 41, 59, 0.5);
+            border-color: rgba(148, 163, 184, 0.12);
+        }
+        html[data-theme="dark"] .cv-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 16px rgba(0, 172, 193, 0.1);
+        }
+        html[data-theme="dark"] .cv-skill-card,
+        html[data-theme="dark"] .cv-ref-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-color: rgba(148, 163, 184, 0.12);
+        }
+        html[data-theme="dark"] .cv-skill-card:hover,
+        html[data-theme="dark"] .cv-ref-card:hover {
+            border-color: var(--primary-color);
+        }
+        html[data-theme="dark"] .cv-avatar {
+            box-shadow: 0 4px 20px rgba(0, 172, 193, 0.2);
+        }
+        html[data-theme="dark"] .cv-nav-list a {
+            color: #cbd5e1;
+        }
+        html[data-theme="dark"] .cv-nav-list a:hover {
+            background: rgba(0, 172, 193, 0.12);
+            color: #67e8f9;
+        }
+        html[data-theme="dark"] .cv-nav-list a.active {
+            background: var(--primary-color);
+            color: #fff;
+        }
+        html[data-theme="dark"] .cv-refresh-btn {
+            border-color: rgba(148, 163, 184, 0.2);
+            color: #cbd5e1;
+        }
+        html[data-theme="dark"] .cv-item-link {
+            border-color: rgba(0, 172, 193, 0.2);
+        }
+        html[data-theme="dark"] .cv-ref-avatar {
+            border-color: rgba(0, 172, 193, 0.3);
+        }
+        html[data-theme="dark"] .cv-float-btn {
+            background: var(--primary-gradient);
+            box-shadow: 0 6px 24px rgba(0, 172, 193, 0.25);
+        }
+        html[data-theme="dark"] .cv-float-btn:hover {
+            box-shadow: 0 10px 32px rgba(0, 172, 193, 0.35);
         }
 
-        .skill-category {
-            background-color: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-        }
-
-        .skill-category h4 {
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            margin-bottom: 0.5rem;
-        }
-
-        .skill-list li:last-child {
-            margin-bottom: 0;
-        }
-        
-        /* Fix for navbar overlap and smooth scrolling */
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 100px; /* Account for fixed navbar */
-        }
-        
-        body {
-            padding-top: 0;
-        }
-        
-        main {
-            margin-top: 120px; /* Space for fixed navbar */
-            padding-bottom: 2rem; /* Extra space before footer */
-        }
-        
-        /* Ensure sections have proper spacing */
-        .cv-section {
-            scroll-margin-top: 140px;
-        }
-        
-        /* Fix sidebar positioning */
-        .cv-sidebar {
-            position: fixed;
-            top: 140px; /* Below navbar */
-            left: 5rem;
-            width: 280px;
-            height: calc(100vh - 200px); /* Account for navbar + footer + extra space */
-            overflow-y: auto;
-            padding: 1.5rem;
-        }
-        
-        .cv-sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .cv-sidebar li {
-            margin-bottom: 0.5rem;
-        }
-        
-        .cv-sidebar a {
-            display: block;
-            padding: 0.75rem 1rem;
-            color: #666;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid transparent;
-        }
-        
-        .cv-sidebar a:hover {
-            background: rgba(106, 76, 255, 0.1);
-            color: var(--primary-color);
-            transform: translateX(4px);
-            border-color: rgba(106, 76, 255, 0.2);
-        }
-        
-        .cv-sidebar a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-        
-        .cv-sidebar a:hover::before {
-            left: 100%;
-        }
-        
-        /* Style for active sidebar links */
-        .cv-sidebar a.active {
-            background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
-            color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px rgba(160, 142, 255, 0.3);
-            transform: translateX(4px);
-        }
-        
-        /* Layout using flexbox */
-        .cv-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        /* Ensure content doesn't overlap with sidebar */
-        .cv-container {
-            margin-left: 320px; /* Sidebar width + left position + gap */
-            max-width: 800px;
-            margin-bottom: 4rem; /* Space before footer */
-        }
-        
-
-        
-        /* Statistics number styling */
-        .stat-number {
-            font-weight: 700;
-            font-size: 1.1em;
-            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 2px 4px rgba(108, 92, 231, 0.2);
-            transition: all 0.3s ease;
-            display: inline-block;
-            min-width: 2ch;
-            text-align: center;
-        }
-        
-        .stat-number:hover {
-            transform: scale(1.1);
-            filter: brightness(1.2);
-        }
-        
-        /* Count-up animation */
-        @keyframes countUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .stat-number.animating {
-            animation: countUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        /* Learn more link styling */
-        .learn-more-link {
-            color: #6c5ce7;
-            text-decoration: none;
-            font-weight: 500;
-            margin-left: 0.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .learn-more-link:hover {
-            color: #a29bfe;
-            transform: translateX(3px);
-        }
-        
-        .learn-more-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
-            transition: width 0.3s ease;
-        }
-        
-        .learn-more-link:hover::after {
-            width: 100%;
-        }
-        
-        /* Reference cards styling */
-        .reference-card:hover {
-            background: rgba(106, 76, 255, 0.03) !important;
-            border-color: rgba(106, 76, 255, 0.12) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(106, 76, 255, 0.08);
-        }
-        
-        .reference-card img {
-            transition: all 0.3s ease;
-        }
-        
-        .reference-card:hover img {
-            transform: scale(1.05);
-            border-color: rgba(106, 76, 255, 0.4) !important;
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 1024px) {
-            .cv-sidebar {
-                left: 1rem;
-                width: 260px;
-            }
-            
-            .cv-container {
-                margin-left: 300px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .cv-sidebar {
-                position: static;
-                width: 100%;
-                max-width: 400px;
-                height: auto;
-                margin: 0 auto 2rem auto;
-                left: auto;
-            }
-            
-            .cv-container {
-                margin-left: 0;
-            }
-            
-            main {
-                margin-top: 60px;
-            }
+        /* ---- Responsive ---- */
+        @media (max-width: 640px) {
+            .cv-header { gap: 1.2rem; }
+            .cv-avatar { width: 90px; height: 90px; }
+            .cv-page { padding-top: 4rem; }
+            .cv-nav-bar { margin: 0 -1.5rem 2rem; top: 56px; }
+            .cv-float-btn { bottom: 1.2rem; right: 1.2rem; font-size: 0.82rem; padding: 0.6rem 1rem; }
         }
     </style>
 </head>
@@ -390,507 +439,353 @@
         </div>
     </nav>
 
+    <main class="cv-page">
+        <!-- Header -->
+        <header class="cv-header" id="header">
+            <img src="picz/durjoy.png" alt="Durjoy Mistry" class="cv-avatar">
+            <div class="cv-header-info">
+                <h1 class="cv-name">Durjoy Mistry</h1>
+                <div class="cv-role">Lecturer, Department of CSE</div>
+                <div class="cv-meta">
+                    University of Asia Pacific, Bangladesh<br>
+                    <a href="mailto:durjoy@uap-bd.edu">durjoy@uap-bd.edu</a> · +880-1719588272<br>
+                    74/A Green Road, Dhaka 1205
+                </div>
+            </div>
+        </header>
 
-    <main style="margin-top: 80px;">
-        <div class="cv-layout">
-            <nav class="cv-sidebar">
+        <!-- Sticky section nav -->
+        <nav class="cv-nav-bar" id="cv-nav">
+            <ul class="cv-nav-list">
+                <li><a href="#objective">Objective</a></li>
+                <li><a href="#research">Research</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#awards">Awards</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#references">References</a></li>
+            </ul>
+        </nav>
+
+        <!-- Objective -->
+        <section class="cv-section" id="objective">
+            <h2 class="cv-section-title"><i class="fas fa-bullseye"></i>Objective</h2>
+            <p style="line-height:1.7; font-size:0.95rem;">
+                A passionate and driven researcher, expert in machine learning, deep learning, federated learning, NLP, generative AI, and quantum machine learning, with strong coding skills in Python and other tools, eager to leverage my passion for innovation to deliver meaningful value to the world of computer science.
+            </p>
+        </section>
+
+        <!-- Research -->
+        <section class="cv-section" id="research">
+            <h2 class="cv-section-title"><i class="fas fa-flask"></i>Research</h2>
+            <ul style="margin-left:1.2rem; font-size:0.93rem; line-height:1.7;">
+                <li><strong>Interests:</strong> Machine Learning, Deep Learning, Federated Learning, Generative AI, Quantum Computing, Blockchain, Computer Vision</li>
+                <li><span id="live-papers" class="cv-stat">17</span>+ peer-reviewed publications · <span id="live-citations" class="cv-stat">165</span>+ citations <a href="research.html" class="cv-stat-link">Learn more &rarr;</a></li>
+                <li>Supervision of <span id="live-debs" class="cv-stat">13</span>+ research debutants <a href="research_debutant.html" class="cv-stat-link">Learn more &rarr;</a></li>
+                <li>Active in AI research lab initiatives and academic process automation</li>
+            </ul>
+            <div style="margin-top:0.5rem;">
+                <button class="cv-refresh-btn" onclick="updateLiveStats()">
+                    <i class="fas fa-sync-alt"></i> Refresh Stats
+                </button>
+                <span id="last-updated"></span>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="cv-section" id="education">
+            <h2 class="cv-section-title"><i class="fas fa-graduation-cap"></i>Education</h2>
+
+            <div class="cv-item">
+                <div class="cv-item-title">Master in Computer Science and Engineering</div>
+                <div class="cv-item-period">Passing Year: December, 2025</div>
+                <div class="cv-item-org">University of Asia Pacific</div>
                 <ul>
-                    <li><a href="#header">Profile</a></li>
-                    <li><a href="#objective">Objective</a></li>
-                    <li><a href="#research">Research</a></li>
-                    <li><a href="#education">Education</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#awards">Awards</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#references">References</a></li>
+                    <li>CGPA: 4.00 | Batch Rank #01</li>
+                    <li>Thesis: "Secure Federated Learning for Sign Language Detection: Addressing Model Inversion Vulnerabilities with Differential Privacy"</li>
                 </ul>
-            </nav>
-            <div class="cv-container">
-                <section class="cv-header-card glass-card" id="header" style="margin-bottom:2.5rem;display:flex;align-items:center;gap:2.2rem;flex-wrap:wrap;justify-content:space-between;">
-                    <div style="flex:1 1 300px;min-width:220px;">
-                        <h1 style="font-size:2.3rem;margin-bottom:0.2em;">Durjoy Mistry</h1>
-                        <div style="font-size:1.15rem;font-weight:500;opacity:0.85;margin-bottom:0.5em;">Lecturer, Department of Computer Science & Engineering</div>
-                        <div style="font-size:1.05rem;opacity:0.8;margin-bottom:0.2em;">University of Asia Pacific, Bangladesh</div>
-                        <div style="font-size:1.05rem;opacity:0.8;margin-bottom:0.2em;">Email: <a href="mailto:durjoy@uap-bd.edu">durjoy@uap-bd.edu</a></div>
-                        <div style="font-size:1.05rem;opacity:0.8;margin-bottom:0.2em;">Whatsapp: +880-1719588272</div>
-                        <div style="font-size:1.05rem;opacity:0.8;">Address: 74/A, Green Road, Dhaka 1205, Bangladesh</div>
-                    </div>
-                    <div style="flex:0 0 140px;display:flex;align-items:center;justify-content:center;">
-                        <img src="picz/durjoy.png" alt="Durjoy Mistry" class="profile-img" style="width:140px;height:140px;object-fit:cover;border-radius:50%;box-shadow:0 2px 16px rgba(106,76,255,0.13);border:4px solid #fff;" />
-                    </div>
-                </section>
-                <div class="cv-section" id="objective">
-                    <h2>Objective</h2>
-                    <p style="text-align:justify;">
-A passionate and driven researcher, expert in machine learning, deep learning, federated learning, NLP, generative AI, and quantum machine learning, with strong coding skills in Python, and other tools, eager to leverage my passion for innovation to deliver meaningful value to the world of computer science.
-                    </p>
-                </div>
-                <div class="cv-section" id="research">
-                    <h2>Research</h2>
-                    <ul style="margin-left:1.2em;">
-                        <li>Research Interests: Machine Learning, Deep Learning, Federated Learning, Generative Ai, Quantam Computing, Blockchain, Computer Vision</li>
-                        <li><span id="live-papers" class="stat-number">12</span>+ peer-reviewed publications | <span id="live-citations" class="stat-number">45</span>+ citations <a href="research.html" class="learn-more-link">Learn more →</a></li>
-                        <li>Supervision of <span id="live-debs" class="stat-number">15</span>+ research debutantes <a href="research_debutant.html" class="learn-more-link">Learn more →</a></li>
-                        <li>Active in AI research lab initiatives and academic process automation</li>
-                    </ul>
-                    <div style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                        <button onclick="updateLiveStats()" style="background: #6c5ce7; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.3rem; cursor: pointer; font-size: 0.8rem;">
-                            <i class="fas fa-sync-alt"></i> Refresh Stats
-                        </button>
-                        <span id="last-updated" style="margin-left: 1rem; font-style: italic;"></span>
-                    </div>
-                </div>
-                <div class="cv-section" id="education">
-                    <h2>Education</h2>
-                    <div class="cv-item">
-                        <h3>Master in Computer Science and Engineering</h3>
-                        <div class="period">Passing Year: December, 2025</div>
-                        <div class="organization">University of Asia Pacific</div>
-                        <ul style="margin-left: 1.2em; margin-top: 0.5rem;">
-                            <li>CGPA: 4.00 | Batch Rank #01</li>
-                            <li>Thesis: "Secure Federated Learning for Sign Language Detection: Addressing Model Inversion Vulnerabilities with Differential Privacy"</li>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-item-title">B.Sc. in Computer Science and Engineering</div>
+                <div class="cv-item-period">Passing Year: December, 2021</div>
+                <div class="cv-item-org">University of Asia Pacific</div>
+                <ul>
+                    <li>CGPA: 3.88 | Batch Rank #02</li>
+                    <li>Thesis: "Hate Speech Detection in Social Media Comments using BERT"</li>
+                </ul>
+            </div>
+
+            <div class="cv-item">
+                <div class="cv-item-title">Secondary and Higher Secondary Education</div>
+                <div class="cv-item-org">Barisal Education Board</div>
+                <ul>
+                    <li>SSC (Science), 2013 — GPA 5.00</li>
+                    <li>HSC (Science), 2015 — GPA 5.00</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="cv-section" id="experience">
+            <h2 class="cv-section-title"><i class="fas fa-briefcase"></i>Experience</h2>
+
+            <div class="cv-item">
+                <div class="cv-item-title"><a href="https://www.uap-bd.edu/" target="_blank">University of Asia Pacific</a></div>
+                <div class="cv-item-period">2023 – Present</div>
+                <div class="cv-item-org">Lecturer, Department of CSE</div>
+                <ul>
+                    <li>Teaching advanced courses in Machine Learning and AI</li>
+                    <li>Supervising undergraduate research projects</li>
+                    <li>Leading the AI Research Lab initiatives</li>
+                    <li>Convener: Software and Hardware Club, Dept. of CSE</li>
+                    <li>Courses Conducted:
+                        <ul>
+                            <li>CSE 102: Introduction to Computer Programming Lab</li>
+                            <li>CSE 104: Structured Programming Lab</li>
+                            <li>CSE 108: Competitive Programming</li>
+                            <li>CSE 304: Data Communication Lab</li>
+                            <li>CSE 306: System Analysis &amp; Design Lab</li>
+                            <li>CSE 302: Object Oriented Programming II Lab</li>
+                            <li>CSE 301: Object Oriented Programming II</li>
                         </ul>
-                    </div>
-                    <div class="cv-item">
-                        <h3>B.Sc. in Computer Science and Engineering</h3>
-                        <div class="period">Passing Year: December, 2021</div>
-                        <div class="organization">University of Asia Pacific</div>
-                        <ul style="margin-left: 1.2em; margin-top: 0.5rem;">
-                            <li>CGPA: 3.88 | Batch Rank #02</li>
-                            <li>Thesis: "Hate Speech Detection in Social Media Comments using BERT"</li>
-                        </ul>
-                    </div>
-                    <div class="cv-item">
-                        <h3>Secondary and Higher Secondary Education</h3>
-                        <div class="organization">Barisal Education Board</div>
-                        <ul style="margin-left: 1.2em; margin-top: 0.5rem;">
-                            <li>SSC (Science), 2013 — GPA 5.00</li>
-                            <li>HSC (Science), 2015 — GPA 5.00</li>
-                        </ul>
-                    </div>
-                    
-                </div>
-                <div class="cv-section" id="experience">
-                    <h2>Experience</h2>
-                    <!-- University of Asia Pacific -->
-<div class="cv-item">
-    <h3><a href="https://www.uap-bd.edu/" target="_blank">University of Asia Pacific</a></h3>
-    <div class="period">2023 - Present</div>
-    <div class="organization">Lecturer, Department of CSE</div>
-    <ul style="margin-left: 1.2em; margin-top: 0.5rem;">
-        <li>Teaching advanced courses in Machine Learning and AI</li>
-        <li>Supervising undergraduate research projects</li>
-        <li>Leading the AI Research Lab initiatives</li>
-        <li>Convenner: Software and Hardware Club, Dept. of CSE </li>
-        <li>Courses Conducted:</li>
-        <ul style="margin-left: 2em; margin-top: 0.3rem;">
-            <li>CSE 102: Introduction to Computer Programming Lab </li>
-            <li>CSE 104: Structured Programming Lab</li>
-            <li>CSE 108: Competitive Programming</li>
-            <li>CSE 304: Data Communication Lab</li>
-            <li>CSE 306: System Analysis & Design Lab</li>
-            <li>CSE 302: Object Oriented Programming II Lab: Visual and Web Design</li>
-            <li>CSE 301: Object Oriented Programming II: Visual and Web Design</li>
-        </ul>
-    </ul>
-    <a href="https://cse.uap-bd.edu/faculties/faculty_details/50" target="_blank" class="btn">View Profile</a>
-</div>
+                    </li>
+                </ul>
+                <a href="https://cse.uap-bd.edu/faculties/faculty_details/50" target="_blank" class="cv-item-link"><i class="fas fa-arrow-up-right-from-square"></i> View Profile</a>
+            </div>
 
-<!-- AMIR Lab -->
-<div class="cv-item">
-    <h3><a href="https://amirlab.org/" target="_blank">AMIR Lab</a></h3>
-    <div class="period">2022 - Present</div>
-    <div class="organization">Lead Researcher</div>
-    <ul style="margin-left: 1.2em; margin-top: 0.5rem;">
-        <li>Lead research in Federated Learning, and Generative AI</li>
-        <li>Supervising junior researchers and guiding publications</li>
-        <li>Collaborating on international projects and grants</li>
-    </ul>
-    <a href="https://amirl.org/peopleDetailsView/Durjoy-Mistry/" target="_blank" class="btn">View Profile</a>
-</div>
+            <div class="cv-item">
+                <div class="cv-item-title"><a href="https://amirlab.org/" target="_blank">AMIR Lab</a></div>
+                <div class="cv-item-period">2022 – Present</div>
+                <div class="cv-item-org">Lead Researcher</div>
+                <ul>
+                    <li>Lead research in Federated Learning and Generative AI</li>
+                    <li>Supervising junior researchers and guiding publications</li>
+                    <li>Collaborating on international projects and grants</li>
+                </ul>
+                <a href="https://amirl.org/peopleDetailsView/Durjoy-Mistry/" target="_blank" class="cv-item-link"><i class="fas fa-arrow-up-right-from-square"></i> View Profile</a>
+            </div>
 
-<!-- dotRedDigital -->
-<div class="cv-item">
-    <h3><a href="https://www.reddotdigitalit.com/" target="_blank">dotRedDigital</a></h3>
-    <div class="period">2021 - 2022</div>
-    <div class="organization">Information Technology Company</div>
-    <ul style="margin-left: 1.2em; margin-top: 0.5rem;">
-        <li>Full-stack Web Developer</li>
-    </ul>
-    <!-- <a href="https://your-profile-link.com" target="_blank" class="btn">View Profile</a> -->
-</div>
+            <div class="cv-item">
+                <div class="cv-item-title"><a href="https://www.reddotdigitalit.com/" target="_blank">dotRedDigital</a></div>
+                <div class="cv-item-period">2021 – 2022</div>
+                <div class="cv-item-org">Full-stack Web Developer</div>
+            </div>
+        </section>
 
-<!-- Styling -->
-<style>
-    a {
-        text-decoration: none; /* remove underline from links */
-        color: inherit; /* keep text color consistent */
-    }
-    .btn {
-        display: inline-block;
-        margin-top: 0.5rem;
-        padding: 0.4rem 0.8rem;
-        background: linear-gradient(90deg, #b993d6, #8ca6db);
-        color: #fff;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        text-decoration: none;
-        transition: 0.3s ease;
-    }
-    .btn:hover {
-        background: linear-gradient(90deg, #8ca6db, #b993d6);
-        box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-    }
-</style>
+        <!-- Awards -->
+        <section class="cv-section" id="awards">
+            <h2 class="cv-section-title"><i class="fas fa-trophy"></i>Awards</h2>
 
-                </div>
-                <div class="cv-section" id="awards">
-                    <h2>Awards</h2>
-                
-                    <h3>Vice Chancellor's Award (GPA: 3.90+)</h3>
-                    <ul style="margin-left:1.2em;">
-                        <li>Fall 2018, University of Asia Pacific</li>
-                        <li>Fall 2019, University of Asia Pacific</li>
-                        <li>Spring 2020, University of Asia Pacific</li>
-                        <li>Fall 2020, University of Asia Pacific</li>
-                        <li>Spring 2021, University of Asia Pacific</li>
-                        <li>2021, University of Asia Pacific</li>
-                    </ul>
-                
-                    <h3>Dean's Award (GPA: 3.75+)</h3>
-                    <ul style="margin-left:1.2em;">
-                        <li>Fall 2017, University of Asia Pacific</li>
-                        <li>Spring 2019, University of Asia Pacific</li>
-                    </ul>
-                
-                    <h3>Contest Winner</h3>
-                    <ul style="margin-left:1.2em;">
-                        <li>2020 – Inside CSE, Film And Photography Club, UAP (<a href="https://www.youtube.com/watch?v=azdNa4-F6FQ" target="_blank"><span style="color: #6c5ce7;">Watch</span></a>)</li>
-                    </ul>
-                
-                    <h3>Other Recognitions</h3>
-                    <ul style="margin-left:1.2em;">
-                        <li>Secured Bronze Award – International Blockchain Olympiad, for project <i>Trusted Traceability Service</i></li>
-                        <li>Emerging Leader 2024 Award.</li>
-      
+            <div class="cv-awards-group">
+                <h4>Vice Chancellor's Award (GPA 3.90+)</h4>
+                <ul>
+                    <li>Fall 2018, Spring 2020, Fall 2019, Fall 2020, Spring 2021, 2021 — University of Asia Pacific</li>
+                </ul>
+            </div>
+
+            <div class="cv-awards-group">
+                <h4>Dean's Award (GPA 3.75+)</h4>
+                <ul>
+                    <li>Fall 2017, Spring 2019 — University of Asia Pacific</li>
+                </ul>
+            </div>
+
+            <div class="cv-awards-group">
+                <h4>Contest &amp; Other Recognitions</h4>
+                <ul>
+                    <li>2020 — Inside CSE, Film And Photography Club, UAP (<a href="https://www.youtube.com/watch?v=azdNa4-F6FQ" target="_blank">Watch</a>)</li>
+                    <li>Bronze Award — International Blockchain Olympiad, project <em>Trusted Traceability Service</em></li>
+                    <li>Emerging Leader 2024 Award</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="cv-section" id="skills">
+            <h2 class="cv-section-title"><i class="fas fa-code"></i>Skills</h2>
+            <div class="cv-skills-grid">
+                <div class="cv-skill-card">
+                    <h4>Programming</h4>
+                    <ul>
+                        <li>Python</li>
+                        <li>TensorFlow &amp; PyTorch</li>
+                        <li>Java · C · C++</li>
+                        <li>JavaScript · HTML · CSS</li>
+                        <li>Django (Expert)</li>
                     </ul>
                 </div>
-                
-                <div class="cv-section" id="skills">
-                    <h2>Skills</h2>
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h4>Programming</h4>
-                            <ul class="skill-list">
-                                <li>Python</li>
-                                <li>TensorFlow</li>
-                                <li>PyTorch</li>
-                                <li>Java</li>
-                                <li>C</li>
-                                <li>C++</li>
-                                <li>JavaScript</li>
-                                <li>HTML</li>
-                                <li>CSS</li>
-                                <li>Django(Web Framework) - Expert</li>
-                            </ul>
+                <div class="cv-skill-card">
+                    <h4>Machine Learning</h4>
+                    <ul>
+                        <li>Deep Learning</li>
+                        <li>Federated Learning</li>
+                        <li>Computer Vision &amp; NLP</li>
+                        <li>Quantum ML</li>
+                        <li>Generative AI</li>
+                        <li>Blockchain</li>
+                    </ul>
+                </div>
+                <div class="cv-skill-card">
+                    <h4>Tools</h4>
+                    <ul>
+                        <li>Git &amp; GitHub</li>
+                        <li>AWS</li>
+                        <li>Linux</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- References -->
+        <section class="cv-section" id="references">
+            <h2 class="cv-section-title"><i class="fas fa-user-check"></i>References</h2>
+            <div class="cv-ref-grid">
+                <div class="cv-ref-card">
+                    <div class="cv-ref-top">
+                        <img src="picz/aloke.jpg" alt="Dr. Aloke Kumar Saha" class="cv-ref-avatar">
+                        <div>
+                            <h4 class="cv-ref-name">Dr. Aloke Kumar Saha</h4>
+                            <p class="cv-ref-title">Professor, Dept. of CSE, UAP</p>
                         </div>
-                        <div class="skill-category">
-                            <h4>Machine Learning</h4>
-                            <ul class="skill-list">
-                                <li>Deep Learning</li>
-                                <li>Federated Learning</li>
-                                <li>Computer Vision</li>
-                                <li>NLP</li>
-                                <li>Quantam Machine Learning</li>
-                                <li>Generative AI</li>
-                                <li>Blockchain</li>
-                            </ul>
-                        </div>
-                        <div class="skill-category">
-                            <h4>Tools & Technologies</h4>
-                            <ul class="skill-list">
-                                <li>Git</li>
-                                <li>GitHub</li>
-                                <li>AWS</li>
-                                <li>Linux</li>
-                            </ul>
-                        </div>
+                    </div>
+                    <div class="cv-ref-details">
+                        <strong>Role:</strong> Thesis Supervisor<br>
+                        <strong>Email:</strong> <a href="mailto:aloke@uap-bd.edu">aloke@uap-bd.edu</a><br>
+                        <strong>Available for:</strong> Academic &amp; Professional References
                     </div>
                 </div>
-                <div class="cv-section" id="references">
-                    <h2>References</h2>
-                    <div class="references-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 1rem;">
-
-                        <!-- Reference 1: Dr. Aloke Kumar Saha -->
-                        <div class="reference-card" style="background: rgba(255, 255, 255, 0.02); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(106, 76, 255, 0.08); transition: all 0.3s ease;">
-                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                                <img src="picz/aloke.jpg" alt="Dr. Aloke Kumar Saha" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(106, 76, 255, 0.2);">
-                                <div>
-                                    <h4 style="margin: 0; color: var(--primary-color); font-size: 1.1rem;">Dr. Aloke Kumar Saha</h4>
-                                    <p style="margin: 0.25rem 0 0 0; color: #666; font-size: 0.9rem;">Professor, Dept. of CSE, UAP</p>
-                                </div>
-                            </div>
-                            <div style="color: #666; font-size: 0.9rem;">
-                                <p style="margin: 0.5rem 0;"><strong>Role:</strong> Thesis Supervisor</p>
-                                <p style="margin: 0.5rem 0;"><strong>Email:</strong> <a href="mailto:aloke@uap-bd.edu" style="color: var(--primary-color); text-decoration: none;">aloke@uap-bd.edu</a></p>
-                                <p style="margin: 0.5rem 0;"><strong>Available for:</strong> Academic and Professional References</p>
-                            </div>
+                <div class="cv-ref-card">
+                    <div class="cv-ref-top">
+                        <img src="picz/firoz.png" alt="Dr. Firoz Mridha" class="cv-ref-avatar">
+                        <div>
+                            <h4 class="cv-ref-name">Dr. Firoz Mridha</h4>
+                            <p class="cv-ref-title">Professor, AIUB · Director, AMIR Lab</p>
                         </div>
-                    
-                        <!-- Reference 2: Dr. Firoz Mridha -->
-                        <div class="reference-card" style="background: rgba(255, 255, 255, 0.02); border-radius: 0.75rem; padding: 1.5rem; border: 1px solid rgba(106, 76, 255, 0.08); transition: all 0.3s ease;">
-                            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-                                <img src="picz/firoz.png" alt="Dr. Firoz Mridha" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid rgba(106, 76, 255, 0.2);">
-                                <div>
-                                    <h4 style="margin: 0; color: var(--primary-color); font-size: 1.1rem;">Dr. Firoz Mridha</h4>
-                                    <p style="margin: 0.25rem 0 0 0; color: #666; font-size: 0.9rem;">Professor, AIUB | Director, AMIR Lab</p>
-                                </div>
-                            </div>
-                            <div style="color: #666; font-size: 0.9rem;">
-                                <p style="margin: 0.5rem 0;"><strong>Role:</strong> Research Mentor</p>
-                                <p style="margin: 0.5rem 0;"><strong>Email:</strong> <a href="mailto:firoz.mridha@aiub.edu" style="color: var(--primary-color); text-decoration: none;">firoz.mridha@aiub.edu</a></p>
-                                <p style="margin: 0.5rem 0;"><strong>Highlights:</strong> Ranked in World’s Top 2% Scientists, 5000+ Citations</p>
-                                <p style="margin: 0.5rem 0;"><strong>Available for:</strong> Academic and Professional References</p>
-                            </div>
-                        </div>
-                    
                     </div>
-                    
+                    <div class="cv-ref-details">
+                        <strong>Role:</strong> Research Mentor<br>
+                        <strong>Email:</strong> <a href="mailto:firoz.mridha@aiub.edu">firoz.mridha@aiub.edu</a><br>
+                        <strong>Highlights:</strong> World's Top 2% Scientists, 5000+ Citations<br>
+                        <strong>Available for:</strong> Academic &amp; Professional References
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </main>
-    <!-- <button id="download-cv-float" class="download-button" style="position:fixed;bottom:2.2rem;right:2.2rem;z-index:2000;box-shadow:0 4px 24px rgba(106,76,255,0.13);display:flex;align-items:center;gap:0.5rem;" title="Download this CV as PDF">
-        <i class="fas fa-download"></i> Download CV
-    </button> -->
-    
-    <button id="view-pdf-float" class="view-pdf-button" style="position:fixed;bottom:2.2rem;right:2.2rem;z-index:2000;box-shadow:0 4px 24px rgba(106,76,255,0.13);display:flex;align-items:center;gap:0.5rem;" title="View CV PDF in new tab" onclick="openPDFViewer()">
+
+    <button class="cv-float-btn" onclick="openPDFViewer()" title="View professional CV">
         <i class="fas fa-file-pdf"></i> View Professional CV
     </button>
 
-    <!-- <footer>
-        <div class="footer-content">
-            <div class="contact-info">
-                <p>
-                    Email: 
-                    <a href="mailto:durjoy@uap-bd.edu" style="text-decoration:none; color:inherit;">durjoy@uap-bd.edu</a> |
-                    <a href="mailto:talk2durjoy@gmail.com" style="text-decoration:none; color:inherit;">talk2durjoy@gmail.com</a>
-                </p>
-                <p>Built with 🤍 from scratch by Durjoy</p>
-            </div>
-            
-        </div>
-    </footer> -->
-
-
     <script src="script.js"></script>
-    
+    <script src="data.js"></script>
     <script>
-        // Handle smooth scrolling with proper offset for navbar
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarLinks = document.querySelectorAll('.cv-sidebar a[href^="#"]');
-            
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
+        // ---- Scroll-spy for section nav ----
+        (function () {
+            const links = document.querySelectorAll('.cv-nav-list a[href^="#"]');
+            const sections = [];
+
+            links.forEach(link => {
+                const id = link.getAttribute('href').slice(1);
+                const el = document.getElementById(id);
+                if (el) sections.push({ id, el, link });
+
+                link.addEventListener('click', e => {
                     e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        const navbarHeight = 120; // Height of the navbar
-                        const targetPosition = targetSection.offsetTop - navbarHeight - 20; // Extra 20px for breathing room
-                        
-                        window.scrollTo({
-                            top: targetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
                 });
             });
-            
-            // Highlight active section in sidebar
-            window.addEventListener('scroll', function() {
-                const sections = document.querySelectorAll('.cv-section, #header');
-                const sidebarLinks = document.querySelectorAll('.cv-sidebar a');
-                
-                let current = '';
-                const navbarHeight = 120;
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - navbarHeight - 100;
-                    const sectionHeight = section.clientHeight;
-                    
-                    if (window.pageYOffset >= sectionTop && window.pageYOffset < sectionTop + sectionHeight) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                sidebarLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === '#' + current) {
-                        link.classList.add('active');
-                    }
-                });
-            });
-        });
-    </script>
 
-
-<script src="data.js"></script>
-<script>
-    async function updateLiveStats() {
-        const papersElement = document.getElementById('live-papers');
-        const citationsElement = document.getElementById('live-citations');
-        const debsElement = document.getElementById('live-debs');
-        
-        if (papersElement) papersElement.style.opacity = '0.6';
-        if (citationsElement) citationsElement.style.opacity = '0.6';
-        if (debsElement) debsElement.style.opacity = '0.6';
-        
-        try {
-            const [stats, rdebsData] = await Promise.all([
-                fetchScholarStats(),
-                fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/rdebs').then(r => r.json())
-            ]);
-            
-            if (papersElement) {
-                animateCountUp(papersElement, stats.paperCount);
-                papersElement.style.opacity = '1';
-            }
-            if (citationsElement) {
-                animateCountUp(citationsElement, stats.totalCitations);
-                citationsElement.style.opacity = '1';
-            }
-            if (debsElement) {
-                const count = Array.isArray(rdebsData) && rdebsData.length > 1 ? rdebsData.length - 1 : 15;
-                animateCountUp(debsElement, count);
-                debsElement.style.opacity = '1';
-            }
-            updateTimestamp();
-        } catch (e) {
-            console.warn('Live stats fetch failed:', e);
-            resetToDefaults();
-        }
-    }
-    
-    function updateTimestamp() {
-        const timestampElement = document.getElementById('last-updated');
-        if (timestampElement) {
-            const now = new Date();
-            timestampElement.textContent = `Last updated: ${now.toLocaleTimeString()}`;
-        }
-    }
-    
-    // Count-up animation function
-    function animateCountUp(element, targetValue, duration = 1000) {
-        const startValue = parseInt(element.textContent) || 0;
-        const increment = (targetValue - startValue) / (duration / 16);
-        let currentValue = startValue;
-        
-        element.classList.add('animating');
-        
-        const timer = setInterval(() => {
-            currentValue += increment;
-            if ((increment > 0 && currentValue >= targetValue) || 
-                (increment < 0 && currentValue <= targetValue)) {
-                currentValue = targetValue;
-                clearInterval(timer);
-                element.classList.remove('animating');
-            }
-            element.textContent = Math.floor(currentValue);
-        }, 16);
-    }
-    
-    function resetToDefaults() {
-        const papersElement = document.getElementById('live-papers');
-        const citationsElement = document.getElementById('live-citations');
-        const debsElement = document.getElementById('live-debs');
-        if (papersElement) { animateCountUp(papersElement, 12); papersElement.style.opacity = '1'; }
-        if (citationsElement) { animateCountUp(citationsElement, 45); citationsElement.style.opacity = '1'; }
-        if (debsElement) { animateCountUp(debsElement, 15); debsElement.style.opacity = '1'; }
-    }
-
-    // Add enhanced interactive animations
-    document.addEventListener('DOMContentLoaded', function() {
-        updateLiveStats();
-        
-        // Auto-refresh every 5 minutes
-        setInterval(updateLiveStats, 5 * 60 * 1000);
-        
-        // Enhanced scroll animations with better timing
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            function onScroll() {
+                const scrollY = window.scrollY + 160;
+                let current = sections[0];
+                for (const s of sections) {
+                    if (s.el.offsetTop <= scrollY) current = s;
                 }
-            });
-        }, observerOptions);
-
-        // Observe all interactive elements
-        document.querySelectorAll('.skill-card, .tech-item, .stat-item, .achievement-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-            observer.observe(el);
-        });
-
-        // Add click effects for better interactivity
-        document.querySelectorAll('.skill-card, .tech-item, .stat-item, .achievement-item').forEach(el => {
-            el.addEventListener('click', function() {
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-            });
-        });
-    });
-
-    // Open PDF viewer function
-    function openPDFViewer() {
-        console.log('PDF viewer button clicked!');
-        
-        // Try different possible paths for the PDF
-        const possiblePaths = [
-            'https://docs.google.com/document/d/11WTCKGq8n-zjjn-lXg1WRxLiR06xTS_3-aQGATn5jmw/edit?usp=sharing',
-        ];
-        
-        // First try to open in a new tab with a simple approach
-        const pdfUrl = possiblePaths[0]; // Start with the most likely path
-        
-        try {
-            // Try opening in new tab first
-            const newWindow = window.open(pdfUrl, '_blank');
-            
-            if (!newWindow || newWindow.closed || typeof newWindow.closed == 'undefined') {
-                // If popup blocked, try direct link
-                console.log('Popup blocked, trying direct link');
-                window.location.href = pdfUrl;
-            } else {
-                console.log('PDF opened in new tab successfully');
+                links.forEach(l => l.classList.remove('active'));
+                if (current) current.link.classList.add('active');
             }
-        } catch (error) {
-            console.error('Error opening PDF:', error);
-            
-            // Fallback: try to create a download link
-            const link = document.createElement('a');
-            link.href = pdfUrl;
-            link.download = 'Durjoy_Mistry_CV.pdf';
-            link.target = '_blank';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            console.log('Fallback: PDF download initiated');
+
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        })();
+
+        // ---- Live stats (same priority as research page) ----
+        async function updateLiveStats() {
+            const els = {
+                papers: document.getElementById('live-papers'),
+                citations: document.getElementById('live-citations'),
+                debs: document.getElementById('live-debs')
+            };
+
+            Object.values(els).forEach(e => { if (e) e.style.opacity = '0.5'; });
+
+            try {
+                let stats = null;
+
+                // Priority 1: SerpAPI
+                try { stats = await fetchGoogleScholarStats(); } catch {}
+
+                // Priority 2: Cached JSON
+                if (!stats || !stats.totalCitations) {
+                    try {
+                        const res = await fetch('./data/research-stats.json');
+                        if (res.ok) stats = await res.json();
+                    } catch {}
+                }
+
+                // Priority 3: Sheet stats tab
+                if (!stats || !stats.totalCitations) {
+                    try {
+                        const rows = await fetch('https://opensheet.elk.sh/1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo/stats').then(r => r.json());
+                        if (Array.isArray(rows)) {
+                            const m = {};
+                            rows.forEach(r => { m[(r['Item'] || r['Item '] || '').trim().toLowerCase()] = parseInt(r['Count'] || r['Count ']) || 0; });
+                            stats = {
+                                totalCitations: m['total citation'] || m['total citations'] || 0,
+                                totalPubs: m['total publications'] || 0,
+                                debutants: m['research debutants'] || 0
+                            };
+                        }
+                    } catch {}
+                }
+
+                const pubs = stats?.totalPubs || stats?.paperCount || 17;
+                const cites = stats?.totalCitations || 165;
+                const debs = stats?.debutants || 13;
+
+                if (els.papers) { countUp(els.papers, pubs); els.papers.style.opacity = '1'; }
+                if (els.citations) { countUp(els.citations, cites); els.citations.style.opacity = '1'; }
+                if (els.debs) { countUp(els.debs, debs); els.debs.style.opacity = '1'; }
+                updateTimestamp();
+            } catch (e) {
+                console.warn('Live stats failed:', e);
+                Object.values(els).forEach(el => { if (el) el.style.opacity = '1'; });
+            }
         }
-    }
-</script>
+
+        function countUp(el, target, dur = 800) {
+            let start = parseInt(el.textContent) || 0;
+            const step = Math.max(1, Math.ceil((target - start) / (dur / 16)));
+            (function tick() {
+                start += step;
+                if (start >= target) { el.textContent = target; return; }
+                el.textContent = start;
+                requestAnimationFrame(tick);
+            })();
+        }
+
+        function updateTimestamp() {
+            const el = document.getElementById('last-updated');
+            if (el) el.textContent = 'Updated ' + new Date().toLocaleTimeString();
+        }
+
+        function openPDFViewer() {
+            window.open('https://docs.google.com/document/d/1CjQ4JypQYssHFTeUAVXhPAWsGwb5BWDbx-KgjMGfcdg/edit?tab=t.bd61j15xpo9m', '_blank');
+        }
+
+        document.addEventListener('DOMContentLoaded', updateLiveStats);
+    </script>
 </body>
-</html> 
+</html>

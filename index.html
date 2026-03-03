@@ -496,7 +496,7 @@
                         <i class="fas fa-arrow-right bento-arrow"></i>
                     </div>
                 </div>
-                <a href="research_debutant.html" class="bento-cell bento-square bento-tint-greendark">
+                <a href="research_debutant.html" class="bento-cell bento-square bento-tint-teal">
                     <div class="bento-glass">
                         <i class="fas fa-user-graduate bento-icon-top"></i>
                         <h3 class="bento-heading"><span class="bento-number" id="debutant-count">15+</span> Debutants</h3>
@@ -652,13 +652,13 @@
         }
 
         function applyStatsFromJson(stats) {
-            const { totalCitations, paperCount, hIndex } = stats;
+            const papers = stats.totalPubs || stats.paperCount || 0;
             const papersEl = document.getElementById('papers-count');
             const citationsEl = document.getElementById('citations-count');
             const hIndexEl = document.getElementById('h-index');
-            if (papersEl) papersEl.textContent = paperCount + '+';
-            if (citationsEl) citationsEl.textContent = totalCitations + '+';
-            if (hIndexEl) hIndexEl.textContent = (hIndex ?? '—') + '';
+            if (papersEl) papersEl.textContent = papers + '+';
+            if (citationsEl) citationsEl.textContent = (stats.totalCitations || 0) + '+';
+            if (hIndexEl) hIndexEl.textContent = (stats.hIndex ?? '—') + '';
         }
 
         function loadFromJson() {
