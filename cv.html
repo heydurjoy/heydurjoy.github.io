@@ -59,30 +59,35 @@
         }
         .cv-meta a:hover { text-decoration: underline; }
 
-        /* ---- Sticky section nav (pill bar) ---- */
+        /* ---- Fixed section nav (pill bar) ---- */
         .cv-nav-bar {
-            position: sticky;
-            top: 72px;
-            z-index: 50;
-            margin: 0 0 2.5rem;
-            padding-top: 0.6rem;
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 90;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            max-width: calc(100% - 2rem);
         }
         .cv-nav-bar::-webkit-scrollbar { display: none; }
+        .cv-nav-spacer {
+            height: 56px;
+        }
         .cv-nav-list {
             display: inline-flex;
-            gap: 0.2rem;
+            gap: 0.25rem;
             list-style: none;
             padding: 0.35rem;
             margin: 0;
             white-space: nowrap;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 999px;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: var(--nav-pill-glass);
+            border: 1px solid var(--nav-pill-border);
+            border-radius: 9999px;
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            box-shadow: var(--nav-pill-shadow);
         }
         .cv-nav-list a {
             display: inline-block;
@@ -95,19 +100,19 @@
             transition: background 0.2s, color 0.2s, box-shadow 0.2s;
         }
         .cv-nav-list a:hover {
-            background: rgba(0, 172, 193, 0.1);
+            background: var(--nav-pill-hover);
             color: var(--primary-color);
         }
         .cv-nav-list a.active {
-            background: var(--primary-color);
+            background: var(--primary-color-dark);
             color: #fff;
-            box-shadow: 0 2px 8px rgba(0, 131, 143, 0.25);
+            box-shadow: 0 6px 18px rgba(0, 131, 143, 0.35);
         }
 
         /* ---- Section ---- */
         .cv-section {
             margin-bottom: 3rem;
-            scroll-margin-top: 130px;
+            scroll-margin-top: 150px;
         }
         .cv-section-title {
             font-size: 1.2rem;
@@ -355,8 +360,9 @@
 
         /* ---- Dark-mode tweaks ---- */
         html[data-theme="dark"] .cv-nav-list {
-            background: rgba(30, 41, 59, 0.7);
-            border-color: rgba(148, 163, 184, 0.12);
+            background: var(--nav-pill-glass);
+            border-color: var(--nav-pill-border);
+            box-shadow: var(--nav-pill-shadow);
         }
         html[data-theme="dark"] .cv-item {
             background: rgba(30, 41, 59, 0.5);
@@ -379,14 +385,14 @@
             box-shadow: 0 4px 20px rgba(0, 172, 193, 0.2);
         }
         html[data-theme="dark"] .cv-nav-list a {
-            color: #cbd5e1;
+            color: var(--nav-text);
         }
         html[data-theme="dark"] .cv-nav-list a:hover {
-            background: rgba(0, 172, 193, 0.12);
-            color: #67e8f9;
+            background: var(--nav-pill-hover);
+            color: var(--primary-color);
         }
         html[data-theme="dark"] .cv-nav-list a.active {
-            background: var(--primary-color);
+            background: var(--primary-color-dark);
             color: #fff;
         }
         html[data-theme="dark"] .cv-refresh-btn {
@@ -412,7 +418,7 @@
             .cv-header { gap: 1.2rem; }
             .cv-avatar { width: 90px; height: 90px; }
             .cv-page { padding-top: 4rem; }
-            .cv-nav-bar { margin: 0 -1.5rem 2rem; top: 64px; }
+            .cv-nav-bar { top: 70px; }
             .cv-float-btn { bottom: 1.2rem; right: 1.2rem; font-size: 0.82rem; padding: 0.6rem 1rem; }
         }
     </style>
@@ -454,7 +460,7 @@
             </div>
         </header>
 
-        <!-- Sticky section nav -->
+        <!-- Fixed section nav -->
         <nav class="cv-nav-bar" id="cv-nav">
             <ul class="cv-nav-list">
                 <li><a href="#objective">Objective</a></li>
@@ -466,6 +472,7 @@
                 <li><a href="#references">References</a></li>
             </ul>
         </nav>
+        <div class="cv-nav-spacer"></div>
 
         <!-- Objective -->
         <section class="cv-section" id="objective">
