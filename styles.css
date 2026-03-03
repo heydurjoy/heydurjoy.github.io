@@ -164,8 +164,9 @@ h1, h2, h3 {
 }
 
 .nav-links a.active {
-    background: var(--nav-pill-active);
-    color: var(--primary-color);
+    background: var(--primary-color-dark);
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(0, 131, 143, 0.35);
 }
 
 .nav-actions {

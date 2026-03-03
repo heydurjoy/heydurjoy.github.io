@@ -10,231 +10,413 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-    .stats-grid {
-      display: flex;
-      gap: 2rem;
-      margin: 2rem 0 3rem 0;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 0 1rem;
-    }
-    .stat-card {
-      background: var(--card-bg);
-      border-radius: 1rem;
-      padding: 2rem 2.5rem;
-      text-align: center;
-      min-width: 180px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    .stat-number {
-      font-size: 2.5rem;
-      font-weight: 700;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-      transition: color 0.2s;
-    }
-    .stat-label {
-      font-size: 1.1rem;
-      color: var(--text-color);
-      opacity: 0.85;
-    }
-    .papers-section {
-      max-width: 900px;
+    .research-page {
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 0 1rem;
+      padding: 4rem 1.5rem 3rem;
     }
-    .paper-card {
-      background: var(--card-bg);
-      border-radius: 1rem;
-      padding: 2rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 2px 8px rgba(0,128,128,0.03);
+    .research-hero {
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
-      transition: box-shadow 0.3s, transform 0.2s;
-      border: none;
-      background: linear-gradient(to right, var(--card-bg), #f4f8f9);
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
     }
-    .paper-card:hover {
-      box-shadow: 0 6px 24px rgba(0,128,128,0.10);
-      transform: scale(1.02);
-    }
-    .paper-title {
-      font-size: 1.2rem;
+    .research-hero-eyebrow {
+      font-size: 0.9rem;
       font-weight: 600;
-      color: black;
-      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--primary-color);
     }
-    .paper-citations {
-      display: inline-block;
-      background: #eaf1ff;
-      color: #2d6cdf;
+    .research-hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.6rem);
       font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: 1em;
-      padding: 0.3em 1.1em;
-      margin-top: 0.2em;
-      margin-bottom: 0.2em;
-      box-shadow: 0 1px 4px rgba(45,108,223,0.07);
-      letter-spacing: 0.01em;
+      letter-spacing: -0.02em;
     }
-    .scholar-btn {
+    .research-hero-subtitle {
+      max-width: 650px;
+      color: var(--muted-text, #616161);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+    .research-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .pill-button {
       display: inline-flex;
       align-items: center;
-      gap: 0.7em;
-      background: var(--primary-color, #2d6cdf);
-      color: #fff;
-      font-size: 1.2rem;
-      font-weight: 600;
-      padding: 1rem 2.5rem;
-      border-radius: 2em;
-      box-shadow: 0 2px 12px rgba(45,108,223,0.08);
-      text-decoration: none;
-      transition: background 0.2s, box-shadow 0.2s;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.01em;
-    }
-    .scholar-btn:hover {
-      background: #1b417a;
-      box-shadow: 0 4px 18px rgba(45,108,223,0.13);
-    }
-    .sort-buttons-container {
-      display: flex;
-      gap: 0.5em;
-      flex-wrap: wrap;
-    }
-    .sort-btn {
-      background: #e0f2f1;
-      color: var(--primary-color-dark);
+      gap: 0.5rem;
+      border-radius: 999px;
       border: none;
-      border-radius: 1em;
-      padding: 0.3em 0.9em;
-      font-size: 0.98em;
-      font-weight: 600;
       cursor: pointer;
-      transition: background 0.2s;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.7rem 1.4rem;
+      transition: transform 0.18s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
       white-space: nowrap;
     }
-    @media (max-width: 768px) {
-      .stats-grid {
-        gap: 1rem;
-        padding: 0 1rem;
-        flex-direction: row !important;
-      }
-      .stat-card {
-        padding: 1.5rem;
-        min-width: 140px;
-        flex: 1;
-        margin: 0.5rem;
-      }
-      .stat-number {
-        font-size: 2rem !important;
-      }
-      .stat-label {
-        font-size: 1rem !important;
-      }
-      .scholar-btn {
-        font-size: 1.1rem !important;
-        padding: 0.8rem 1.5rem !important;
-        width: 90% !important;
-        justify-content: center !important;
-        margin: 1rem auto !important;
-      }
-      .paper-card {
-        padding: 1.5rem !important;
-        margin: 1rem 0 !important;
-        transform: none !important;
-      }
-      .paper-title {
-        font-size: 1.1rem !important;
-      }
-      .paper-citations {
-        font-size: 1rem !important;
-        padding: 0.25em 0.9em !important;
-      }
-      .sort-buttons-container {
-        flex-direction: column !important;
-        width: 100% !important;
-        margin-top: 1rem !important;
-      }
-      .sort-btn {
-        width: 100% !important;
-        padding: 0.5em 1em !important;
-        text-align: center !important;
-        margin: 0.25rem 0 !important;
-      }
-      .papers-section h2 {
-        font-size: 1.5rem !important;
-        margin-bottom: 0.5rem !important;
-      }
-      .paper-card:hover {
-        transform: none !important;
-      }
+    .pill-button.primary {
+      background: linear-gradient(135deg, #2d6cdf, #4c8dff);
+      color: #fff;
+      box-shadow: 0 10px 25px rgba(45,108,223,0.35);
+    }
+    .pill-button.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 35px rgba(45,108,223,0.45);
+    }
+    .pill-button.soft {
+      background: rgba(45,108,223,0.06);
+      color: #1e293b;
+    }
+    .pill-button.soft:hover {
+      background: rgba(45,108,223,0.12);
+      transform: translateY(-1px);
+    }
+    .bento-section {
+      margin-bottom: 2rem;
+      height: auto;
+      overflow: visible;
+    }
+    .research-page .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto auto auto;
+      grid-auto-rows: unset;
+      gap: 0.85rem;
+      height: auto;
+    }
+    .research-page .bento-card.embed-card {
+      grid-column: span 2;
+      padding: 0;
+      overflow: hidden;
+      min-height: 160px;
+      position: relative;
+    }
+    .research-page .bento-card.embed-card .iframely-embed {
+      width: 100%;
+      height: 100%;
+    }
+    .research-page .bento-card.embed-card .iframely-responsive {
+      width: 100% !important;
+      min-height: 160px !important;
+      padding-bottom: 0 !important;
+    }
+    .research-page .bento-card.embed-card iframe {
+      border-radius: 1.1rem;
+    }
+    
+    .research-page .bento-card {
+      border-radius: 1.1rem;
+      padding: 1.15rem 1.25rem;
+      background: var(--card-bg, #ffffff);
+      border: 1px solid rgba(148,163,184,0.3);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-height: unset;
+      height: auto;
+    }
+    .bento-icon {
+      width: 2.6rem;
+      height: 2.6rem;
+      border-radius: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .bento-icon.blue { background: rgba(37,99,235,0.1); color: #2563eb; }
+    .bento-icon.teal { background: rgba(20,184,166,0.1); color: #0d9488; }
+    .bento-icon.amber { background: rgba(245,158,11,0.1); color: #d97706; }
+    .bento-icon.purple { background: rgba(139,92,246,0.1); color: #7c3aed; }
+    .bento-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.05rem;
+      min-width: 0;
+    }
+    .research-page .bento-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text-color, #0f172a);
+      line-height: 1.2;
+    }
+    .research-page .bento-label {
+      font-size: 0.82rem;
+      color: var(--muted-text, #64748b);
+      text-transform: none;
+      letter-spacing: normal;
+    }
+    .papers-section {
+      margin-top: 0.5rem;
+    }
+    .papers-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+    }
+    .papers-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    .papers-subtitle {
+      font-size: 0.9rem;
+      color: var(--muted-text, #6b7280);
+      margin-top: 0.15rem;
+    }
+    .pubs-toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.4rem;
+    }
+    .toolbar-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .toolbar-chip {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(15,23,42,0.02);
+      cursor: pointer;
+      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.15s ease;
+      color: #111827;
+    }
+    .toolbar-chip:hover {
+      background: rgba(59,130,246,0.06);
+      border-color: rgba(59,130,246,0.7);
+      transform: translateY(-1px);
+    }
+    .toolbar-chip.is-active {
+      background: rgba(37,99,235,0.12);
+      border-color: rgba(37,99,235,0.9);
+      color: #1d4ed8;
+    }
+    .toolbar-chip.is-ghost {
+      background: transparent;
+    }
+    .toolbar-chip .sort-arrow {
+      font-size: 0.9rem;
+    }
+    .pubs-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pub-card {
+      display: grid;
+      grid-template-columns: 3.2rem 1fr auto;
+      gap: 0 1.1rem;
+      align-items: start;
+      padding: 1.35rem 0;
+      border-bottom: 1px solid rgba(148,163,184,0.18);
+      transition: background 0.18s ease;
+    }
+    .pub-card:first-child {
+      padding-top: 0;
+    }
+    .pub-card:last-child {
+      border-bottom: none;
+    }
+    .pub-card:hover {
+      background: rgba(59,130,246,0.025);
+    }
+    .pub-serial {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: rgba(148,163,184,0.8);
+      padding-top: 0.15rem;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .pub-body {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 0;
+    }
+    .pub-title {
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--text-color, #0f172a);
+    }
+    .pub-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .pub-year-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-color, #334155);
+      background: rgba(15,23,42,0.06);
+      padding: 0.15rem 0.55rem;
+      border-radius: 999px;
+    }
+    .pub-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .pub-badge.venue {
+      background: rgba(56,189,248,0.12);
+      color: #0369a1;
+    }
+    .pub-badge.venue.q1 {
+      background: rgba(56,189,248,0.18);
+      color: #075985;
+      box-shadow: inset 0 0 0 1px rgba(56,189,248,0.4);
+    }
+    .pub-badge.contribution {
+      background: rgba(74,222,128,0.12);
+      color: #15803d;
+    }
+    .pub-badge.contribution.first {
+      background: rgba(251,146,60,0.14);
+      color: #9a3412;
+    }
+    .pub-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      padding-top: 0.1rem;
+      flex-shrink: 0;
+    }
+    .pub-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary-color, #0e7490);
+      text-decoration: none;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(14,116,144,0.25);
+      background: transparent;
+      transition: background 0.18s ease, transform 0.15s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+      white-space: nowrap;
+    }
+    .pub-link:hover {
+      background: rgba(14,116,144,0.08);
+      border-color: rgba(14,116,144,0.5);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(14,116,144,0.12);
+    }
+    .pub-link i {
+      font-size: 0.7rem;
+    }
+    .pub-link.scholar {
+      color: #4338ca;
+      border-color: rgba(67,56,202,0.2);
+    }
+    .pub-link.scholar:hover {
+      background: rgba(67,56,202,0.06);
+      border-color: rgba(67,56,202,0.4);
+      box-shadow: 0 4px 12px rgba(67,56,202,0.12);
+    }
+    .pub-empty {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      color: var(--muted-text, #6b7280);
+      font-size: 0.95rem;
+    }
+    .refresh-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
+      background: rgba(15,23,42,0.02);
+      cursor: pointer;
+      transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease;
+      color: #111827;
+    }
+    .refresh-btn:hover:not(:disabled) {
+      background: rgba(59,130,246,0.06);
+      border-color: rgba(59,130,246,0.7);
+      transform: translateY(-1px);
+    }
+    .refresh-btn:disabled {
+      opacity: 0.7;
+      cursor: progress;
+    }
+    .loading-message {
+      text-align: center;
+      padding: 2.2rem 1.2rem;
+      color: var(--muted-text, #6b7280);
+      font-size: 0.95rem;
+    }
+    .loading-message i {
+      margin-right: 0.4rem;
+      color: #2563eb;
     }
     @media (max-width: 480px) {
-      .stats-grid {
-        flex-direction: column !important;
-        align-items: stretch !important;
+      .bento-grid {
+        grid-template-columns: 1fr;
       }
-      .stat-card {
-        min-width: 100% !important;
-        padding: 1.2rem !important;
-        margin: 0.5rem 0 !important;
-      }
-      .stat-number {
-        font-size: 1.8rem !important;
-      }
-      .paper-card {
-        padding: 1.2rem !important;
-      }
-      .paper-title {
-        font-size: 1rem !important;
-      }
-      .scholar-btn {
-        font-size: 1rem !important;
-        padding: 0.7rem 1.2rem !important;
-      }
-    }
-    body.dark-mode {
-      background-color: #121212;
-      color: #e0e0e0;
-    }
-    body.dark-mode .paper-card {
-      background: linear-gradient(to right, #1e1e1e, #2d2d2d);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-    body.dark-mode .paper-badge {
-      background: #333;
-      color: #e0e0e0;
-    }
-    body.dark-mode .sort-btn {
-      background: #333;
-      color: #e0e0e0;
     }
     @media (max-width: 768px) {
-      .paper-card {
+      .research-page {
+        padding-top: 3.25rem;
+      }
+      .papers-header {
         flex-direction: column;
         align-items: flex-start;
-        padding: 1rem;
       }
-      .paper-info {
-        margin-left: 0;
-        margin-top: 1rem;
-        width: 100%;
+      .pub-card {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+        padding: 1.1rem 0;
       }
-      .sort-buttons {
+      .pub-serial {
+        text-align: left;
+        font-size: 0.75rem;
+      }
+      .pub-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+    }
+    @media (max-width: 640px) {
+      .research-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .pill-button {
+        justify-content: center;
+      }
+      .pubs-toolbar {
         flex-direction: column;
         align-items: flex-start;
-        width: 100%;
       }
-      .sort-btn {
-        margin-bottom: 0.5rem;
+      .toolbar-group {
         width: 100%;
-      }
-      .paper-badge {
-        display: block;
-        margin-bottom: 0.5rem;
       }
     }
   </style>
@@ -262,86 +444,79 @@
     </nav>
 
   <main>
-    <section>
-  <div class="research-stats" id="research-stats"></div>
+    <section class="research-page">
+      <header class="research-hero">
+        <div>
+          <div class="research-hero-eyebrow">Research</div>
+          <h1 class="research-hero-title">Publications & real-time impact</h1>
+          <p class="research-hero-subtitle">
+            Live statistics pulled from APIs and a Google Sheet that I use to curate and tag every publication.
+            First, a quick snapshot; then the full list straight from the sheet.
+          </p>
+        </div>
+        <div class="research-hero-actions">
+          <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="pill-button primary">
+            <i class="fas fa-graduation-cap"></i>
+            <span>View on Google Scholar</span>
+          </a>
+          <a href="research_debutant.html" class="pill-button soft">
+            <i class="fas fa-users"></i>
+            <span>See Research Debutantes</span>
+          </a>
+        </div>
+      </header>
 
-  <div class="btn-group">
-    <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" target="_blank" class="glow-btn">
-      <i class="fas fa-graduation-cap"></i> See My Google Scholar
-    </a>
-    <a href="research_debutant.html" class="glow-btn">
-      <i class="fas fa-users"></i> Check Out the Research Debutantes
-    </a>
-  </div>
-  
-  <div style="text-align: center; margin: 1.5rem 0;">
-    <button onclick="refreshResearchStats()" style="background: rgba(90,26,219,0.42); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 1rem; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.3s ease; box-shadow: 0 2px 8px rgba(108, 92, 231, 0.2);">
-      <i class="fas fa-sync-alt"></i> Refresh Stats
-    </button>
-    <span id="research-last-updated" style="margin-left: 1rem; font-style: italic; color: #666; font-size: 0.9rem;"></span>
-  </div>
-</section>
+      <section class="bento-section">
+        <div id="research-stats" class="bento-grid">
+        </div>
+        <div class="bento-grid" style="margin-top: 0.85rem;">
+          <article class="bento-card embed-card">
+            <div class="iframely-embed">
+              <div class="iframely-responsive" style="padding-bottom: 0; min-height: 160px;">
+                <a href="https://scholar.google.com/citations?user=sdsnA6oAAAAJ&hl=en" data-iframely-url></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="papers-section">
+        <div class="papers-header">
+          <div>
+            <h2 class="papers-title">All publications</h2>
+            <p class="papers-subtitle">Rendered directly from the `All pubs` tab in my Google Sheet.</p>
+          </div>
+          <button id="refresh-pubs" class="refresh-btn">
+            <i class="fas fa-sync-alt"></i>
+            <span>Refresh data</span>
+          </button>
+        </div>
+
+        <div class="pubs-toolbar">
+          <div class="toolbar-group">
+            <button class="toolbar-chip is-active" data-filter="all">
+              <span>All</span>
+            </button>
+            <button class="toolbar-chip" data-filter="q1">
+              <span>Q1 / top venues</span>
+            </button>
+            <button class="toolbar-chip" data-filter="first">
+              <span>First / equal-first</span>
+            </button>
+          </div>
+          <div class="toolbar-group">
+            <button class="toolbar-chip is-ghost" data-sort="year">
+              <span>Year</span>
+              <span class="sort-arrow">↓</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="papers-list" class="pubs-list"></div>
+      </section>
+    </section>
 
 <style>
-.btn-group {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  margin: 2rem 0;
-}
-
-.glow-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.6rem;
-  background: linear-gradient(270deg, #716fb9, #d8b4f8, #9d9be7, #716fb9);
-  background-size: 300% 300%;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 1rem;
-  /*box-shadow: 0 0 15px rgb(189, 172, 211), 0 0 30px rgb(113, 111, 185);*/
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: gradientMove 6s ease infinite;
-}
-
-.glow-btn:hover {
-  transform: translateY(-4px) scale(1.07);
-  box-shadow: 0 0 15px rgb(189, 172, 211), 0 0 30px rgb(113, 111, 185);
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Refresh button styling */
-button[onclick="refreshResearchStats()"] {
-  background: linear-gradient(135deg, #6c5ce7, #a29bfe) !important;
-  transition: all 0.3s ease !important;
-  box-shadow: 0 4px 12px rgba(108, 92, 231, 0.3) !important;
-}
-
-button[onclick="refreshResearchStats()"]:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4) !important;
-  background: linear-gradient(135deg, #5a4fcf, #9d8bf0) !important;
-}
-
-button[onclick="refreshResearchStats()"]:active {
-  transform: translateY(0) !important;
-  box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3) !important;
-}
-
-button[onclick="refreshResearchStats()"]:disabled {
-  opacity: 0.7 !important;
-  cursor: not-allowed !important;
-  transform: none !important;
-}
-
 /* Toast notification styling */
 .toast {
   position: fixed;
@@ -428,21 +603,6 @@ button[onclick="refreshResearchStats()"]:disabled {
 
 <!-- Font Awesome -->
 <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-    <section class="papers-section">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-       <h2>Publications</h2>
-        <div style="display:flex; gap:0.5em;">
-          <button id="sort-citations" class="sort-btn" style="background:#ffebee;color:#d32f2f;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Citations <span class="sort-arrow">↓</span></button>
-          <button id="sort-ranking" class="sort-btn" style="background:rgba(224,255,251,0.77);color: rgb(0,103,94);border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Journal Ranking <span class="sort-arrow">↓</span></button>
-          <button id="sort-contribution" class="sort-btn" style="background:#ddffe3;color:#2e7d32;border:none;border-radius:1em;padding:0.3em 0.9em;font-size:0.98em;font-weight:600;cursor:pointer;transition:background 0.2s;">Sort by Year <span class="sort-arrow">↓</span></button>
-        </div>
-
-
-      </div>
-         <hr>
-      <div id="papers-list"></div>
-    </section>
   </main>
 
   <footer class="site-footer">
@@ -481,15 +641,26 @@ button[onclick="refreshResearchStats()"]:disabled {
 
 <!--  <button id="dark-mode-toggle" style="position:fixed;top:20px;right:20px;background:var(&#45;&#45;primary-color);color:#fff;border:none;border-radius:50%;width:40px;height:40px;cursor:pointer;transition:background 0.2s;" onclick="toggleDarkMode()">🌙</button>-->
 
+  <script async charset="utf-8" src="https://cdn.iframe.ly/embed.js"></script>
   <script src="data.js"></script>
   <script>
     const papersList = document.getElementById('papers-list');
     const researchStatsEl = document.getElementById('research-stats');
+    const refreshButton = document.getElementById('refresh-pubs');
+    const SHEET_ID = '1JrV9fzNM0qccDC004P1VeLr01nCU3H2VXRXfR5u6hmo';
+    const SHEET_URL = `https://opensheet.elk.sh/${SHEET_ID}/All%20pubs`;
+
+    let allPubs = [];
+    let currentFilter = 'all';
+    let sortYearDesc = true;
 
     function animateCountUp(element, target, duration = 1200) {
       if (!element) return;
       const numTarget = parseInt(target);
-      if (isNaN(numTarget)) { element.textContent = target; return; }
+      if (isNaN(numTarget)) {
+        element.textContent = target;
+        return;
+      }
       let start = 0;
       const step = Math.max(1, Math.ceil(numTarget / (duration / 16)));
       function update() {
@@ -504,126 +675,313 @@ button[onclick="refreshResearchStats()"]:disabled {
       update();
     }
 
-    function renderResearchStats(stats) {
-      if (!researchStatsEl || !stats) return;
-      researchStatsEl.innerHTML = `
-        <div class="research-stat-card"><div class="stat-label">Total Citations</div><div class="stat-value">${stats.totalCitations}</div></div>
-        <div class="research-stat-card"><div class="stat-label">h-index</div><div class="stat-value">${stats.hIndex}</div></div>
-        <div class="research-stat-card"><div class="stat-label">Total Publications</div><div class="stat-value">${stats.paperCount}</div></div>
-      `;
+    function normalizePubsFromSheet(rows) {
+      if (!Array.isArray(rows)) return [];
+      return rows
+        .filter(row => (row['Research Article'] || '').trim())
+        .map((row, index) => {
+          const title = (row['Research Article'] || '').trim();
+          const venue = (row['Published at '] || row['Published at'] || '').trim();
+          const contribution = (row['Contribution'] || '').trim();
+          const year = parseInt(row['Year']) || null;
+          const serial = parseInt(row['SL']) || (index + 1);
+          return { id: index, serial, title, venue, contribution, year };
+        });
     }
 
-    function updatePapersDisplay(papers) {
-      const filteredPapers = papers.filter(p => p.Papers);
-      papersList.innerHTML = filteredPapers.map(paper => {
-        const hasPdf = !!paper.PDF;
-        return `
-        <div class="paper-card">
-          <div class="paper-title">${paper.Papers}</div>
-          <div style="display:flex; flex-wrap:wrap; gap:0.7em; align-items:center; margin-bottom:0.3em;">
-            ${paper.Citations ? `<span class="paper-badge" style="background:#ffebee;color:#d32f2f;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Citations} citations</span>` : ''}
-            ${paper.Ranking ? `<span class="paper-badge" style="background:#e0f2f1;color:#00675e;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper.Ranking}</span>` : ''}
-            ${paper[' Position'] ? `<span class="paper-badge" style="background:#e8f5e9;color:#2e7d32;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;">${paper[' Position']}</span>` : ''}
-            ${paper['Link  to Paper'] ? `<a href="${paper['Link  to Paper']}" target="_blank" rel="noopener" class="paper-badge" style="display:inline-block;background:transparent;color:var(--primary-color);border:1px solid var(--primary-color);border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;text-decoration:none;">Read Paper</a>` : ''}
-            ${hasPdf ? `<a href="${paper.PDF}" target="_blank" rel="noopener" class="paper-badge" style="display:inline-block;background:#d32f2f;color:#fff;border-radius:1em;padding:0.2em 0.9em;font-size:0.98em;font-weight:600;text-decoration:none;"><i class="fas fa-file-pdf"></i> Download PDF</a>` : ''}
+    function computeSheetStats(pubs) {
+      if (!Array.isArray(pubs) || !pubs.length) {
+        return { totalPubs: 0, q1Count: 0, firstCount: 0 };
+      }
+      const totalPubs = pubs.length;
+      const q1Count = pubs.filter(p =>
+        (p.venue || '').toLowerCase().includes('q1')
+      ).length;
+      const firstCount = pubs.filter(p => {
+        const c = (p.contribution || '').toLowerCase();
+        return c.includes('first') || c.includes('eq.');
+      }).length;
+      return { totalPubs, q1Count, firstCount };
+    }
+
+    function renderBentoStats(scholarStats, sheetStats) {
+      if (!researchStatsEl) return;
+      const stats = {
+        totalCitations: scholarStats?.totalCitations ?? 0,
+        hIndex: scholarStats?.hIndex ?? 0,
+        scholarPaperCount: scholarStats?.paperCount ?? 0,
+        totalPubs: sheetStats.totalPubs,
+        q1Count: sheetStats.q1Count,
+        firstCount: sheetStats.firstCount
+      };
+
+      researchStatsEl.innerHTML = `
+        <article class="bento-card">
+          <div class="bento-icon blue"><i class="fas fa-file-alt"></i></div>
+          <div class="bento-info">
+            <div class="bento-number" data-target="${stats.totalPubs}">0</div>
+            <div class="bento-label">Total publications</div>
           </div>
-        </div>
-      `}).join('');
+        </article>
+        <article class="bento-card">
+          <div class="bento-icon teal"><i class="fas fa-award"></i></div>
+          <div class="bento-info">
+            <div class="bento-number" data-target="${stats.q1Count}">0</div>
+            <div class="bento-label">Q1 journal papers</div>
+          </div>
+        </article>
+        <article class="bento-card">
+          <div class="bento-icon amber"><i class="fas fa-user-pen"></i></div>
+          <div class="bento-info">
+            <div class="bento-number" data-target="${stats.firstCount}">0</div>
+            <div class="bento-label">First or equal contribution</div>
+          </div>
+        </article>
+        <article class="bento-card">
+          <div class="bento-icon purple"><i class="fas fa-quote-right"></i></div>
+          <div class="bento-info">
+            <div class="bento-number" data-target="${stats.totalCitations}">0</div>
+            <div class="bento-label">Citations · h-index ${stats.hIndex}</div>
+          </div>
+        </article>
+      `;
+
+      researchStatsEl.querySelectorAll('.bento-number').forEach(el => {
+        const target = el.getAttribute('data-target') || '0';
+        animateCountUp(el, target);
+      });
+    }
+
+    let s2LinkMap = {};
+
+    function getVenueBadgeClass(venue) {
+      const lower = (venue || '').toLowerCase();
+      if (!lower) return 'venue';
+      if (lower.includes('q1')) return 'venue q1';
+      return 'venue';
+    }
+
+    function getContributionBadgeClass(contribution) {
+      const c = (contribution || '').toLowerCase();
+      if (c.includes('first') || c.includes('eq.')) return 'contribution first';
+      return 'contribution';
+    }
+
+    function buildScholarSearchUrl(title) {
+      const q = encodeURIComponent(title.slice(0, 120));
+      return `https://scholar.google.com/scholar?q=${q}`;
+    }
+
+    function findS2Link(title) {
+      const key = (title || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 60);
+      for (const [s2key, url] of Object.entries(s2LinkMap)) {
+        if (s2key.includes(key) || key.includes(s2key)) return url;
+      }
+      return null;
+    }
+
+    function applyFilterAndSort() {
+      if (!papersList) return;
+      let visible = [...allPubs];
+
+      if (currentFilter === 'q1') {
+        visible = visible.filter(p => (p.venue || '').toLowerCase().includes('q1'));
+      } else if (currentFilter === 'first') {
+        visible = visible.filter(p => {
+          const c = (p.contribution || '').toLowerCase();
+          return c.includes('first') || c.includes('eq.');
+        });
+      }
+
+      visible.sort((a, b) => {
+        const ay = a.year ?? 0;
+        const by = b.year ?? 0;
+        return sortYearDesc ? by - ay : ay - by;
+      });
+
+      if (!visible.length) {
+        papersList.innerHTML = '<div class="pub-empty">No publications match this view yet.</div>';
+        return;
+      }
+
+      papersList.innerHTML = visible.map((pub, i) => {
+        const serial = pub.serial ?? (i + 1);
+        const yearTag = pub.year
+          ? `<span class="pub-year-tag">${pub.year}</span>`
+          : '';
+        const venueBadge = pub.venue
+          ? `<span class="pub-badge ${getVenueBadgeClass(pub.venue)}">${pub.venue}</span>`
+          : '';
+        const contributionBadge = pub.contribution
+          ? `<span class="pub-badge ${getContributionBadgeClass(pub.contribution)}">${pub.contribution}</span>`
+          : '';
+
+        const s2url = findS2Link(pub.title);
+        const scholarUrl = buildScholarSearchUrl(pub.title);
+
+        let actions = '';
+        if (s2url) {
+          actions += `<a href="${s2url}" target="_blank" rel="noopener" class="pub-link"><i class="fas fa-arrow-up-right-from-square"></i> Paper</a>`;
+        }
+        actions += `<a href="${scholarUrl}" target="_blank" rel="noopener" class="pub-link scholar"><i class="fas fa-graduation-cap"></i> Scholar</a>`;
+
+        return `
+          <article class="pub-card">
+            <div class="pub-serial">${serial}</div>
+            <div class="pub-body">
+              <h3 class="pub-title">${pub.title}</h3>
+              <div class="pub-row">
+                ${yearTag}
+                ${venueBadge}
+                ${contributionBadge}
+              </div>
+            </div>
+            <div class="pub-actions">
+              ${actions}
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    async function fetchPubsFromSheet(useCache = true) {
+      if (useCache) {
+        try {
+          const cached = localStorage.getItem('cachedSheetPubs');
+          if (cached) return JSON.parse(cached);
+        } catch (e) {}
+      }
+      const res = await fetch(SHEET_URL);
+      if (!res.ok) throw new Error('Sheet fetch failed: ' + res.status);
+      const data = await res.json();
+      try { localStorage.setItem('cachedSheetPubs', JSON.stringify(data)); } catch (e) {}
+      return data;
+    }
+
+    function normalizeSemScholarFallback(cards) {
+      if (!Array.isArray(cards)) return [];
+      return cards.filter(c => (c.Papers || '').trim()).map((c, i) => ({
+        id: i,
+        title: (c.Papers || '').trim(),
+        venue: (c.Ranking || '').trim(),
+        contribution: (c[' Position'] || '').trim(),
+        link: (c['Link  to Paper'] || '').trim(),
+        year: c.year || null,
+        type: (c.Ranking || '').trim(),
+        citations: parseInt(c.Citations) || 0,
+      }));
+    }
+
+    async function loadS2Links(useCache = true) {
+      try {
+        const s2cards = await fetchPapers(useCache);
+        s2LinkMap = {};
+        if (Array.isArray(s2cards)) {
+          s2cards.forEach(c => {
+            const title = (c.Papers || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 60);
+            const link = c['Link  to Paper'] || '';
+            if (title && link) s2LinkMap[title] = link;
+          });
+        }
+      } catch (e) {
+        console.warn('S2 link fetch failed (non-critical):', e);
+      }
     }
 
     async function loadResearchData(useCache = true) {
-      papersList.innerHTML = '<p style="text-align:center;padding:2rem;"><i class="fas fa-spinner fa-spin"></i> Loading publications...</p>';
-      try {
-        const [papers, stats] = await Promise.all([
-          fetchPapers(useCache),
-          fetchScholarStats(useCache)
-        ]);
-        renderResearchStats(stats);
-        updatePapersDisplay(papers);
-        localStorage.setItem('cachedPapers', JSON.stringify(papers));
-      } catch (err) {
-        console.error('Error loading research data:', err);
-        papersList.innerHTML = '<p style="text-align:center;padding:2rem;color:#666;">Unable to load publications. Please try again later.</p>';
-        const cached = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
-        if (cached.length) updatePapersDisplay(cached);
+      if (papersList) {
+        papersList.innerHTML = '<div class="loading-message"><i class="fas fa-spinner fa-spin"></i> Loading publications…</div>';
       }
-    }
 
-    document.addEventListener('DOMContentLoaded', () => loadResearchData());
-
-    // Sort buttons functionality with toggle
-    let sortDirection = { citations: 'desc', ranking: 'desc', contribution: 'desc' };
-
-    document.getElementById('sort-citations')?.addEventListener('click', () => {
-      const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
-      sortDirection.citations = sortDirection.citations === 'desc' ? 'asc' : 'desc';
-      papers.sort((a, b) => {
-        const aVal = parseInt(a.Citations) || 0;
-        const bVal = parseInt(b.Citations) || 0;
-        return sortDirection.citations === 'desc' ? bVal - aVal : aVal - bVal;
-      });
-      updatePapersDisplay(papers);
-      document.querySelector('#sort-citations .sort-arrow').textContent = sortDirection.citations === 'desc' ? '↓' : '↑';
-    });
-
-    document.getElementById('sort-ranking')?.addEventListener('click', () => {
-      const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
-      sortDirection.ranking = sortDirection.ranking === 'desc' ? 'asc' : 'desc';
-      papers.sort((a, b) => {
-        const aVal = a.Ranking || '';
-        const bVal = b.Ranking || '';
-        return sortDirection.ranking === 'desc' ? bVal.localeCompare(aVal) : aVal.localeCompare(bVal);
-      });
-      updatePapersDisplay(papers);
-      document.querySelector('#sort-ranking .sort-arrow').textContent = sortDirection.ranking === 'desc' ? '↓' : '↑';
-    });
-
-    document.getElementById('sort-contribution')?.addEventListener('click', () => {
-      const papers = JSON.parse(localStorage.getItem('cachedPapers') || '[]');
-      sortDirection.contribution = sortDirection.contribution === 'desc' ? 'asc' : 'desc';
-      papers.sort((a, b) => {
-        const aVal = a.year ?? 0;
-        const bVal = b.year ?? 0;
-        return sortDirection.contribution === 'desc' ? bVal - aVal : aVal - bVal;
-      });
-      updatePapersDisplay(papers);
-      document.querySelector('#sort-contribution .sort-arrow').textContent = sortDirection.contribution === 'desc' ? '↓' : '↑';
-    });
-
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-      const isDarkMode = document.body.classList.contains('dark-mode');
-      localStorage.setItem('darkMode', isDarkMode);
-    }
-
-    // Check for saved dark mode preference
-    if (localStorage.getItem('darkMode') === 'true') {
-      document.body.classList.add('dark-mode');
-    }
-
-    async function refreshResearchStats() {
-      const refreshBtn = document.querySelector('button[onclick="refreshResearchStats()"]');
-      const originalText = refreshBtn?.innerHTML || '';
-      if (refreshBtn) { refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...'; refreshBtn.disabled = true; }
-      clearS2Cache();
+      let scholarStats = null;
       try {
-        await loadResearchData(false);
-        updateResearchTimestamp();
-        showToast('Statistics updated successfully!', 'success');
+        scholarStats = await fetchScholarStats(useCache);
       } catch (e) {
-        showToast('Refresh completed', 'success');
-      } finally {
-        if (refreshBtn) { refreshBtn.innerHTML = originalText; refreshBtn.disabled = false; }
+        console.warn('Scholar stats fetch failed:', e);
+      }
+
+      await loadS2Links(useCache);
+
+      let sheetRows = null;
+      try {
+        sheetRows = await fetchPubsFromSheet(useCache);
+      } catch (e) {
+        console.warn('Sheet fetch failed, trying Semantic Scholar fallback:', e);
+      }
+
+      if (sheetRows && sheetRows.length) {
+        allPubs = normalizePubsFromSheet(sheetRows);
+      } else {
+        try {
+          const s2cards = await fetchPapers(useCache);
+          allPubs = normalizeSemScholarFallback(s2cards);
+        } catch (e) {
+          console.warn('Semantic Scholar fallback also failed:', e);
+          try {
+            const cached = JSON.parse(localStorage.getItem('cachedSheetPubs') || '[]');
+            allPubs = normalizePubsFromSheet(cached);
+          } catch (e2) {
+            allPubs = [];
+          }
+        }
+      }
+
+      const sheetStats = computeSheetStats(allPubs);
+      renderBentoStats(scholarStats, sheetStats);
+      applyFilterAndSort();
+
+      if (!allPubs.length && papersList) {
+        papersList.innerHTML = '<div class="pub-empty">Unable to load publications right now. Please try again later.</div>';
       }
     }
-    
-    function updateResearchTimestamp() {
-      const timestampElement = document.getElementById('research-last-updated');
-      if (timestampElement) {
-        const now = new Date();
-        timestampElement.textContent = `Last updated: ${now.toLocaleTimeString()}`;
+
+    function setupToolbar() {
+      document.querySelectorAll('.toolbar-chip[data-filter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentFilter = btn.getAttribute('data-filter') || 'all';
+          document.querySelectorAll('.toolbar-chip[data-filter]').forEach(b =>
+            b.classList.toggle('is-active', b === btn)
+          );
+          applyFilterAndSort();
+        });
+      });
+
+      const sortBtn = document.querySelector('.toolbar-chip[data-sort="year"]');
+      if (sortBtn) {
+        const arrowEl = sortBtn.querySelector('.sort-arrow');
+        sortBtn.addEventListener('click', () => {
+          sortYearDesc = !sortYearDesc;
+          if (arrowEl) {
+            arrowEl.textContent = sortYearDesc ? '↓' : '↑';
+          }
+          applyFilterAndSort();
+        });
+      }
+
+      if (refreshButton) {
+        refreshButton.addEventListener('click', async () => {
+          const original = refreshButton.innerHTML;
+          refreshButton.disabled = true;
+          refreshButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>Refreshing…</span>';
+          clearS2Cache();
+          localStorage.removeItem('cachedSheetPubs');
+          try {
+            await loadResearchData(false);
+            showToast('Research stats refreshed from API & sheet.', 'success');
+          } catch (e) {
+            showToast('Refresh failed. Showing last known data.', 'error');
+          } finally {
+            refreshButton.disabled = false;
+            refreshButton.innerHTML = original;
+          }
+        });
       }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      setupToolbar();
+      loadResearchData(true);
+    });
     
     // Toast notification system
     function showToast(message, type = 'success') {
